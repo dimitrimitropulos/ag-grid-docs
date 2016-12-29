@@ -34,14 +34,14 @@ include '../documentation-main/documentation_header.php';
             <li><b>In Memory Row Model:</b></li> This is the most common. It allows the full set of filtering, sorting
             and grouping inside the grid. When doing pagination, this model is used to display one page at a time in the
             grid. The only times this is not used is when using virtual pagination or viewport.
-            <li><b>Virtual Page Row Model:</b></li> This is used when doing virtual pagination.
-            <li><b>Viewport Row Model:</b></li> This is used when doing viewport.
+            <li><b>Virtual Page Row Model:</b></li> This is used when doing virtual pagination.  The virtual page row
+            model is explained in the section <a href="../javascript-grid-virtual-paging/">Virtual Paging and Infinite
+            Scrolling</a>.
+            <li><b>Viewport Row Model:</b></li> The viewport row model is explained in the section 
+            <a href="../javascript-grid-viewport/">Viewport</a>.
         </ul>
 
-        The virtual page row model is explained in the section <a href="../javascript-grid-virtual-paging/">Virtual
-        Paging and Infinite Scrolling</a>. The viewport row model is explained in the section
-        <a href="../javascript-grid-viewport/">Viewport</a>. The remainder of this section of the documentation
-        focuses on the In Memory Row Model.
+         The remainder of this section of the documentation focuses on the In Memory Row Model.
 
     </p>
 
