@@ -119,10 +119,10 @@ interface IGetRowsParams {
     <span class="codeComment">// The grid context object</span>
     context: any;
 
-    <span class="codeComment">// Callback to call for the result when successful.</span>
+    <span class="codeComment">// Callback to call when the request is successful.</span>
     successCallback(rowsThisPage: any[], lastRow?: number): void;
 
-    <span class="codeComment">// Callback to call for the result when successful.</span>
+    <span class="codeComment">// Callback to call when the request fails.</span>
     failCallback(): void;
 }</pre>
 
