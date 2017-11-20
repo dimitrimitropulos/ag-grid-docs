@@ -1,3 +1,6 @@
+<?php
+require "example-runner/utils.php"
+?>
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -12,6 +15,7 @@
     <link inline href="dist/bootstrap/css/bootstrap.css" rel="stylesheet">
     <link inline href="style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <?php include 'includes/meta.php'; ?>
 
     <style>
@@ -35,7 +39,7 @@ include 'includes/navbar.php'; ?>
                     </h1>
                 </div>
                 <div class="col-md-8">
-                    <h1 style="padding-top: 113px;">The Best Grid In The World</h1>
+                    <h1 style="padding-top: 100px;">The Best HTML 5 Grid In The World</h1>
                 </div>
             </div>
         </div>
@@ -52,7 +56,7 @@ include 'includes/navbar.php'; ?>
         <div class="container">
             <div class="row text-center">
                 <div class="col-md-4 info-item">
-                    Over <span class="info-item-big">700 Companies</span><br/>
+                    Over <span class="info-item-big">800 Companies</span><br/>
                     use <b>ag-Grid Enterprise</b>.
                 </div>
                 <div class="col-md-4 info-item">
@@ -61,8 +65,8 @@ include 'includes/navbar.php'; ?>
                     use <b>ag-Grid Enterprise</b>.
                 </div>
                 <div class="col-md-4 info-item">
-                    Over <span class="info-item-big">50,000 Downloads</span>
-                    per month of <b>ag-Grid Free</b>.
+                    Over <span class="info-item-big">110,000 Downloads</span>
+                    per month.
                 </div>
             </div>
         </div>
@@ -120,19 +124,34 @@ include 'includes/navbar.php'; ?>
 
     <?php include 'home/intro2.php'; ?>
 
-    <!--            --><?php //include 'home/demo-3.php'; ?>
+<!--    --><?php //include 'home/demo-3.php'; ?>
 
-    <?php include 'home/demo-4.php'; ?>
+    <?php include './home/demo-4.php'; ?>
 
-    <?php include 'home/testimonials-1.php'; ?>
+    <?php include './home/testimonials-1.php'; ?>
 
-    <?php include 'home/demo-api.php'; ?>
+    <?php include './home/demo-api.php'; ?>
 
-    <?php include 'home/testimonials-2.php'; ?>
+    <?php include './home/testimonials-2.php'; ?>
 
-    <?php include 'home/demo-2.php'; ?>
+    <?php include './home/demo-2.php'; ?>
 
-    <?php include 'home/features.php'; ?>
+    <section style="background-color: #f6f8fa;">
+        <div class="container">
+            <div class="row" style="margin-top: 20px; margin-bottom: 20px; text-align: center;">
+                <h4>ag-Grid Feature Overview</h4>
+            </div>
+        </div>
+    </section>
+
+    <section style="margin-top: 50px;">
+        <div class="container">
+            <?php
+            $featuresRoot = './javascript-grid-features';
+            include './javascript-grid-features/gridFeatures.php';
+            ?>
+        </div>
+    </section>
 
 </div>
 <script>
@@ -146,16 +165,17 @@ include 'includes/navbar.php'; ?>
 <?php $navKey = "home";
 include './includes/footer.php'; ?>
 
-<script inline src="dist/ag-grid-enterprise/ag-grid-enterprise.js"></script>
+<?= globalAgGridScript(true) ?>
 
 <link inline href="example-file-browser/fileBrowser.css" rel="stylesheet">
 <link inline href="best-angularjs-data-grid/basic.css" rel="stylesheet">
 <!--<link inline href="example-account-report/account.css" rel="stylesheet">-->
 
-<script inline src="javascript-getting-started/html5grid.js"></script>
+<script inline src="example-rich-grid/data.js"></script>
+<script inline src="example-rich-grid/example.js"></script>
 <!--<script inline src="example-account-report/account.js"></script>-->
 <script inline src="example-file-browser/fileBrowser.js"></script>
-<script inline src="javascript-grid-animation/exampleAnimationSmall.js"></script>
+<script inline src="javascript-grid-animation/animation/main.js"></script>
 <!--<script inline src="home/example-themes.js"></script>-->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>

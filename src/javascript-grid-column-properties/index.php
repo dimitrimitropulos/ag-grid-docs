@@ -3,32 +3,25 @@ $key = "Column Properties";
 $pageTitle = "Column Properties";
 $pageDescription = "ag-Grid Column Properties";
 $pageKeyboards = "ag-Grid Column Properties";
-$pageGroup = "interfacing";
+$pageGroup = "reference";
 include '../documentation-main/documentation_header.php';
 ?>
-    <h2 id="columns">Column Properties</h2>
+    <h1 id="columns" class="first-h1">Column Properties</h1>
 
     <p>
-        All properties used when defining columns and column groups are shown below.
+        For column groups, the property <i>children</i> is mandatory. When the grid see's <i>children</i>
+        it knows it's a column group.
     </p>
-
-    <p>
-        Every property below is optional with the exception of <i>children</i>. For column groups, <i>children</i>
-        is mandatory and that's also how the grid is able to distinguish a column from a column group
-        (if <i>children</i> is present, it knows it's a group).
-    </p>
-
-    <p>
-        Refer to <a href="../javascript-grid-column-definitions/">column definitions</a> and
-        <a href="../javascript-grid-grouping-headers/">column groups</a> for more details.
-    </p>
-
-    <h2 id="properties-for-column-groups-columns">Properties for Column Groups & Columns</h2>
 
     <table class="table">
+        <tr class="title-row">
+            <!-- TITLE ROW -->
+            <td colspan="2">Properties for Columns and Column Groups</td>
+        </tr>
         <tr>
             <th>headerName</th>
-            <td>The name to render in the column header</td>
+            <td>The name to render in the column header. If not specified and field is specified, the field name would
+            be used as the header name.</td>
         </tr>
         <tr>
             <th>columnGroupShow</th>
@@ -46,11 +39,10 @@ include '../documentation-main/documentation_header.php';
             <th>suppressToolPanel</th>
             <td>Set to true if you do not want this column or group to appear in the tool panel.</td>
         </tr>
-    </table>
-
-    <h2 id="properties-for-columns">Properties for Columns</h2>
-
-    <table class="table">
+        <tr class="title-row">
+            <!-- TITLE ROW -->
+            <td colspan="2">Properties for Columns Only</td>
+        </tr>
         <tr>
             <th>field</th>
             <td>The field of the row to get the cells data from</td>
@@ -60,6 +52,11 @@ include '../documentation-main/documentation_header.php';
             <td>The unique ID to give the column. This is optional. If missing, the ID will default to the field.
                 If both field and colId are missing, a unique ID will be generated. This ID is used to identify
                 the column in the API for sorting, filtering etc.</td>
+        </tr>
+        <tr>
+            <th>type</th>
+            <td>A comma separated string or array of strings containing ColumnType keys which can be used as a template for
+                a column. This helps to reduce duplication of properties when you have a lot of common column properties.</td>
         </tr>
         <tr>
             <th>width, minWidth, maxWidth</th>
@@ -81,7 +78,7 @@ include '../documentation-main/documentation_header.php';
             <th>hide</th>
             <td>Set to true for this column to be hidden. Naturally you might think, it would make more sense to call this field
                 'visible' and mark it false to hide, however we want all default values to be false and we want columns to be
-                visible by default.</td>
+                visible by default. <span style="font-style: italic;">Note</span>: this property is called <code>hideCol</code> when used with Aurelia.</td>
         </tr>
         <tr>
             <th>pinned</th>
@@ -136,7 +133,7 @@ include '../documentation-main/documentation_header.php';
         </tr>
         <tr>
             <th>floatingCellRenderer<br/>floatingCellRendererFramework</th>
-            <td>cellRenderer to use for floating rows in this column. Floating cells will use floatingCellRenderer if available,
+            <td>cellRenderer to use for pinned rows in this column. Floating cells will use floatingCellRenderer if available,
                 if not then cellRenderer.</td>
         </tr>
         <tr>
@@ -254,6 +251,14 @@ include '../documentation-main/documentation_header.php';
                 Can also be a function to have different rows navigable.</td>
         </tr>
         <tr>
+            <th>suppressKeyboardEvent(params)</th>
+            <td>
+                Function to allow skipping default keyboard behaviour of the grid. Eg if you don't want the
+                grid to move focus up on up arrow key while editing, implement this method to return
+                true when params.editing=true and params.event.keyCode=[key code for up arrow key].
+            </td>
+        </tr>
+        <tr>
             <th>onCellClicked(params)</th>
             <td>Function callback, gets called when a cell is clicked.</td>
         </tr>
@@ -265,11 +270,10 @@ include '../documentation-main/documentation_header.php';
             <th>onCellContextMenu(params)</th>
             <td>Function callback, gets called when a cell is right clicked.</td>
         </tr>
-    </table>
-
-    <h2 id="properties-for-column-groups">Properties for Column Groups</h2>
-
-    <table class="table">
+        <tr class="title-row">
+            <!-- TITLE ROW -->
+            <td colspan="2">Properties for Column Groups Only</td>
+        </tr>
         <tr>
             <th>groupId</th>
             <td>The unique ID to give the column. This is optional. If missing, a unique ID will be generated.

@@ -8,13 +8,10 @@ include '../documentation-main/documentation_header.php';
 ?>
 
 <div>
-
-    <h1 id="implementing-the-angularjs-datagrid">
-        <img src="../images/svg/docs/getting_started.svg" width="50" alt="Getting Started"/>
-        <img style="vertical-align: middle" src="/images/angularjs.png" height="25px" alt="Angular"/>
+    <h1 class="first-h1" id="implementing-the-angularjs-datagrid">
+        <img style="vertical-align: middle" src="../images/angularjs_large.png" height="50px" alt="Angular"/>
         Angular Grid
     </h1>
-
 </div>
 
 <p>
@@ -56,7 +53,7 @@ include '../documentation-main/documentation_header.php';
         <td style="padding: 10px;"><img src="../images/github.png"/></td>
         <td>
             <b>Github</b><br/>
-            Download from <a href="https://github.com/ceolter/ag-grid-enterprise">Github</a>
+            Download from <a href="https://github.com/ag-grid/ag-grid-enterprise">Github</a>
         </td>
     </tr>
 </table>
@@ -69,17 +66,16 @@ include '../documentation-main/documentation_header.php';
 
 <p>As with the ag-Grid example, all we need to do is reference the ag-grid-enterprise dependency and we're good
     to go:</p>
-<pre>
+<snippet>
 &lt;html&gt;
 &lt;head&gt;
     &lt;script src="path-to-ag-grid-enterprise/ag-grid-enterprise.js"&gt;&lt;/script&gt;
     &lt;script src="example1.js"&gt;&lt;/script&gt;
 &lt;/head&gt;
 &lt;body&gt;
-    &lt;div id="myGrid" style="height: 100%;" class="ag-fresh"&gt;&lt;/div&gt;
+    &lt;div id="myGrid" style="height: 100%;" class="ag-theme-fresh"&gt;&lt;/div&gt;
 &lt;/body&gt;
-&lt;/html&gt;
-</pre>
+&lt;/html&gt;</snippet>
 <note>
     <strong>Self Contained Bundles</strong>
 
@@ -112,7 +108,8 @@ include '../documentation-main/documentation_header.php';
     enterprise features are available when you use ag-Grid.
 </p>
 
-<pre>// ECMA 5 - using nodes require() method
+<snippet>
+// ECMA 5 - using nodes require() method
 var AgGrid = require('ag-grid');
 // only include this line if you want to use ag-grid-enterprise
 require('ag-grid-enterprise');
@@ -120,23 +117,22 @@ require('ag-grid-enterprise');
 // ECMA 6 - using the system import method
 import {Grid} from 'ag-grid/main';
 // only include this line if you want to use ag-grid-enterprise
-import 'ag-grid-enterprise/main';
-</pre>
+import 'ag-grid-enterprise/main';</snippet>
 
 
 <h3 id="creating-the-angularjs-module">Creating the AngularJS 1.x Module</h3>
 Include ag-Grid as a dependency of your module like this:
 <p/>
-<pre>
-<span class="codeComment">// if you're using ag-Grid-Enterprise, you'll need to provide the License Key before doing anything else</span>
-<span class="codeComment">// not necessary if you're just using ag-Grid</span>
+<snippet>
+// if you're using ag-Grid-Enterprise, you'll need to provide the License Key before doing anything else
+// not necessary if you're just using ag-Grid
 agGrid.LicenseManager.setLicenseKey("your license key goes here");
 
-<span class="codeComment">// get ag-Grid to create an Angular module and register the ag-Grid directive</span>
+// get ag-Grid to create an Angular module and register the ag-Grid directive
 agGrid.initialiseAgGridWithAngular1(angular);
 
-<span class="codeComment">// create your module with ag-Grid as a dependency</span>
-var module = angular.module("example", ["agGrid"]);</code></pre>
+// create your module with ag-Grid as a dependency
+var module = angular.module("example", ["agGrid"]);</snippet>
 
 <h4 id="ag-grid-div">ag-Grid Div</h4>
 
@@ -147,9 +143,9 @@ var module = angular.module("example", ["agGrid"]);</code></pre>
 
 <p>
     It is also usual to provide a styling theme to
-    the grid. Three themes come with the grid, ag-fresh, ag-dark and ag-blue. Each one is
+    the grid. Three themes come with the grid, ag-theme-fresh, ag-theme-dark and ag-theme-blue. Each one is
     set by applying the corresponding class of the same name to the div. In the
-    example, ag-fresh is used.
+    example, ag-theme-fresh is used.
 </p>
 
 <p>
@@ -157,7 +153,9 @@ var module = angular.module("example", ["agGrid"]);</code></pre>
     the width and height you give it.
 </p>
 
-<pre>&lt;div <b>ag-grid="gridOptions" class="ag-fresh" style="height: 100%;"</b>>&lt;/div></pre>
+<snippet>
+&lt;div ag-grid="gridOptions" class="ag-theme-fresh" style="height: 100%;"&gt;&lt;/div&gt;
+</snippet>
 
 <p>
     (note: a div by default has 100% width, so the width is not specified explicitly above).
@@ -170,8 +168,7 @@ var module = angular.module("example", ["agGrid"]);</code></pre>
 </p>
 
 <h2 id="basic-angularjs-1-x-example">Basic AngularJS 1.x Example</h2>
-<show-example example="example-ajs" example-height="200px"></show-example>
-
+<?= example('Basic AngularJS 1.x ag-Grid', 'basic', 'vanilla', array( 'extras' => array('angularjs1'))) ?>
 <h2 class="components">Components</h2>
 
 <p>When using <a href="../javascript-grid-components">Components</a> within an AngularJS 1.x application you need to manage
@@ -189,6 +186,7 @@ var module = angular.module("example", ["agGrid"]);</code></pre>
     and releases all resources when the directive is destroyed.
 </p>
 
+<!--
 <h2 id="advanced-angularjs-1-x-example">Advanced AngularJS 1.x Example</h2>
 
 <p>
@@ -197,7 +195,8 @@ var module = angular.module("example", ["agGrid"]);</code></pre>
     different options are configured is explained in the relevant parts of the documentation.
 </p>
 
-<show-example example="basic-ajs"></show-example>
+<?= example('Basic AngularJS 1.x ag-Grid', 'basic2', 'vanilla', array( 'extras' => array('angularjs1'))) ?>
+-->
 
 <h2 id="angular-compiling">Angular Compiling</h2>
 
@@ -250,7 +249,7 @@ var module = angular.module("example", ["agGrid"]);</code></pre>
     <li><b>Country:</b> Uses a custom Angular directive to display the country.</li>
 </ul>
 
-<show-example example="exampleAngularCompiling-ajs"></show-example>
+<?= example('Angular compiling', 'compiling', 'vanilla', array( 'extras' => array('angularjs1'))) ?>
 
 <note>
     When scrolling the example above up and down, the cells rendered using Angular are blank
@@ -293,7 +292,28 @@ var module = angular.module("example", ["agGrid"]);</code></pre>
     This is waiting for the AngularJS 1.x digest cycle to kick in to populate the values into these rows.
 </note>
 
-<show-example example="exampleCellTemplates-ajs"></show-example>
+<?= example('Cell Templates', 'cell-templates', 'vanilla', array( 'enterprise' => true, 'extras' => array('angularjs1'))) ?>
+
+<h2 id="ng1Components">Angular 1.x and ag-Grid Components</h2>
+
+<p>
+    ag-Grid does not provide direct support for it's <a href="../javascript-grid-components/">components</a> and AngularJS 1.x. If you want to put custom
+    AngularJS 1.x components into ag-Grid, follow the instructions for plain JavaScript component. You will
+    then need to manage creating and destroying child scopes yourself inside the <i>init()</i> and
+    <i>destroy()</i> methods.
+</p>
+
+<p><code>angularCompileRows</code>, <code>angularCompileFilters</code> and <code>angularCompileHeaders</code> are not
+    supported within Components.</p>
+
+
+<h2>Events & Digest Cycle</h2>
+
+<p>
+    For AngularJS 1.x - ag-Grid does not not fire events inside an Angular JS digest cycle. This is done on purpose
+    for performance reasons, as there are many events fired, even if you don't listen to them. Firing the digest
+    cycle for each one would kill performance. So you may want to $scope.$apply() after you handle the event.
+</p>
 
 <h2 id="next-steps">Next Steps...</h2>
 
@@ -302,5 +322,4 @@ var module = angular.module("example", ["agGrid"]);</code></pre>
     to learn about accessing all the features of the grid.
 </p>
 
-
-<?php include '../documentation-main/documentation_footer.php';?>
+<?php include '../documentation-main/documentation_footer.php'; ?>

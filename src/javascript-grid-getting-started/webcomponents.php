@@ -1,12 +1,10 @@
 <div>
 
-    <?php if (!isFrameworkAll()) { ?>
-        <h2 id="implementing-the-web-components-datagrid">
-            <img src="../images/svg/docs/getting_started.svg" width="50" />
-            <img style="vertical-align: middle" src="../images/webComponents.png" height="25px"/>
-            Getting Started
-        </h2>
-    <?php } ?>
+    <h2 id="implementing-the-web-components-datagrid">
+        <img src="../images/svg/docs/getting_started.svg" width="50"/>
+        <img style="vertical-align: middle" src="../images/webComponents.png" height="25px"/>
+        Getting Started
+    </h2>
 
     <?php include 'ag-grid-dependency.php' ?>
 
@@ -44,8 +42,10 @@
         want to use it.
     </p>
 
-    <pre><code>// get ag-Grid to install the web component
-agGrid.initialiseAgGridWithWebComponents();</code></pre>
+    <snippet>
+        // get ag-Grid to install the web component
+        agGrid.initialiseAgGridWithWebComponents();
+    </snippet>
 
     <p>
         ag-Grid registers as a tag named 'ag-grid'. To insert a grid into your application, use the
@@ -55,10 +55,14 @@ agGrid.initialiseAgGridWithWebComponents();</code></pre>
 
     <p>
         HTML Code:
-    <pre><code>&lt;ag-grid id="myGrid">&lt;/ag-grid></code></pre>
-    Javascript Code:<br/>
-    <pre><code>var myGrid = document.querySelector('#myGrid');
-myGrid.setGridOptions(gridOptions);</code></pre>
+        <snippet>
+            &lt;ag-grid id="myGrid"&gt;&lt;/ag-grid&gt;
+        </snippet>
+        Javascript Code:<br/>
+        <snippet>
+            var myGrid = document.querySelector('#myGrid');
+            myGrid.setGridOptions(gridOptions);
+        </snippet>
     </p>
 
     <h2 id="basic-web-components-example">Basic Web Components Example</h2>

@@ -9,7 +9,7 @@ include '../documentation-main/documentation_header.php';
 
 <div>
 
-    <h2 id="overlays">Overlays</h2>
+    <h1 class="first-h1" id="overlays">Overlays</h1>
 
     <p>
         At present, there are two overlays for the grid:
@@ -25,7 +25,7 @@ include '../documentation-main/documentation_header.php';
         When the api function setRowData is called, the loading panel is hidden.
     </p>
 
-    <h4 id="overlay-api">Overlay API</h4>
+    <h3 id="overlay-api">Overlay API</h3>
 
     <p>
         At any point, you can show or hide any of the overlays using the methods below.
@@ -34,20 +34,21 @@ include '../documentation-main/documentation_header.php';
         if an option outside the grid is changed).
     </p>
 
-    <pre><code>// show 'loading' overlay
+    <snippet>
+// show 'loading' overlay
 gridOptions.api.showLoadingOverlay()
 
 // show 'no rows' overlay
 gridOptions.api.showNoRowsOverlay()
 
 // clear all overlays
-gridOptions.api.hideOverlay()</code></pre>
+gridOptions.api.hideOverlay()</snippet>
 
     <p>
         The overlays are mutually exclusive, you cannot show more than one overlay at any given time.
     </p>
 
-    <h4 id="custom-templates">Custom Templates</h4>
+    <h3 id="custom-templates">Custom Templates</h3>
 
     <p>
         If your not happy with the provided overlay templates, you can provide your own. This is done with
@@ -55,7 +56,7 @@ gridOptions.api.hideOverlay()</code></pre>
         should be plain HTML.
     </p>
 
-    <h4 id="example">Example</h4>
+    <h3 id="example">Example</h3>
 
     <p>
         In the example below, the table is not provided with rows on initialisation, hence the loading icon is shown.
@@ -67,7 +68,7 @@ gridOptions.api.hideOverlay()</code></pre>
         The example also shows the api methods in action, so you can show / hide the panels at your will.
     </p>
 
-    <show-example example="example1"></show-example>
+    <?= example('Overlays', 'overlays', 'generated') ?>
 </div>
 
 <?php include '../documentation-main/documentation_footer.php';?>

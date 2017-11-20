@@ -16,7 +16,7 @@ include '../documentation-main/documentation_header.php';
 
     <?php include 'dashboard.html'; ?>
 
-    <show-complex-example example="dashboard.html"
+    <show-complex-example example=""
                           sourcesOnly="true"
                           sources="{
                             [
@@ -30,3 +30,7 @@ include '../documentation-main/documentation_header.php';
     </show-complex-example>
 
 <?php include '../documentation-main/documentation_footer.php'; ?>
+
+<!-- due to changes in how we do examples (in documentation_footer somewhere) agGrid is not what dashboard needs -->
+<!-- re-import it here so the example works -->
+<script src="../dist/ag-grid/ag-grid.js"></script>

@@ -1,10 +1,8 @@
-<?php if (!isFrameworkAll()) { ?>
-    <h2>
-        <img src="../images/svg/docs/getting_started.svg" width="50" />
-        <img style="vertical-align: middle" src="../images/javascript.png" height="25px"/>
-        Getting Started
-    </h2>
-<?php } ?>
+<h2>
+    <img src="../images/svg/docs/getting_started.svg" width="50"/>
+    <img style="vertical-align: middle" src="../images/svg/javascript.svg" height="25px"/>
+    Getting Started
+</h2>
 
 <?php include 'ag-grid-dependency.php' ?>
 
@@ -26,37 +24,37 @@
 </ul>
 
 <p>So let's create a simply example with 3 columns and 3 rows of data:</p>
-<pre>
-<span class="codeComment">// specify the columns</span>
-var columnDefs = [
+<snippet>
+    // specify the columns
+    var columnDefs = [
     {headerName: "Make", field: "make"},
     {headerName: "Model", field: "model"},
     {headerName: "Price", field: "price"}
-];
+    ];
 
-<span class="codeComment">// specify the data</span>
-var rowData = [
+    // specify the data
+    var rowData = [
     {make: "Toyota", model: "Celica", price: 35000},
     {make: "Ford", model: "Mondeo", price: 32000},
     {make: "Porsche", model: "Boxter", price: 72000}
-];
+    ];
 
-<span class="codeComment">// let the grid know which columns and what data to use</span>
-var gridOptions = {
+    // let the grid know which columns and what data to use
+    var gridOptions = {
     columnDefs: columnDefs,
     rowData: rowData
-};
+    };
 
-<span class="codeComment">// wait for the document to be loaded, otherwise ag-Grid will not find the div in the document.</span>
-document.addEventListener("DOMContentLoaded", function() {
+    // wait for the document to be loaded, otherwise ag-Grid will not find the div in the document.
+    document.addEventListener("DOMContentLoaded", function() {
 
-    <span class="codeComment">// lookup the container we want the Grid to use</span>
+    // lookup the container we want the Grid to use
     var eGridDiv = document.querySelector('#myGrid');
 
-    <span class="codeComment">// create the grid passing in the div to use together with the columns & data we want to use</span>
+    // create the grid passing in the div to use together with the columns & data we want to use
     new agGrid.Grid(eGridDiv, gridOptions);
-});
-</pre>
+    });
+</snippet>
 
 <p>With that in place we have a quick and simple Grid up and running:</p>
 

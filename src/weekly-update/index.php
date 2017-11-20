@@ -53,6 +53,105 @@ include('../includes/mediaHeader.php');
 
 </div>
 
+IE Performance Improvement - Improving CSS Themes - Addressing Framework Issues 
+
+<div class="weekly-news-section">
+
+    <a href="./20170816/">
+        <div class="weekly-news-title">
+            IE Performance Improvement - Improving CSS Themes - Addressing Framework Issues
+        </div>
+        <div class="weekly-news-sub-title">
+            Customer Experience Team, 17th August, 2017
+        </div>
+    </a>
+
+    <div style="clear: both;"></div>
+
+    <div class="weekly-news-paragraph">
+        This update sees a lot of work on performance particularly for IE as well as working on our themes. We have also been 
+        working on some framework related items reported.
+    </div>
+
+</div>
+
+<div class="weekly-news-section">
+
+    <a href="./20170801/">
+        <div class="weekly-news-title">
+            Welcome Petyo Ivanov
+        </div>
+        <div class="weekly-news-sub-title">
+            Customer Experience Team, 3rd August, 2017
+        </div>
+    </a>
+
+    <div style="clear: both;"></div>
+
+    <div class="weekly-news-paragraph">
+        We have another new person joining the team and we give an update on React Fiber, as well as the other goings on at Grid HQ.
+    </div>
+
+</div>
+
+
+<div class="weekly-news-section">
+
+    <a href="./20170726/">
+        <div class="weekly-news-title">
+            Version 12 released – New Documentation – React Fibre Support
+        </div>
+        <div class="weekly-news-sub-title">
+            Customer Experience Team, 26th July, 2017
+        </div>
+    </a>
+
+    <div style="clear: both;"></div>
+
+    <div class="weekly-news-paragraph">
+        This week, we will be releasing on Friday following postponing last week. We have also been working on simplifying the names of our features. We've also released our Beta of Poymer Support and will have the final version of this later in the week.
+    </div>
+
+</div>
+
+<div class="weekly-news-section">
+
+    <a href="./20170718/">
+        <div class="weekly-news-title">
+            Trying to Simplify our Feature Names - Polymer Support Beta Released - Our New Emoji
+        </div>
+        <div class="weekly-news-sub-title">
+            Customer Experience Team, 18th July, 2017
+        </div>
+    </a>
+
+    <div style="clear: both;"></div>
+
+    <div class="weekly-news-paragraph">
+        This week, we will be releasing on Friday following postponing last week. We have also been working on simplifying the names of our features. We've also released our Beta of Poymer Support and will have the final version of this later in the week.
+    </div>
+
+</div>
+
+<div class="weekly-news-section">
+
+    <a href="./20170711/">
+        <div class="weekly-news-title">
+            VC Meeting - OpenFin Demo - New Value Cache
+        </div>
+        <div class="weekly-news-sub-title">
+            Customer Experience Team, 11th July, 2017
+        </div>
+    </a>
+
+    <div style="clear: both;"></div>
+
+    <div class="weekly-news-paragraph">
+        This week's update covers our first VC meeting, our Development update including a new value cache, finishing change detection, adding Shift range selection to more row models and working on dynamic row heights for the Enterprise Row Model. Our support for Polymer is gathering pace and Web Components has gone live.
+    </div>
+
+</div>
+
 <div class="weekly-news-section">
 
     <a href="./20170704/">
@@ -151,6 +250,10 @@ include('../includes/mediaHeader.php');
 
 </div>
 
-<?php include_once("../includes/mediafooter.php"); ?>
+<?php include_once("../includes/footer.php"); ?>
+
+</body>
+
+<?php include_once("../includes/analytics.php"); ?>
 
 </html>

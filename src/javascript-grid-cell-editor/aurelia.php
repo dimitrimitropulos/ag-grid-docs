@@ -6,37 +6,38 @@
 
     <div class="note" style="margin-bottom: 20px">
         <img align="left" src="../images/note.png" style="margin-right: 10px;" />
-        <p>This section explains how to utilise ag-Grid cellEditors using Aurelia. You should read about how
+        <p>This section explains how to utilise ag-Grid Cell Editors using Aurelia. You should read about how
             <a href="../javascript-grid-cell-editor/">Cell Editing</a> works in ag-Grid first before trying to
             understand this section.</p>
     </div>
 
     <p>
-        It is possible to provide a Aurelia cellEditor for ag-Grid to use. All of the information above is
-        relevant to Aurelia cellEditors. This section explains how to apply this logic to your Aurelia component.
+        It is possible to provide a Aurelia Cell Editor for ag-Grid to use. All of the information above is
+        relevant to Aurelia Cell Editors. This section explains how to apply this logic to your Aurelia component.
     </p>
 
     <p>
         For an example of Aurelia cellEditing, see the
-        <a href="https://github.com/ceolter/ag-grid-aurelia-example">ag-grid-aurelia-example</a> on Github.
+        <a href="https://github.com/ag-grid/ag-grid-aurelia-example">ag-grid-aurelia-example</a> on Github.
     </p>
 
     <h3 id="specifying-a-aurelia-cell-editor"><img src="../images/aurelia_large.png" style="width: 20px;"/> Specifying a Aurelia cellEditor</h3>
 
 
-    <pre><span class="codeComment">// Create your cellEditor as a Aurelia component</span>
+    <snippet>
+// Create your cell editor as a Aurelia component
 
-<span class="codeComment">// Component View</span>
-&lt;template>
-  &lt;require from="./mood-editor.css"></require>
+// Component View
+&lt;template&gt;
+  &lt;require from="./mood-editor.css"&gt;&lt;/require&gt;
 
-  &lt;div class.bind="'mood'" tabindex="0" focus.bind="hasFocus" keydown.trigger="onKeyDown($event)">
-    &lt;img src="images/smiley.png" click.delegate="setHappy(true)" class.bind="happy ? 'selected' : 'default'">
-    &lt;img src="images/smiley-sad.png" click.delegate="setHappy(false)" class.bind="!happy ? 'selected' : 'default'">
-  &lt;/div>
-&lt;/template>
+  &lt;div class.bind="'mood'" tabindex="0" focus.bind="hasFocus" keydown.trigger="onKeyDown($event)"&gt;
+    &lt;img src="images/smiley.png" click.delegate="setHappy(true)" class.bind="happy ? 'selected' : 'default'"&gt;
+    &lt;img src="images/smiley-sad.png" click.delegate="setHappy(false)" class.bind="!happy ? 'selected' : 'default'"&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
 
-<span class="codeComment">// Component Logic</span>
+// Component Logic
 @customElement('ag-mood-editor')
 @inject(Element)
 export class NumericEditor extends BaseAureliaEditor {
@@ -84,16 +85,15 @@ export class NumericEditor extends BaseAureliaEditor {
   }
 }
 
-<span class="codeComment">// then reference the Component in your column definitions like this</span>
-&lt;ag-grid-aurelia #agGrid style="width: 100%; height: 100%;" class="ag-fresh"
-                 grid-options.bind="gridOptions">
-  &lt;ag-grid-column header-name="Mood" field="mood" width.bind="150" editable.bind="true">
-    &lt;ag-editor-template>
-      &lt;ag-mood-editor>&lt;/ag-mood-editor>
-    &lt;/ag-editor-template>
-  &lt;/ag-grid-column>
-&lt;/ag-grid-aurelia>
-</pre>
+// then reference the Component in your column definitions like this
+&lt;ag-grid-aurelia #agGrid style="width: 100%; height: 100%;" class="ag-theme-fresh"
+                 grid-options.bind="gridOptions"&gt;
+  &lt;ag-grid-column header-name="Mood" field="mood" width.bind="150" editable.bind="true"&gt;
+    &lt;ag-editor-template&gt;
+      &lt;ag-mood-editor&gt;&lt;/ag-mood-editor&gt;
+    &lt;/ag-editor-template&gt;
+  &lt;/ag-grid-column&gt;
+&lt;/ag-grid-aurelia&gt;</snippet>
 
     <p>Your Aurelia components should implement <code>BaseAureliaEditor</code>.</p>
 
@@ -104,12 +104,3 @@ export class NumericEditor extends BaseAureliaEditor {
         All of the other methods (<i>isPopup(), getValue(), isCancelBeforeStart(), isCancelAfterEnd()</i> etc)
         should be put onto your Aurelia component and will work as normal.
     </p>
-
-<!--    <h3 id="example-cell-editing-using-aurelia-components">Example: Cell Editing using Aurelia Components</h3>-->
-<!--    <p>-->
-<!--        Using Aurelia Components in the Cell Editors, illustrating keyboard events, rendering, validation and lifecycle events.-->
-<!--    </p>-->
-
-<!--    <show-example example="../aurelia-example/#/editor/true"-->
-<!--                  jsfile="../aurelia-example/components/editor-example/editor-example.ts"-->
-<!--                  html="../aurelia-example/components/editor-example/editor-example.html"></show-example>-->

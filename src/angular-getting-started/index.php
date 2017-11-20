@@ -9,12 +9,10 @@ include '../documentation-main/documentation_header.php';
 
 <div>
 
-    <h1>
-        <img src="../images/svg/docs/getting_started.svg" width="50"/>
-        <img style="vertical-align: middle" src="/images/angular2_small.png" height="25px"/>
-        Angular 2 Grid
+    <h1 class="first-h1">
+        <img style="vertical-align: middle" src="../images/angular2_large.png" height="50px"/>
+        Angular 2+ Datagrid - Getting Started
     </h1>
-    <h2>Getting Started</h2>
 
     <p>This section documents how to get started with ag-Grid and Angular as quickly as possible. You will start off with
         a simple application and section by section add Grid features to the application ending up with a fully fledged
@@ -35,17 +33,16 @@ include '../documentation-main/documentation_header.php';
         this
         repo, install the dependencies and start it up:</p>
 
-    <pre>
-<span class="codeComment">// clone the ag-Grid Angular seed project</span>
-git clone https://github.com/ceolter/ag-grid-angular-seed
+<snippet language="sh">
+# clone the ag-Grid Angular seed project
+git clone https://github.com/ag-grid/ag-grid-angular-seed
 cd ag-grid-angular-seed/angular-cli
 
-<span class="codeComment">// install the project dependencies</span>
+# install the project dependencies
 npm i
 
-<span class="codeComment">// build & start the application</span>
-npm start
-</pre>
+# build & start the application
+npm start</snippet>
 
     <p>With those 3 commands you should now see the following application:</p>
 
@@ -58,14 +55,13 @@ npm start
     <p>At a minimum, a Grid requires row data & column definitions. Row data is provided to the grid as an array of
         JavaScript objects:</p>
 
-    <pre>
-<span class="codeComment">// row data </span>
+    <snippet>
+// row data 
 [
     {make: "Toyota", model: "Celica", price: 35000},
     {make: "Ford", model: "Mondeo", price: 32000},
     {make: "Porsche", model: "Boxter", price: 72000}
-]
-</pre>
+]</snippet>
 
     <p>Here we have 3 rows of data, with <code>make</code>, <code>model</code> and <code>price</code> making up the
         data.</p>
@@ -76,14 +72,13 @@ npm start
         columns
         that match the data above:</p>
 
-    <pre>
-<span class="codeComment">// column definitions</span>
+    <snippet>
+// column definitions
 [
     {headerName: "Make", field: "make"},
     {headerName: "Model", field: "model", cellRendererFramework: RedComponentComponent},
     {headerName: "Price", field: "price"}
-]
-</pre>
+]</snippet>
 
     <p>At a minimum a column definition needs a <code>headerName</code> - the column title to display - and a <code>field</code>
         - the data item to read off of from the row data. Here we're defining 3 columns, <code>Make</code>,
@@ -92,7 +87,7 @@ npm start
     
     <p>In the case of the <code>model</code> column definition we've also defined a <code>cellRendererFramework</code> - this allows 
     us to use an Angular Component to render the data for that cell. This is entirely optional, but does allow you to leverage
-    the full power of Angular while still gaining the peformance and functionality offered by ag-Grid.</p>
+    the full power of Angular while still gaining the performance and functionality offered by ag-Grid.</p>
 
     <h3>Grid Definition</h3>
 
@@ -100,13 +95,12 @@ npm start
 
     <p>For a Angular application, you need to pull in the <code>ag-grid-angular</code> Component and include it in your <code>template</code>:</p>
 
-    <pre>
-<span class="codeComment">// src/app/my-grid-application/my-grid-application.component.html</span>
-&lt;ag-grid-angular style="width: 500px; height: 115px;" class="ag-fresh"
+    <snippet>
+// src/app/my-grid-application/my-grid-application.component.html
+&lt;ag-grid-angular style="width: 500px; height: 115px;" class="ag-theme-fresh"
                  [rowData]="rowData"
                  [columnDefs]="columnDefs"&gt;
-&lt;/ag-grid-angular&gt;
-</pre>
+&lt;/ag-grid-angular&gt;</snippet>
 
     <p>Here we're telling the Grid to read the row & column definitions off the application Component itself, in fields
         called <code>rowData</code> and <code>columnDefs</code>. For a very simple Grid, this is all you need to do display tabular data.</p>
@@ -114,39 +108,9 @@ npm start
     <p>Of course there is much more we can do - in the following sections we will build on this starting point. For our
         seed application here is the complete Component:</p>
 
-    <pre>
-<span class="codeComment">// src/app/my-grid-application/my-grid-application.component.ts</span>
-import {Component} from "@angular/core";
-import {RedComponentComponent} from "../red-component/red-component.component";
+    
+    <?= example('Simple Grid', 'hello-world', 'angular', array( "exampleHeight" => 150, "showResult" => true)) ?>
 
-@Component({
-    selector: 'app-my-grid-application',
-    templateUrl: './my-grid-application.component.html'
-})
-export class MyGridApplicationComponent {
-    columnDefs;
-    rowData;
-
-    constructor() {
-        this.columnDefs = [
-            {headerName: "Make", field: "make"},
-            {headerName: "Model", field: "model", cellRendererFramework: RedComponentComponent},
-            {headerName: "Price", field: "price"}
-        ];
-
-        this.rowData = [
-            {make: "Toyota", model: "Celica", price: 35000},
-            {make: "Ford", model: "Mondeo", price: 32000},
-            {make: "Porsche", model: "Boxter", price: 72000}
-        ]
-    }
-
-    onGridReady(params) {
-        params.api.sizeColumnsToFit();
-    }
-}
-
-</pre>
 
     <h3>Adding Features</h3>
 
@@ -158,15 +122,15 @@ export class MyGridApplicationComponent {
     <p>Adding sorting to our application is very easy - all you need to do is let the Grid know you want sorting to be
         enabled by setting a Grid property to true:</p>
 
-    <pre>
-<span class="codeComment">// Grid Definition </span>
-&lt;ag-grid-angular style="width: 500px; height: 115px;" class="ag-fresh"
+    <snippet>
+// Grid Definition 
+&lt;ag-grid-angular style="width: 500px; height: 115px;" class="ag-theme-fresh"
                  [rowData]="rowData"
                  [columnDefs]="columnDefs"&gt;
 
-                 enableSort <span class="codeComment">// shorthand for [enableSort]="true"</span>
+                 enableSorting // shorthand for [enableSorting]="true"
 &lt;/ag-grid-angular&gt;
-    </pre>
+   </snippet>
 
     <p>With a single property change we are now able to sort any column by clicking the column header (you can keep
         clicking and it will cycle through ascending, descending and no sort). Note that in this example we're sorting
@@ -184,15 +148,14 @@ export class MyGridApplicationComponent {
 
     <p>As with sorting, enabling filtering is as easy as setting a single property in our Grid definition:</p>
 
-    <pre>
-<span class="codeComment">// Grid Definition </span>
-&lt;ag-grid-angular style="width: 500px; height: 115px;" class="ag-fresh"
+    <snippet>
+// Grid Definition 
+&lt;ag-grid-angular style="width: 500px; height: 115px;" class="ag-theme-fresh"
                  [rowData]="rowData"
                  [columnDefs]="columnDefs"&gt;
 
-                 enableFilter <span class="codeComment">// shorthand for [enableFilter]="true"</span>
-&lt;/ag-grid-angular&gt;
-</pre>
+                 enableFilter // shorthand for [enableFilter]="true"
+&lt;/ag-grid-angular&gt;</snippet>
 
     <p>With the <code>enableFilter</code> property set we are now able to filter any column by clicking the column
         header
@@ -204,24 +167,11 @@ export class MyGridApplicationComponent {
 
     <h3>Summary</h3>
 
-    <p>We've only scratched the surface with what you can do with the Grid - please refer to the full set of features on
+    <p id="angular-rich-grid-example">We've only scratched the surface with what you can do with the Grid - please refer to the full set of features on
         the left
         hand navigation for an idea of what's on offer, but below we show a feature rich example:</p>
 
-    <show-complex-example example="../ng2-example/index.html?fromDocs=true&example=rich-grid"
-                          sources="{
-                            [
-                                { root: '/ng2-example/app/rich-grid-example/', files: 'rich-grid.component.ts,rich-grid.component.html,proficiency-renderer.css,rich-grid.css' },
-                                { root: '/ng2-example/app/header-group-component/', files: 'header-group.component.ts,header-group.component.html,header-group.component.css' },
-                                { root: '/ng2-example/app/header-component/', files: 'header.component.ts,header.component.html,header.component.css' },
-                                { root: '/ng2-example/app/filters/', files: 'skillFilter.ts,proficiencyFilter.ts' },
-                                { root: '/ng2-example/app/date-component/', files: 'date.component.ts,date.component.html,date.component.css' },
-                                { root: '/ng2-example/app/', files: 'app.module.ts' }
-                            ]
-                          }"
-                          plunker="https://embed.plnkr.co/EINfsm/"
-                          exampleHeight="525px">
-    </show-complex-example>
+    <?= example('ag-Grid in Angular', 'rich-grid-example', 'angular', array( "enterprise" => 1, "exampleHeight" => 525, "showResult" => true, "extras" => array( "fontawesome", "bootstrap" ) )); ?>
 
     <p>This example makes use of custom <code>cellRenderers</code> to show data in a visually friendly way, demonstrates
         <code>column grouping</code> as well as using <code>Angular Components</code> in the header. And even this rich
@@ -232,6 +182,6 @@ export class MyGridApplicationComponent {
         how to
         use ag-Grid and Angular, as well as the options in installing dependencies and accessing the <code>Enterprise
             Features</code>.</p>
-
-    <?php include '../documentation-main/documentation_footer.php'; ?>
 </div>
+
+<?php include '../documentation-main/documentation_footer.php'; ?>

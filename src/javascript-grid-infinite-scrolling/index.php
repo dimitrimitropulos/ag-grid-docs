@@ -9,7 +9,13 @@ include '../documentation-main/documentation_header.php';
 
 <div>
 
-    <h2 id="virtual-paging-infinite-scrolling">Infinite Scrolling Row Model</h2>
+    <h2 class="first-h1" id="virtual-paging-infinite-scrolling">Infinite Row Model</h2>
+
+    <note>
+        If you are an enterprise user you should consider using the <a href="../javascript-grid-enterprise-model/">enterprise row model</a> instead of the infinite
+        row model. It offers the same functionality with many more features.<br><br>
+        The differences between row models can be found in our <a href="../javascript-grid-row-models/">row models summary page</a>
+    </note>
 
     <p>
         Infinite scrolling allows the grid to lazy load rows from the server depending on what
@@ -47,12 +53,13 @@ include '../documentation-main/documentation_header.php';
         To turn on infinite scrolling, you must a) set the grid property rowModelType to infinite and b) provide a datasource.
     </p>
 
-    <pre><span class="codeComment">// before grid initialised</span>
+    <snippet>
+// before grid initialised
 gridOptions.rowModelType = 'infinite';
 gridOptions.datasource = myDataSource;
 
-<span class="codeComment">// after grid initialised, you can set or change the datasource</span>
-gridOptions.api.setDatasource(myDataSource);</pre>
+// after grid initialised, you can set or change the datasource
+gridOptions.api.setDatasource(myDataSource);</snippet>
 
     <h2 id="datasource">Datasource</h2>
 
@@ -61,11 +68,12 @@ gridOptions.api.setDatasource(myDataSource);</pre>
         or using the grid API.
     </p>
 
-    <pre><span class="codeComment">// set as a property</span>
+    <snippet>
+// set as a property
 gridOptions.datasource = myDatasource;
 
-<span class="codeComment">// or use the api after the grid is initialised</span>
-gridOptions.api.setDatasource(myDatasource);</pre>
+// or use the api after the grid is initialised
+gridOptions.api.setDatasource(myDatasource);</snippet>
 
     <h3 id="changing-a-datasource">Changing the Datasource</h3>
 
@@ -91,41 +99,43 @@ gridOptions.api.setDatasource(myDatasource);</pre>
         implement the following interface:
     </p>
 
-    <pre><span class="codeComment">// Infinite Scrolling Datasource</span>
+    <snippet>
+// Infinite Scrolling Datasource
 interface IDatasource {
 
-    <span class="codeComment">// Callback the grid calls that you implement to fetch rows from the server. See below for params.</span>
+    // Callback the grid calls that you implement to fetch rows from the server. See below for params.
     getRows(params: IGetRowsParams): void;
-}</pre>
+}</snippet>
 
     <p>
         The getRows() method takes the following parameters:
     </p>
 
-    <pre><span class="codeComment">// Params for the above IDatasource.getRows()</span>
+    <snippet>
+// Params for the above IDatasource.getRows()
 interface IGetRowsParams {
 
-    <span class="codeComment">// The first row index to get.</span>
+    // The first row index to get.
     startRow: number;
 
-    <span class="codeComment">// The first row index to NOT get.</span>
+    // The first row index to NOT get.
     endRow: number;
 
-    <span class="codeComment">// If doing server side sorting, contains the sort model</span>
+    // If doing server side sorting, contains the sort model
     sortModel: any,
 
-    <span class="codeComment">// If doing server side filtering, contains the filter model</span>
+    // If doing server side filtering, contains the filter model
     filterModel: any;
 
-    <span class="codeComment">// The grid context object</span>
+    // The grid context object
     context: any;
 
-    <span class="codeComment">// Callback to call when the request is successful.</span>
+    // Callback to call when the request is successful.
     successCallback(rowsThisBlock: any[], lastRow?: number): void;
 
-    <span class="codeComment">// Callback to call when the request fails.</span>
+    // Callback to call when the request fails.
     failCallback(): void;
-}</pre>
+}</snippet>
 
     <h3 id="function-get-rows">Function getRows()</h3>
 
@@ -220,7 +230,7 @@ interface IGetRowsParams {
         Notice that the grid will load more data when you bring the scroll all the way to the bottom.
     </p>
 
-    <show-example example="exampleInfinite"></show-example>
+    <?= example('Simple Example', 'simple', 'generated') ?>
 
     <h3 id="selection">Selection</h3>
 
@@ -237,10 +247,11 @@ interface IGetRowsParams {
         and should return the id for the data.
     </p>
 
-    <pre>gridOptions.getRowNodeId: function(item) {
-    <span class="codeComment">// the id can be any string, as long as it's unique within your dataset</span>
+    <snippet>
+gridOptions.getRowNodeId: function(item) {
+    // the id can be any string, as long as it's unique within your dataset
     return item.id.toString();
-}</pre>
+}</snippet>
 
     <p>
         Once you have <i>getRowNodeId()</i> implemented, selection will persist across sorts and filters.
@@ -276,14 +287,19 @@ interface IGetRowsParams {
         filtering, ag-Grid-Enterprise is not required for infinite scrolling)
     </p>
 
-    <show-complex-example example="exampleInfiniteServerSide.html"
-                          sources="{
-                                [
-                                    { root: './', files: 'exampleInfiniteServerSide.html,exampleInfiniteServerSide.js' }
-                                ]
-                              }"
-                          exampleheight="350px">
-    </show-complex-example>
+
+    <note>When filtering using the Infinite Row Model it's important to specify the filter parameter: <i>newRowsAction: 'keep'</i>.
+          This is to prevent the filter from being reset.
+    </note>
+
+    <?= example('Server Side Sorting And Filtering', 'server-side', 'generated') ?>
+
+    <note>
+        When performing multiple row selections using 'shift-click', it is possible that not all rows are available in
+        memory if the configured value of <i>maxBlocksInCache</i> doesn't cover the range. In this case multiple selections
+        will not be allowed.
+    </note>
+
 
     <h3 id="configuring-a-bit-differently">Configuring A Bit Differently</h3>
 
@@ -292,31 +308,34 @@ interface IGetRowsParams {
         and creates a datasource Class. The example also just creates (makes up) data on the fly.
     </p>
 
-    <show-complex-example example="exampleInfiniteMadeUpData.html"
-                          sources="{
-                                [
-                                    { root: './', files: 'exampleInfiniteMadeUpData.html,exampleInfiniteMadeUpData.js' }
-                                ]
-                              }"
-                          exampleheight="350px">
-    </show-complex-example>
+    <?= example('Made Up Data', 'made-up-data', 'generated') ?>
 
     <h3 id="loading-spinner">Loading Spinner</h3>
 
     <p>
         The examples on this page use a loading spinner to show if the row is waiting for its data to be loaded. The
         grid does not provide this, rather it is a simple rendering technique used in the examples. If the data
-        is loading, then the rowNode will be missing data, and hence all values passed to cellRenderers will be
-        undefined. You can check for this and provide your own loading effect.
+        is loading, then the rowNode will have no id. So if you use the id as the value, the cell will get refreshed
+        when the id is set.
     </p>
 
-    <pre>cellRenderer: function(params) {
-    if (params.value !== undefined) {
-        return params.value;
-    } else {
-        return '&lt;img src="../images/loading.gif">'
+    <snippet>
+loadingSpinnerColumn = {
+
+    // use a value getter to have the node id as this columns value
+    valueGetter: 'node.id',
+
+    // then a custom cellRenderer
+    cellRenderer: function(params) {
+        if (params.value === undefined) {
+            // when no node id, display the spinner image
+            return '&lt;img src="loading.gif"&gt;'
+        } else {
+            // otherwise just display node id (or whatever you wish for this column)
+            return params.value;
+        }
     }
-}</pre>
+}</snippet>
 
     <p>Refer to section <a href="../javascript-grid-cell-rendering-components">Cell Rendering</a> for how to build
     cell renderers.</p>
@@ -343,7 +362,7 @@ interface IGetRowsParams {
             </td>
         </tr>
         <tr id="property-max-concurrent-requests">
-            <th>maxConcurrentRequests</th>
+            <th>maxConcurrentDatasourceRequests</th>
             <td><p>How many requests to hit the server with concurrently. If the max is reached, requests are queued.
                     Default is 1, thus by default, only one request will be active at any given time.</p></td>
         </tr>
@@ -509,14 +528,7 @@ interface IGetRowsParams {
     get called after the data is set as well as when the row is created (when the data may not yet be available).
     </p>
 
-    <show-complex-example example="exampleInsertRemoveVirtualPaging.html"
-                          sources="{
-                                [
-                                    { root: './', files: 'exampleInsertRemoveVirtualPaging.html,exampleInsertRemoveVirtualPaging.js' }
-                                ]
-                              }"
-                          exampleheight="350px">
-    </show-complex-example>
+    <?= example('Insert And Remove Example', 'insert-remove', 'generated') ?>
 
     <h2 id="pagination">Pagination with Infinite Scrolling</h2>
 
@@ -565,14 +577,7 @@ interface IGetRowsParams {
         sided call is needed.
     </p>
 
-    <show-complex-example example="examplePaginationInfinite1.html"
-                          sources="{
-                                [
-                                    { root: './', files: 'examplePaginationInfinite1.html,examplePaginationInfinite1.js,exampleInfiniteServerSide.js' }
-                                ]
-                              }"
-                          exampleheight="350px">
-    </show-complex-example>
+    <?= example('Block Larger Than Page', 'block-larger-page', 'generated') ?>
 
     <h3>Example 2: Equal Pagination Page Size and Large Infinite Block Size</h3>
 
@@ -581,14 +586,7 @@ interface IGetRowsParams {
         every time a new page is navigated to.
     </p>
 
-    <show-complex-example example="examplePaginationInfinite2.html"
-                          sources="{
-                                [
-                                    { root: './', files: 'examplePaginationInfinite2.html,examplePaginationInfinite2.js,exampleInfiniteServerSide.js' }
-                                ]
-                              }"
-                          exampleheight="350px">
-    </show-complex-example>
+    <?= example('Block Equal Than Page', 'block-equal-page', 'generated') ?>
 
 </div>
 

@@ -12,9 +12,10 @@ include '../documentation-main/documentation_header.php';
     <h1 class="first-h1">Change Detection</h1>
 
     <p>
-        The grid has built in change detection. This means when you update the value of a cell,
-        either through the UI or via the grid's API, the grid will automatically work out all
-        the cells that need to be updated to reflect the new value.
+        The grid has built in change detection.
+        When a value in the grid changes, either via the UI or via the grid API, the grid will check
+        all cells to see which ones need updating and update exactly only those cells, so minimal
+        changes are made to the DOM.
     </p>
 
 <!--    <note>
@@ -26,13 +27,15 @@ include '../documentation-main/documentation_header.php';
 -->
     <p>
         Change detection can be broken down into the following two categories:
-        <ul>
+        <ol>
             <li>
-                <b>Value Change Detection:</b> When a value for any cell changes, the grid goes through
-                every cell in the grid and compares the new value to the currently rendered value.
-                If the values differ, the cell is refreshed. This means all cells using
-                <code>valueGetter's</code> will have their values updated if they depended on the
-                changed cell.
+                <b>Value Change Detection:</b> When a value for any cell changes (e.g. after an edit),
+                the grid goes through
+                every cell in the grid and compares the current value to the previous value.
+                If the values differ, the cell is refreshed. This allows all cells using
+                <code>valueGetter's</code> to be kept up to date where a change to one cell (that was
+                edited) may impact the value of another cell (that references the first cell) - just
+                like Excel!
             </li>
             <li>
                 <b>Aggregation Change Detection:</b> When a value for any cell changes,
@@ -41,7 +44,7 @@ include '../documentation-main/documentation_header.php';
                 by the changed value. This means the grid will automatically keep aggregation
                 results (the values in the grouped row) up to date as the data beneath it changes.
             </li>
-        </ul>
+        </ol>
     </p>
 
     <note>
@@ -55,11 +58,6 @@ include '../documentation-main/documentation_header.php';
     <h2>Example - Change Detection and Value Getter's</h2>
 
     <p>
-        Notice the code for setting up the grid is simple. All of the refreshing and recalculating of values
-        is done internally by the grid.
-    </p>
-
-    <p>
         The example below shows the impact of change detection on value getters. The grid is
         doing all the refresh by itself with no need for the client application explicitly requesting
         a refresh. Notice the following:
@@ -68,7 +66,7 @@ include '../documentation-main/documentation_header.php';
             The 'Total' column uses a value getter to calculate the sum of all values in that row.
         </li>
         <li>
-            Edit any of the values in columns A to F.
+            Edit any of the values in columns A to F by double clicking a cell and entering a new value.
         </li>
         <li>
             The 'Total' column gets automatically refreshed and flashes.
@@ -76,9 +74,9 @@ include '../documentation-main/documentation_header.php';
     </ul>
     </p>
 
-    <show-example example="exampleChangeDetectionValueGetter"></show-example>
+    <?= example('Change Detection and Value Getters', 'change-detection-value-getters', 'generated', array("enterprise" => 1)) ?>
 
-    <h1>Value Change Detection</h1>
+    <h1>1. Value Change Detection</h1>
 
     <p>
         The grid keeps a local copy of all values rendered in each cell. When a refresh of the cell
@@ -127,17 +125,18 @@ include '../documentation-main/documentation_header.php';
         name is stored in a complex object.
     </p>
 
-    <pre><span class="codeComment">// column with custom equals method for change detection</span>
+    <snippet>
+// column with custom equals method for change detection
 colDef = {
 
-    <span class="codeComment">// method returns true if first and last names are equal</span>
+    // method returns true if first and last names are equal
     equals: function(person1, person2) {
         var firstNameEqual = person1.firstName === person2.firstName;
         var lastNameEqual = person2.lastName === person2.lastName;
         return firstNameEqual && lastNameEqual;
     }
     ...
-}</pre>
+}</snippet>
 
     <h2>Triggering Value Change Detection</h2>
 
@@ -164,7 +163,7 @@ colDef = {
         call <a href="../javascript-grid-refresh/">api.refreshCells()</a>.
     </p>
 
-    <h1>Aggregation Change Detection</h1>
+    <h1>2. Aggregation Change Detection</h1>
 
     <p>
         Aggregation change detection means rerunning
@@ -194,11 +193,6 @@ colDef = {
             aggregations as a result of the change.
         </li>
         <li>
-            As well as aggregating the values at the group level, the grid also has a valueGetter
-            configured for the 'Total' column. So this example shows both valueGetters's and
-            aggregations getting updated together.
-        </li>
-        <li>
             All cells are configured to use one of the grids
             <a href="../javascript-grid-cell-rendering/animate-renderer">animation
                 cell renderer</a> instead of flashing cells.
@@ -206,7 +200,7 @@ colDef = {
     </ul>
     </p>
 
-    <show-example example="exampleChangeDetectionGroups"></show-example>
+    <?= example('Change Detection with Groups', 'change-detection-groups', 'generated', array("enterprise" => 1)) ?>
 
     <p>
         Notice above that the group column is also editable (eg you can change one of the rows from group 'A'
@@ -291,40 +285,60 @@ colDef = {
         </ul>
     </p>
 
-    <show-example example="exampleChangeDetectionFilterSortGroup"></show-example>
+    <?= example('Change Detection with Filter / Sort / Group', 'change-detection-filter-sort-group', 'generated', array("enterprise" => 1)) ?>
 
-    <h2 id="path-selection">Aggregation Path Selection</h2>
+    <h1 id="path-selection">Aggregation Path Selection</h1>
 
     <p>
-        When the grid needs to update aggregations, it will only update aggregations that are
-        impacted by the changed values. This is done using path selection.
+        When data in the grid updates and aggregations are active, the grid will not recompute
+        all aggregations again from scratch. Instead it will be selective as to what aggregations
+        need to be re-computed.
+    </p>
+
+    <h3 id="tree-path-selection">Tree Path Selection</h3>
+
+    <p>
+        When a value changes, the grid will recompute the immediate group the row is in, and then any parent
+        group, all the way to the root. This is known as 'tree path selection' - only the part of the tree
+        that need to be recalculated are recalculated.
     </p>
 
     <p>
-        Path selection means, when a value is changed, the aggregation will only:
-        <ul>
-            <li>Update the parent group(s) of the value.</li>
-            <li>For single cell changes*, only update the column.</li>
-        </ul>
+        If you are updating many rows at the same time using an <a href="../javascript-grid-data-update/">update
+        transaction</a>, the grid will do all updates first, then recompute all aggregations against the combined
+        impacted paths only.
+    </p>
+
+    <h3>Column Path Selection</h3>
+
+    <p>
+        By default, the grid will recalculate aggregations on all columns for the updated tree path,
+        even if only one of the columns values were changed. This is because the grid assumes any column has
+        the potential to impact any other column, should the column be referenced in a valueGetter.
     </p>
 
     <p>
-        <i>
-            *single cell changes are when you update using the UI or you update via
-            the <code>rowNode.setRowData(column, data)</code> API. If you update using
-            a transaction, then all columns are recomputed on the effected path.
-        </i>
+        If you are sure that a value change impacts that one column only, then you can
+        set the grid property <code>aggregateOnlyChangedColumns=true</code>. This will re-aggregate
+        only the changed column and not all columns after a single cell is updated.
+    </p>
+
+    <h2>Example - Tree Path & Column Path Selection</h2>
+
+    <p>
+        Consider the example below and you edit a cell value under under the groups "Bottom" -> "Group B2"
+        and column "Column C". The grid will only recompute column C aggregations for "Group B2" and "Bottom".
+        It will not recompute any aggregates for any other groups or for any other columns.
     </p>
 
     <p>
-        This is easiest explained with an example. Consider the example below and you edit
-        a cell value under "Bottom" -> "Group B2" -> "Column C". Then the grid will only
-        recompute column C aggregations for "Group B2" and "Bottom". It will not recompute
-        any aggregates for any other groups or for any other columns.
+        The tree path selection (ie not updating anything in the group "Top") is active always in the grid
+        and the column selection (only updating column "Column C") is active because of the grid property
+        <code>aggregateOnlyChangedColumns=true</code>.
     </p>
 
     <p>
-        The path selection ensures only the minimal amount of recalculations are done.
+        The path selections ensure only the minimal amount of recalculations are done.
     </p>
 
     <p>
@@ -354,7 +368,9 @@ colDef = {
         </ul>
     </p>
 
-    <show-example example="exampleChangeDetectionDeltaAggregation"></show-example>
+
+    <?= example('Change Detection with Delta Aggregation', 'change-detection-delta-aggregation', 'generated', array("enterprise" => 1)) ?>
+
 
     <h1 id="pivot-example">Change Detection and Pivot</h1>
 
@@ -410,7 +426,7 @@ colDef = {
         </li>
     </ul>
 
-    <show-example example="exampleChangeDetectionPivot"></show-example>
+    <?= example('Change Detection Pivot', 'change-detection-pivot', 'generated', array("enterprise" => 1)) ?>
 
 </div>
 

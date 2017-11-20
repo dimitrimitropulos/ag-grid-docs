@@ -9,7 +9,7 @@ include '../documentation-main/documentation_header.php';
 
 <div>
 
-    <h2 id="insert-remove">Data Update</h2>
+    <h2 id="insert-remove">Updating Data</h2>
 
     <p>
         Data can be updated inside the grid using the grid's API.
@@ -99,15 +99,7 @@ include '../documentation-main/documentation_header.php';
         edit the data so the filter is broken (ie a row is present that should not be present), then hit this button to fix the filter.</li>
     </ul>
 
-    <show-complex-example example="exampleGetRowNode.html"
-                          sources="{
-                                [
-                                    { root: './', files: 'exampleGetRowNode.js,exampleGetRowNode.html' }
-                                ]
-                              }"
-                          exampleheight="250px">
-    </show-complex-example>
-
+    <?= example('Updating Row Nodes', 'updating-row-nodes', 'generated') ?>
 
     <h2 id="bulk-updating">Bulk Updating</h2>
 
@@ -164,28 +156,44 @@ include '../documentation-main/documentation_header.php';
         what changes are needed to keep the grid's version of the data up to date.
     </p>
 
-    <h2>Bulk Method 1 - Transaction</h2>
+    <h2 id="transactions">Bulk Method 1 - Transaction</h2>
 
     <p>
-        The <code>api.updateRowData(transaction)</code> method takes a transaction as a parameter.
-        The transaction has the following interface:
+        The <code>api.updateRowData(transaction)</code> takes details of what data items to update
+        and then returns all the impacted row nodes.
     </p>
 
-    <pre><span class="codeComment">// interface for transaction for updating data</span>
+    <snippet>
+// API method for updating data
+function updateRowData(rowDataTransaction: RowDataTransaction): RowNodeTransaction;
+
+// params for above
 interface RowDataTransaction {
 
-    <span class="codeComment">// rows to add</span>
+    // rows to add
     add?: any[];
-    <span class="codeComment">// index for rows to add</span>
+    // index for rows to add
     addIndex?: number,
 
-    <span class="codeComment">// rows to remove</span>
+    // rows to remove
     remove?: any[];
 
-    <span class="codeComment">// rows to update</span>
+    // rows to update
     update?: any[];
 }
-</pre>
+
+// result for above
+interface RowDataTransaction {
+
+    // Row Nodes added
+    add: RowNode[];
+
+    // Row Nodes removed
+    remove: RowNode[];
+
+    // Row Nodes updated
+    update: RowNode[];
+}</snippet>
 
     <h3>Adding Rows</h3>
 
@@ -205,8 +213,7 @@ interface RowDataTransaction {
     </p>
 
     <p>
-        If you are providing rowNode ID's (via the <code>getRowNodeId()</code> callback) then the
-        grid will match the rows based on ID. If you are not using ID's, then the grid will match
+        If you are providing rowNode ID's (via the <code>getRowNodeId()</code> callback) then pass an array of objects with keys corresponding to the rowNodeId you specified with <code>getRowNodeId</code> and values matching the rows you want to remove. If you are not using ID's, then the grid will match
         the rows based on object reference.
     </p>
 
@@ -231,7 +238,7 @@ interface RowDataTransaction {
 
     <p>
         The <a href="../javascript-grid-in-memory">In Memory Row Model</a> fully supports the
-        <code>api.updateData()</code> call. The
+        <code>api.updateRowData()</code> call. The
         <a href="../javascript-grid-infinite-scrolling">Infinite Row Model</a> supports 'add'
         only (see the infinite docs for examples). The
         <a href="../javascript-grid-viewport">Viewport Row Model</a> and
@@ -242,7 +249,8 @@ interface RowDataTransaction {
     <h3 id="example-updating-with-transaction">Example - Updating with Transaction</h3>
 
     <p>
-        The example below demonstrates the following:
+        The example uses the <code>updateRowData</code> method in different ways and prints
+        the results of the call to the console. The following can be noted:
     </p>
 
     <ul>
@@ -272,7 +280,7 @@ interface RowDataTransaction {
         </li>
     </ul>
 
-    <show-example example="exampleInsertRemove"></show-example>
+    <?= example('Updating with Transaction', 'updating-with-transaction', 'generated') ?>
 
     <h3 id="example-updating-with-transaction-and-groups">Example - Updating with Transaction and Groups</h3>
 
@@ -299,7 +307,8 @@ interface RowDataTransaction {
             are always added to the top as they are ordered 'latest first'</li>
     </ul>
 
-    <show-example example="exampleInsertRemoveGroups"></show-example>
+    <?= example('Updating with Transaction and Groups', 'updating-with-transaction-and-groups', 'generated', array("enterprise" => 1)) ?>
+
 
     <h2>Bulk Method 2 - Row Data (Normal)</h2>
 
@@ -385,7 +394,13 @@ interface RowDataTransaction {
 
     <ul>
         <li>
-            <b>Add Five Items</b>: Adds five items to the list.
+            <b>Append Items</b>: Adds five items to the end ((assuming when no sort applied*).
+        </li>
+        <li>
+            <b>Prepend Items</b>: Adds five items to the start (assuming when no sort applied*).
+        </li>
+        <li>
+            <b>Reverse</b>: Reverses the order of the items (assuming when no sort applied*).
         </li>
         <li>
             <b>Remove Selected</b>: Removes the selected items. Try selecting multiple rows (ctrl + click
@@ -402,7 +417,13 @@ interface RowDataTransaction {
         selected items to that group. Notice how the rows animate to the new position.</li>
     </ul>
 
-    <show-example example="exampleSimpleImmutableStore"></show-example>
+    <p><i>
+        *assuming when no sort applied - because if the grid is sorting, then the grid sort will override any order
+        in the provided data.
+    </i></p>
+
+    <?= example('Simple Immutable Store', 'simple-immutable-store', 'generated', array("enterprise" => 1)) ?>
+
 
     <h3>Example - Immutable Store - Updates via Feed</h3>
 
@@ -441,7 +462,7 @@ interface RowDataTransaction {
         even though the grid data is constantly updating.
     </p>
 
-    <show-example example="exampleComplexImmutableStore"></show-example>
+    <?= example('Complex Immutable Store', 'complex-immutable-store', 'generated', array("enterprise" => 1)) ?>
 
     <h2 id="flashing">Flashing Data Changes</h2>
 
@@ -454,13 +475,13 @@ interface RowDataTransaction {
     <note>
         This is a simple and quick way to visually show to the user that the data has changed.
         It is also possible to have more intelligent animations by putting animations into custom
-        cellRenderer's. Check out the grid provided
-        <a href="../javascript-grid-cell-rendering/#animate-renderer">animation cellRenderer's</a>
+        cell renderer's. Check out the grid provided
+        <a href="../javascript-grid-cell-rendering/#animate-renderer">animation cell renderer's</a>
         or look at implementing your own refresh in a
-        <a href="../javascript-grid-cell-rendering-components/">customer cellRenderer</a>.
+        <a href="../javascript-grid-cell-rendering-components/">custom cell renderer</a>.
     </note>
 
-    <show-example example="exampleFlashingCells"></show-example>
+    <?= example('Flashing Data Changes', 'flashing-data-changes', 'generated', array("enterprise" => 1)) ?>
 
     <h3>How Flashing Works</h3>
 

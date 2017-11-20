@@ -32,7 +32,7 @@
                 <td style="padding: 10px;"><img src="../images/github.png"/></td>
                 <td>
                     <b>Github</b><br/>
-                    Download from <a href="https://github.com/ceolter/ag-grid-enterprise">Github</a>
+                    Download from <a href="https://github.com/ag-grid/ag-grid-enterprise">Github</a>
                 </td>
             </tr>
         </table>
@@ -45,17 +45,16 @@
 
         <p>As with the ag-Grid example, all we need to do is reference the ag-grid-enterprise dependency and we're good
             to go:</p>
-        <pre>
+        <snippet>
 &lt;html&gt;
 &lt;head&gt;
     &lt;script src="path-to-ag-grid-enterprise/ag-grid-enterprise.js"&gt;&lt;/script&gt;
     &lt;script src="example1.js"&gt;&lt;/script&gt;
 &lt;/head&gt;
 &lt;body&gt;
-    &lt;div id="myGrid" style="height: 100%;" class="ag-fresh"&gt;&lt;/div&gt;
+    &lt;div id="myGrid" style="height: 100%;" class="ag-theme-fresh"&gt;&lt;/div&gt;
 &lt;/body&gt;
-&lt;/html&gt;
-</pre>
+&lt;/html&gt;</snippet>
         <note>
             <strong>Self Contained Bundles</strong>
 
@@ -88,7 +87,8 @@
             enterprise features are available when you use ag-Grid.
         </p>
 
-        <pre>// ECMA 5 - using nodes require() method
+        <snippet>
+// ECMA 5 - using nodes require() method
 var AgGrid = require('ag-grid');
 // only include this line if you want to use ag-grid-enterprise
 require('ag-grid-enterprise');
@@ -96,7 +96,6 @@ require('ag-grid-enterprise');
 // ECMA 6 - using the system import method
 import {Grid} from 'ag-grid/main';
 // only include this line if you want to use ag-grid-enterprise
-import 'ag-grid-enterprise/main';
-</pre>
+import 'ag-grid-enterprise/main';</snippet>
     </div>
 </div>

@@ -23,7 +23,7 @@ include '../documentation-main/documentation_header.php';
         an RTL language, however none of us in ag-Grid know any RTL languages, so we are sticking with English.
     </p>
 
-    <show-example example="exampleRtl"></show-example>
+    <?= example('RTL Simple', 'rtl-simple', 'generated') ?>
 
     <h3 id="complex-example">Complex Example</h3>
 
@@ -33,7 +33,7 @@ include '../documentation-main/documentation_header.php';
         is using ag-Grid Enterprise - hence the tool panel and context menu's are active.
     </p>
 
-    <show-example example="exampleRtlComplex"></show-example>
+    <?= example('RTL Complex', 'rtl-complex', 'vanilla', array("enterprise" => 1)) ?>
 
     <h3 id="how-it-works">How it Works</h3>
 
@@ -57,16 +57,16 @@ include '../documentation-main/documentation_header.php';
         Themes then also use these styles for adding different values based on whether RTL is used or NOT.
         For example, the following is used inside the provided themes:
     </p>
-    <pre><span class="codeComment">// selection checkbox gets 4px padding to the RIGHT when LTR</span>
+    <snippet>
+// selection checkbox gets 4px padding to the RIGHT when LTR
 .ag-ltr .ag-selection-checkbox {
     padding-right 4px;
 }
 
-<span class="codeComment">// selection checkbox gets 4px padding to the LEFT when RTL</span>
+// selection checkbox gets 4px padding to the LEFT when RTL
 .ag-rtl .ag-selection-checkbox {
     padding-left 4px;
-}
-</pre>
+}</snippet>
 
     <h4 id="pinning-and-scroll-bars">Pinning and Scroll Bars</h4>
 

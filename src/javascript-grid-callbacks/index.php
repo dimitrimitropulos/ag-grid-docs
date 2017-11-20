@@ -3,91 +3,17 @@ $key = "Callbacks";
 $pageTitle = "ag-Grid Callbacks";
 $pageDescription = "Learn how each callbacks impacts ag-Grid.";
 $pageKeyboards = "javascript data grid ag-Grid Callbacks";
-$pageGroup = "interfacing";
+$pageGroup = "reference";
 include '../documentation-main/documentation_header.php';
 ?>
 
-    <h2 id="callbacks">Callbacks</h2>
-
-    <p>
-        Callbacks are used by the grid for contacting your client application and asking it questions.
-        It is not intended to inform your application of anything.
-    <p>
-
-    <? if (isFrameworkAngular1()) { ?>
-        <h4 id="angularjs">
-            <img src="/images/javascript.png" height="20"/>
-            <img src="/images/angularjs.png" height="20px"/>
-            Javascript and AngularJS 1.x
-        </h4>
-        <p>
-            Add callbacks to the gridOptions.
-        </p>
-    <? } ?>
-
-    <? if (isFrameworkJavaScript()) { ?>
-        <h4 id="javascript">
-            <img src="/images/javascript.png" height="20"/>
-            Javascript
-        </h4>
-        <p>
-            Add callbacks to the gridOptions.
-        </p>
-    <? } ?>
-
-    <? if (isFrameworkReact()) { ?>
-        <h4>
-            <img src="/images/react.png" height="20px"/>
-            React
-        </h4>
-        <p>
-            Add callbacks to the gridOptions or set as React JSX props.
-        </p>
-    <? } ?>
-
-    <? if (isFrameworkAngular2()) { ?>
-        <h4>
-            <img src="/images/angular2.png" height="20px"/>
-            Angular
-        </h4>
-        <p>
-            Add callbacks to the gridOptions or set as Angular properties.
-        </p>
-    <? } ?>
-
-    <? if (isFrameworkVue()) { ?>
-        <h4>
-            <img src="/images/vue_large.png" height="20px"/>
-            VueJS
-        </h4>
-        <p>
-            Add callbacks to the gridOptions or set as VueJS properties.
-        </p>
-    <? } ?>
-
-    <? if (isFrameworkWebComponents()) { ?>
-        <h4>
-            <img src="/images/webComponents.png" height="20px"/>
-            Web Components
-        </h4>
-        <p>
-            Add callbacks to the gridOptions or set as component properties.
-        </p>
-    <? } ?>
-
-    <? if (isFrameworkAurelia()) { ?>
-        <h4>
-            <img src="/images/aurelia.png" height="20px"/>
-            Aurelia
-        </h4>
-        <p>
-            Add callbacks to the gridOptions or set as component properties.
-        </p>
-    <? } ?>
-
-    <h2 id="list-of-callbacks">List of Callbacks</h2>
+    <h1 id="callbacks" class="first-h1">Grid Callbacks</h1>
 
     <table class="table">
+        <tr class="title-row">
+            <!-- TITLE ROW -->
+            <td colspan="2">All Callbacks</td>
+        </tr>
         <tr>
             <th>isExternalFilterPresent()</th>
             <td>Grid calls this method to know if external filter is present.</td>
@@ -117,14 +43,6 @@ include '../documentation-main/documentation_header.php';
             <td>Callback for grouping. See the section on <a href="../javascript-grid-grouping/#groupingCallbacks">row grouping</a> for detailed explanation.</td>
         </tr>
         <tr>
-            <th>isScrollLag()</th>
-            <td>By default, scrolling lag is enabled for Safari and Internet Explorer (to solve scrolling performance
-                issues in these browsers). To override when to use scroll lag either a) set suppressScrollLag to
-                true to turn off scroll lag feature or b) return true of false from the function
-                isScrollLag. This is a function, as it's expected your code will check the environment to decide
-                whether to use scroll lag or not.</td>
-        </tr>
-        <tr>
             <th>getBusinessKeyForNode(node)</th>
             <td>Return a business key for the node. If implemented, then each row in the dom will have an attribute
                 <i>row-id='abc'</i> where abc is what you return as the business key. This is useful for automated
@@ -139,6 +57,13 @@ include '../documentation-main/documentation_header.php';
             <td>Allows you to pass tree structure data to the grid, or row data that is already grouped.</td>
         </tr>
         <tr>
+            <th>getChildCount(data)</th>
+            <td>
+                For <a href="../javascript-grid-enterprise-model/">Enterprise Row Model</a> only. Allows
+                setting the child count for a group row.
+            </td>
+        </tr>
+        <tr>
             <th>processRowPostCreate(params)</th>
             <td>Allows you to process rows after they are created. So you can do final adding of custom attributes etc.</td>
         </tr>
@@ -151,6 +76,12 @@ include '../documentation-main/documentation_header.php';
             <th>isFullWidthCell(rowNode)</th>
             <td>Tells the grid if this row should be rendered using <a href="../javascript-grid-master-detail/">fullWidth</a>.</td>
         </tr>
+        <tr>
+            <th>isRowMaster(dataItem)</th>
+            <td>Callback to be used with <a href="../javascript-grid-master-detail">Master Detail</a> to determine if
+                a row should be master row. If false is returned no detail row will exist for this row.</td>
+        </tr>
+
         <tr>
             <th>doesDataFlower(dataItem)</th>
             <td>Tells the grid if this row should flower.</td>
@@ -205,6 +136,10 @@ include '../documentation-main/documentation_header.php';
             <td>Allows user to process popups after they are created. Applications can use this if they want to, for
                 example, reposition the popup.</td>
         </tr>
+
+        <?php include_once '../javascript-grid-pagination/paginationProperties.php' ?>
+        <?php printPropertiesRows($paginationCallbacks) ?>
+
     </table>
 </div>
 

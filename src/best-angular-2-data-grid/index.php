@@ -9,17 +9,14 @@ include '../documentation-main/documentation_header.php';
 
 <div>
 
-    <h1>
+    <h1 class="first-h1">
         <img style="vertical-align: middle" src="/images/angular2_large.png" height="50px"/>
-        Angular 2 Grid
+        Angular 2+ Datagrid
     </h1>
 
-    <p>
-        Here we explain how to use ag-Grid inside an Angular 2 application.
-        It is broken down into the following sections:
-    </p>
+    <?= example('ag-Grid in Angular', 'rich-grid-example', 'angular', array( "enterprise" => 1, "exampleHeight" => 525, "showResult" => true, "extras" => array( "fontawesome" ) )); ?>
 
-    <div class="list-group">
+    <div class="list-group" style="margin-bottom: 50px; margin-top: 50px;">
         <a href="/angular-getting-started/" class="list-group-item">
             <div class="float-parent">
                 <div class="section-icon-container">
@@ -52,51 +49,33 @@ include '../documentation-main/documentation_header.php';
                 </div>
                 <h4 class="list-group-item-heading">Building</h4>
                 <p class="list-group-item-text">
-                    Documenting using Angular CLI, Webpack, Webpack 2 and SystemJS to build your ag-Grid application.</p>
+                    Documenting using Angular CLI, Webpack, Webpack 2, ngTools & Webpack and SystemJS to build your ag-Grid application.</p>
+            </div>
+        </a>
+        <a href="../example-angular/" class="list-group-item">
+            <div class="float-parent">
+                <div class="section-icon-container">
+                    <img src="../images/svg/docs/examples.svg" width="50" />
+                </div>
+                <h4 class="list-group-item-heading">Full Examples with Angular</h4>
+                <p class="list-group-item-text">
+                    This page features examples of using ag-Grid and Angular together. It covers more of the features of ag-Grid.
+                </p>
             </div>
         </a>
     </div>
+
+    <div style="text-align: center;">
+        <h2>Feature Roadshow</h2>
+    </div>
+
+    <?php
+    $featuresRoot = '../javascript-grid-features';
+    include '../javascript-grid-features/gridFeatures.php';
+    ?>
+
 </div>
 
 
 <?php include '../documentation-main/documentation_footer.php'; ?>
 
-
-
-<?php
-/*$key = "Getting Started ng2";
-$pageTitle = "Angular Datagrid";
-$pageDescription = "A feature rich datagrid designed for Enterprise. Easily integrate with Angular 2.x to deliver filtering, grouping, aggregation, pivoting and much more.";
-$pageKeyboards = "Angular Grid";
-$pageGroup = "basics";
-include '../documentation-main/documentation_header.php';
-*/?><!--
-
-<h2>
-    <img src="../images/svg/docs/getting_started.svg" width="50" />
-    <img style="vertical-align: middle" src="../images/angular2_small.png" height="25px"/>
-    Getting Started
-</h2>
-
-<p>
-    We document (and provide full working examples) on how to get up and running with ag-Grid and Angular in the
-    quickest possible manner using any of the following build tools:
-</p>
-
-<ul>
-    <li><a href="../ag-grid-angular-angularcli">Angular CLI</a></li>
-    <li><a href="../ag-grid-angular-webpack">Webpack</a></li>
-    <li><a href="../ag-grid-angular-webpack-2">Webpack 2</a></li>
-    <li><a href="../ag-grid-angular-ngtools-webpack">@ngtools/Webpack 2</a></li>
-    <li><a href="../ag-grid-angular-systemjs">SystemJS</a></li>
-</ul>
-
-<p>You may also want to take a look at the live <a href="../example-angular">Angular Examples</a> we provide, including
-using Third-Party libraries such as <code>nrx-bootstrap</code>, <code>Material Design Components</code> and <code>ng2-typeahead</code>.</p>
-
-<note>Full working examples using all of the above build tools can be found <a href="https://github.com/ceolter/ag-grid-angular-example">ag-grid-angular-example</a> on GitHub.</note>
-
-<p>Once you've gone through the Getting Started section of your favourite build tool, we suggest taking a look at
-    <a href="../ag-grid-next-steps">Next Steps</a> next for more detailed information on using Angular with ag-Grid.</p>
-
---><?php /*include '../documentation-main/documentation_footer.php'; */?>

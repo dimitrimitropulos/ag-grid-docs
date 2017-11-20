@@ -32,6 +32,11 @@ include '../documentation-main/documentation_header.php';
     copied.
     </p>
 
+    <note>
+        Performing multiple 'Ctrl + Left Click' operations followed by 'Ctrl+C' will not preserve original cell layout
+        but rather copy them vertically to the clipboard.
+    </note>
+
     <h3>
         Paste from Clipboard
     </h3>
@@ -103,7 +108,7 @@ include '../documentation-main/documentation_header.php';
         <i>suppressCopyRowsToClipboard:true</i>
     </p>
 
-    <show-example example="exampleClipboard" example-height="450px"></show-example>
+    <?= example('Clipboard example', 'simple', 'generated', array("enterprise" => true)) ?>
 
     <h3 id="sendToClipboard">Controlling Clipboard Copy</h3>
 
@@ -119,7 +124,7 @@ include '../documentation-main/documentation_header.php';
         demonstrates the callback by just printing the data to the console.
     </p>
 
-    <show-example example="exampleClipboardCustom" example-height="450px"></show-example>
+    <?= example('Controlling Clipboard Copy', 'custom', 'generated', array("enterprise" => true)) ?>
 
     <h3 class="processClipboard">Processing Clipboard Data</h3>
 
@@ -144,7 +149,7 @@ include '../documentation-main/documentation_header.php';
     <h3 id="suppressPaste">Suppress Paste</h3>
 
     <p>
-        The colDef has a property <a>suppressPaste</a> where you can specify to not allowing
+        The colDef has a property <code>suppressPaste</code> where you can specify to not allowing
         clipboard paste for a particular cell. This can be a boolean or a function (use a function
         to specify for a particular cell, or boolean for the whole column).
     </p>
@@ -165,7 +170,7 @@ include '../documentation-main/documentation_header.php';
     </ul>
     </p>
 
-    <show-example example="exampleClipboardExtra"></show-example>
+    <?= example('Complex Example', 'complex', 'generated', array("enterprise" => true)) ?>
 
 </div>
 

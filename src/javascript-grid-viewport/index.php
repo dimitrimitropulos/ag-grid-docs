@@ -8,7 +8,17 @@ include '../documentation-main/documentation_header.php';
 ?>
 
 <div>
-    <h2><img src="../images/enterprise_50.png" title="Enterprise Feature"/> Viewport Row Model</h2>
+    <h1 class="first-h1"><img src="../images/enterprise_50.png" title="Enterprise Feature"/> Viewport Row Model</h1>
+
+    <note>
+        Don't use Viewport Row Model unless you understand what advantages it offers and whether or not you need them.</p>
+        We find many of our users are using Viewport Row Model when they don't need to and end up with unnecessarily
+        complicated applications as a result. We'd recommend taking a look at our most powerful row model the
+        <a href="../javascript-grid-enterprise-model/">enterprise row model</a> as an alternative.
+        <br><br>
+        The differences between row models can be found in our <a href="../javascript-grid-row-models/">row models summary page</a>
+    </note>
+
     <p>
         A Viewport is a rowModel that allows showing a 'window' of data in your client. Typically all the data
         will reside on the server and the server will know what data is displayed in the client. This is again
@@ -51,43 +61,43 @@ include '../documentation-main/documentation_header.php';
         belongs in the client code.
     </note>
 
-    <h3>Interface IViewportDatasource</h3>
+    <h1>Interface IViewportDatasource</h1>
 
     <p>
         To use the viewportRowModel you provide the grid with a <i>viewportDatasource</i>. A viewportDatasource
         should look like the following:
     </p>
 
-    <pre>interface IViewportDatasource {
+    <snippet>
+interface IViewportDatasource {
 
-    <span class="codeComment">// Gets called exactly once before viewPort is used.</span>
-    <span class="codeComment">// Passes methods to be used to tell viewPort of data loads / changes.</span>
+    // Gets called exactly once before viewPort is used.
+    // Passes methods to be used to tell viewPort of data loads / changes.
     init(params: IViewportDatasourceParams): void;
 
-    <span class="codeComment">// Tell the viewport what the scroll position of the grid is, so it knows what rows it has to get</span>
+    // Tell the viewport what the scroll position of the grid is, so it knows what rows it has to get
     setViewportRange(firstRow: number, lastRow: number): void;
 
-    <span class="codeComment">// Gets called once when viewPort is no longer used. If you need to do any cleanup, do it here.</span>
+    // Gets called once when viewPort is no longer used. If you need to do any cleanup, do it here.
     destroy?(): void;
 }
         
 interface IViewportDatasourceParams {
 
-    <span class="codeComment">// datasource calls this method when the total row count changes. </span>
-    <span class="codeComment">// This in turn sets the height of the grids vertical scroll.</span>
-    setRowCount: (count:number) => void;
+    // datasource calls this method when the total row count changes. 
+    // This in turn sets the height of the grids vertical scroll.
+    setRowCount: (count:number) =&gt; void;
 
-    <span class="codeComment">// datasource calls this when new data arrives. The grid then updates </span>
-    <span class="codeComment">// the provided rows. The rows are mapped [rowIndex]=>rowData].</span>
-    setRowData: (rowData:{[key:number]:any}) => void;
+    // datasource calls this when new data arrives. The grid then updates 
+    // the provided rows. The rows are mapped [rowIndex]=&gt;rowData].
+    setRowData: (rowData:{[key:number]:any}) =&gt; void;
 
-    <span class="codeComment">// datasource calls this when it wants a row node - typically used</span>
-    <span class="codeComment">// when it wants to update the row node data</span>
-    getRow: (rowIndex: number) => RowNode;
-}
-</pre>
+    // datasource calls this when it wants a row node - typically used
+    // when it wants to update the row node data
+    getRow: (rowIndex: number) =&gt; RowNode;
+}</snippet>
 
-    <h3>Example Sequence</h3>
+    <h1>Example Sequence</h1>
 
     <p>
         Reading the interfaces will look confusing if you are looking at the for the first time as the different
@@ -130,7 +140,7 @@ interface IViewportDatasourceParams {
     </ol>
     </p>
 
-    <h3>Updating Data</h3>
+    <h1>Updating Data</h1>
 
     <p>
         If your data changes, you should get a reference to the node by calling <i>params.getRowData(rowIndex)</i>
@@ -147,12 +157,12 @@ interface IViewportDatasourceParams {
             be stored inside the old data, leave the rest of the data untouched. This will result in the grid refreshing
             only the cell that was updated. If the cell has a component with a refresh method, the refresh method will be
             called thus allowing animation. If no refresh method is provided, the grid will remove the cell (and destroy
-            the cellRenderer if it exists) and create the cell again from scratch.
+            the cell renderer if it exists) and create the cell again from scratch.
         </li>
     </ul>
     </p>
 
-    <h2>Replacing Data</h2>
+    <h1>Replacing Data</h1>
 
     <p>
         You may want to completely change data in the viewport, for example if you are showing 'latest 10 trades over 10k'
@@ -166,7 +176,7 @@ interface IViewportDatasourceParams {
         call <i>setRowCount()</i> again. The grid doesn't are how many times you call <i>setRowCount()</i>.
     </p>
 
-    <h2>Sorting</h2>
+    <h1>Sorting</h1>
 
     <p>
         Only server side sorting is supported, if you want sorting you have to do it yourself on the server side.
@@ -174,7 +184,7 @@ interface IViewportDatasourceParams {
         data when it arrives.
     </p>
 
-    <h2>Filtering</h2>
+    <h1>Filtering</h1>
 
     <p>
         As with sorting, filtering also must be done on the server side. To implement, listen for the <i>filterChanged</i>
@@ -182,7 +192,7 @@ interface IViewportDatasourceParams {
         to display the new data.
     </p>
 
-    <h2>Selection</h2>
+    <h1>Selection</h1>
 
     <p>
         Selection works with viewport. It is recommended that you implement <i>getRowNodeId()</i> to give a unique
@@ -190,16 +200,20 @@ interface IViewportDatasourceParams {
         selection value. See the example below for setting up <i>getRowNodeId()</i>.
     </p>
 
-    <h2>Grouping</h2>
+    <note>
+        Performing multiple row selections using 'shift-click' is only possible for rows that are available within the viewport.
+    </note>
+
+    <h1>Grouping</h1>
 
     <p>
         And you guessed it, if you are doing grouping, you will need to implement this yourself on the server side.
-        If you group, then you will need to provide your own groupCellRenderer that gives functionality to your own
+        If you group, then you will need to provide your own <code>groupCellRenderer</code> that gives functionality to your own
         custom grouping. You will also need to manage how the grouping impacts the overall grid's set size yourself (ie
         if you expand a group, the number of rows increases, and likewise contracting will decrease).
     </p>
 
-    <h2>Viewport Settings</h2>
+    <h1>Viewport Settings</h1>
 
     <p>
         For simplicity the above said the viewport was the rows the grid is currently displaying. This is almost true
@@ -225,16 +239,16 @@ interface IViewportDatasourceParams {
         The default buffer size is 5. To change this, set the grid property <i>viewportRowModelBufferSize</i>.
     </p>
 
-    <h2>Example Viewport</h2>
+    <h1>Example Viewport</h1>
 
     <p>
         The example below shows a viewport in action.
     </p>
 
     <p>
-        Two built in cellRenderers are used: animateShowChange (bid, mid and ask columns) and animateSlide
+        Two built in cell renderer's are used: animateShowChange (bid, mid and ask columns) and animateSlide
         (volume column). You may find these useful, however they are provided to demonstrate how one could
-        achieve a change animation. You will probably want to provide your own custom animation cellRenderer
+        achieve a change animation. You will probably want to provide your own custom animation cell renderer
         as how the animation happens will be depend on your application, the type of data and frequency
         of change.
     </p>
@@ -247,47 +261,40 @@ interface IViewportDatasourceParams {
         position and pushes data to the client based on the viewport position.
     </p>
 
-    <show-complex-example example="exampleViewport.html"
-                          sources="{
-                                [
-                                    { root: './', files: 'exampleViewport.html,exampleViewport.js,mockServer.js,viewportDatasource.js' }
-                                ]
-                              }"
-                          exampleheight="500px">
-    </show-complex-example>
+<?= example('Viewport Example', 'viewport', 'generated', array( 'enterprise'=> true )) ?>
 
-    <h3 id="pagination">Example Viewport with Pagination</h3>
+    <h1 id="pagination">Example Viewport with Pagination</h1>
 
     <p>
         The example below is almost identical to the above example with the following differences:
         <ul>
             <li>
-                <b><i>pagination=true</i></b>: To enable pagination.
+                <b><i>pagination = true</i></b> To enable pagination.
             </li>
             <li>
-                <b><i>paginationAutoPageSize=true</i></b>: To set the pagination size to the height of the grid,
+                <b><i>paginationAutoPageSize = true</i></b> To set the pagination size to the height of the grid,
                 so no vertical scrolls are used.
             </li>
             <li>
-                <b><i>viewportRowModelPageSize=1</i></b>: Because we are showing exact pages, the user will not
+                <b><i>viewportRowModelPageSize = 1</i></b> Because we are showing exact pages, the user will not
                 be scrolling, so there is no need to set a minimum page size. Setting page size to 1 means the grid
                 will always ask from the top row through to the bottom row.
             </li>
             <li>
-                <b><i>viewportRowModelBufferSize=0</i></b>: Likewise because there is no scrolling, there is no
+                <b><i>viewportRowModelBufferSize = 0</i></b> Likewise because there is no scrolling, there is no
                 sense in bringing back extra rows to act as a buffer.
             </li>
         </ul>
     </p>
 
-    <show-complex-example example="examplePaginationViewport.html"
-                          sources="{
-                                [
-                                    { root: './', files: 'examplePaginationViewport.html,examplePaginationViewport.js,mockServer.js,viewportDatasource.js' }
-                                ]
-                              }"
-                          exampleheight="500px">
-    </show-complex-example>
+
+    <?= example('Pagination Viewport Example', 'pagination-viewport', 'generated', array( 'enterprise'=> true )) ?>
+
+<!--
+This was example put in by niall for trying to figure out how to have unlimited number of rows in grid
+    <h1>Very Large Data Set</h1>
+-->
+    <?/*= example('Viewport Big Data', 'viewport-big-data', 'generated', array( 'enterprise'=> true )) */?>
 
 </div>
 

@@ -1,4 +1,5 @@
 <?php
+include '../example-runner/utils.php';
 
 $version = 'latest';
 
@@ -9,33 +10,10 @@ if (strcmp($version, 'latest') == 0) {
     $rootFolder = '/archive/' . $version . '/';
 }
 
-// framework is passed in as url parameter
-$framework = $_GET['framework'];
-$cookieKey_framework = 'agGridFramework';
 $cookieKey_expandAll = 'agGridExpandAll';
 $expandAll = $_COOKIE[$cookieKey_expandAll];
 
-// if framework url was not passed, or is invalid, set framework to all
-$allFrameworks = array('javascript', 'angular', 'angularjs', 'react', 'vue', 'aurelia', 'webcomponents', 'all');
-
-// check if framework exists
-if (!in_array($framework, $allFrameworks)) {
-    // set from cookie
-    if ($_COOKIE[$cookieKey_framework]){
-        $framework = $_COOKIE[$cookieKey_framework];
-    } else {
-        $framework = 'all';
-    }
-}
-
 $oneHundredDaysFromNow = time() + 60*60*24*100;
-
-//$domain = ($_SERVER['HTTP_HOST'] != 'localhost') ? $_SERVER['HTTP_HOST'] : false;
-
-// delete cookie first to avoid duplicates
-setcookie($cookieKey_framework, '', time()-300);
-
-setcookie($cookieKey_framework, $framework, $oneHundredDaysFromNow, '/');
 
 function menuItem($indent, $localKey, $name, $url, $noIndentStyling = false) {
     menuItemWithIcon(null, $indent, $localKey, $name, $url, $noIndentStyling);
@@ -49,7 +27,7 @@ function menuItemWithIcon($icon, $indent, $localKey, $name, $url, $noIndentStyli
     if ($GLOBALS[key] == $localKey) {
         print('<span class="sidebarLinkSelected">' . $padding . $iconHtml . $name . '</span>');
     } else {
-        print('<a class="sidebarLink '.$indentClass.'" href="' . $GLOBALS[rootFolder] . $url . '?framework=' . $GLOBALS[framework] . '">' . $padding . $iconHtml . $name . '</a>');
+        print('<a class="sidebarLink '.$indentClass.'" href="' . $GLOBALS[rootFolder] . $url  . '">' . $padding . $iconHtml . $name . '</a>');
     }
 }
 
@@ -61,9 +39,9 @@ function menuItemCollapsibleParent($indent, $localKey, $name, $url, $parentId) {
     $checked = $GLOBALS[$parentId];
     if ($GLOBALS[key] == $localKey) {
         $checked = " checked ";
-        print('<span class="sidebarLinkSelected inline-block" >' . $padding . $name . '</span>');
+        print('<span class="sidebarLinkSelected nline-block" >' . $padding . $name . '</span>');
     } else {
-        print('<a class="sidebarLink '.$indentClass.' inline-block" href="' . $GLOBALS[ rootFolder] . $url . '?framework=' . $GLOBALS[framework] . '">' . $padding . $name . '</a>');
+        print('<a class="sidebarLink '.$indentClass.' nline-block" href="' . $GLOBALS[ rootFolder] . $url  . '">' . $padding . $name . '</a>');
     }
     print('<input collapsible id="'.$parentId.'" type="checkbox" '.$checked.'>');
     print('<label collapsible style="float: right" for="'.$parentId.'"></label>');
@@ -80,62 +58,15 @@ function menuItemCollapsibleChild($indent, $localKey, $name, $url, $parentId, $c
     }
 
     if ($GLOBALS[key] == $localKey) {
-//        print('<script>expandCollapsibleGroup(\''.$parentId.'\')</script>');
-        print('<span class="sidebarLinkSelected inline-block" >' . $padding . $name . '</span>');
+        print('<span class="sidebarLinkSelected nline-block" >' . $padding . $name . '</span>');
     } else {
-        print('<a class="sidebarLink '.$indentClass.' inline-block" href="' . $GLOBALS[ rootFolder ] . $url . '?framework=' . $GLOBALS[framework] . '">' . $padding . $name . '</a>');
+        print('<a class="sidebarLink '.$indentClass.' nline-block" href="' . $GLOBALS[ rootFolder ] . $url  . '">' . $padding . $name . '</a>');
     }
 
     if($position == 'end') {
         print('</section></div>');
     }
 }
-
-function isFrameworkSelected($framework) {
-    if ($framework === $GLOBALS[framework]) {
-        echo 'selected="selected"';
-    }
-}
-
-function isFrameworkAll() {
-    return $GLOBALS[framework] === 'all';
-}
-
-function isFrameworkAngular2()
-{
-    return $GLOBALS[framework] === 'angular' || $GLOBALS[framework] === 'all';
-}
-
-function isFrameworkJavaScript()
-{
-    return $GLOBALS[framework] === 'javascript' || $GLOBALS[framework] === 'all';
-}
-
-function isFrameworkAngular1()
-{
-    return $GLOBALS[framework] === 'angularjs' || $GLOBALS[framework] === 'all';
-}
-
-function isFrameworkReact()
-{
-    return $GLOBALS[framework] === 'react' || $GLOBALS[framework] === 'all';
-}
-
-function isFrameworkVue()
-{
-    return $GLOBALS[framework] === 'vue' || $GLOBALS[framework] === 'all';
-}
-
-function isFrameworkAurelia()
-{
-    return $GLOBALS[framework] === 'aurelia' || $GLOBALS[framework] === 'all';
-}
-
-function isFrameworkWebComponents()
-{
-    return $GLOBALS[framework] === 'webcomponents' || $GLOBALS[framework] === 'all';
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -150,12 +81,12 @@ function isFrameworkWebComponents()
     <!-- Bootstrap -->
     <link inline rel="stylesheet" href="../dist/bootstrap/css/bootstrap.css">
 
+    <link rel="stylesheet" href="../dist/prism/prism.css">
     <link inline rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../documentation-main/documentation.css">
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
     <link rel="shortcut icon" href="https://www.ag-grid.com/favicon.ico"/>
-
 </head>
 
 <body ng-app="documentation">
@@ -177,9 +108,6 @@ function isFrameworkWebComponents()
         </div>
     </nav>
 <?php } ?>
-
-<!-- this is passed to the javascript, so it knows the framework -->
-<span id="frameworkAttr" style="display: none;"><?= $framework ?></span>
 
 <div class="header-row">
 

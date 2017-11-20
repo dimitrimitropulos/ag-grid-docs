@@ -9,7 +9,23 @@ include '../documentation-main/documentation_header.php';
 
 <div>
 
-    <h2 id="selection">Selection</h2>
+    <h2 id="selection">Row Selection</h2>
+
+    <p>
+        Configure row selection with the following properties:
+    </p>
+    <ul>
+        <li><b>rowSelection</b>: Type of row selection, set to either 'single' or 'multiple' to
+            enable selection. Single sets to single row selection, such that when you select a row,
+            the previously selected row gets unselected. Multiple allows multiple row selection.</li>
+        <li><b>rowDeselection</b>: Set to true or false. If true, then rows will be deselected if
+            you hold down ctrl + click the row. Normal behaviour with the grid disallows deselection
+            of nodes (ie once a node is selected, it remains selected until another row is selected
+            in its place).</li>
+        <li><b>suppressRowClickSelection</b>: If true, rows won't be selected when clicked. Use, for
+            example, when you want checkbox selection, and don't want to also select when the row
+            is clicked.</li>
+    </ul>
 
     <p>
         When you pass data to the grid, it wraps each data item in an node. This is explained
@@ -28,26 +44,13 @@ include '../documentation-main/documentation_header.php';
         more information and maps better to the internal representation of ag-grid.
     </p>
 
-    <p>The following properties are relevant to selection:</p>
-    <ul>
-        <li><b>rowSelection</b>: Type of row selection, set to either 'single' or 'multiple' to
-            enable selection.</li>
-        <li><b>rowDeselection</b>: Set to true or false. If true, then rows will be deselected if
-            you hold down ctrl + click the row. Normal behaviour with the grid disallows deselection
-            of nodes (ie once a node is selected, it remains selected until another row is selected
-            in its place).</li>
-        <li><b>suppressRowClickSelection</b>: If true, rows won't be selected when clicked. Use, for
-            example, when you want checkbox selection, and don't want to also select when the row
-            is clicked.</li>
-    </ul>
-
     <h3 id="singleRowSelectionExample">Example - Single Row Selection</h3>
 
     <p>
         The example below shows single row selection.
     </p>
 
-    <show-example example="example1" example-height="450px"></show-example>
+    <?= example('Single Row Selection', 'single-row-selection', 'generated') ?>
 
     <h3 id="multiRowSelectionExample">Example - Multiple Row Selection</h3>
 
@@ -55,7 +58,7 @@ include '../documentation-main/documentation_header.php';
         The example below shows multi-row selection.
     </p>
 
-    <show-example example="example2" example-height="450px"></show-example>
+    <?= example('Multiple Row Selection', 'multiple-row-selection', 'generated') ?>
 
     <h3 id="checkboxSelection">Checkbox Selection</h3>
 
@@ -116,7 +119,7 @@ include '../documentation-main/documentation_header.php';
         Having a checkbox within a non-group row is best for grids that are not using grouping.
     </p>
 
-    <show-example example="exampleGroupSelection" example-height="450px"></show-example>
+    <?= example('Group Selection', 'group-selection', 'generated', array("enterprise" => 1)) ?>
 
     <h4 id="groupsSelectionExample2"><img src="../images/enterprise_50.png" title="Enterprise Feature" /> Groups & Checkbox Selection Example 2 - No Select Leaf Nodes</h4>
 
@@ -127,7 +130,7 @@ include '../documentation-main/documentation_header.php';
         <i>colDef.checkboxSelection</i> and <i>autoGroupColumnDef.cellRendererParams.checkbox</i>.
     </p>
 
-    <show-example example="exampleSelectionCheckbox" example-height="450px"></show-example>
+    <?= example('Selection Checkbox', 'selection-checkbox', 'generated', array("enterprise" => 1)) ?>
 
     <h4 id="groupsSelectionExample3">Groups & Checkbox Selection Example 3 - Only Filtered</h4>
 
@@ -148,7 +151,7 @@ include '../documentation-main/documentation_header.php';
     </ol>
     </p>
 
-    <show-example example="exampleSelectionCheckboxFiltered"></show-example>
+    <?= example('Selection Checkbox Filtered', 'selection-checkbox-filtered', 'generated', array("enterprise" => 1)) ?>
 
     <h3 id="headerCheckboxSelection">Header Checkbox Selection</h3>
 
@@ -159,14 +162,15 @@ include '../documentation-main/documentation_header.php';
         to appear sometimes (eg if the columns is ordered first in the grid).
     </p>
 
-    <pre><span class="codeComment">// the name column header always has a checkbox in the header</span>
+    <snippet>
+// the name column header always has a checkbox in the header
 colDef = {
     field: 'name',
     headerCheckboxSelection: true
     ...
 }
 
-<span class="codeComment">// the country column header only has checkbox if it is the first column</span>
+// the country column header only has checkbox if it is the first column
 colDef = {
     field: 'country',
     headerCheckboxSelection: function(params) {
@@ -175,7 +179,7 @@ colDef = {
         return thisIsFirstColumn;
     }
     ...
-}</pre>
+}</snippet>
 
     <p>
         If <i>headerCheckboxSelection</i> is a function, the function will be called every
@@ -209,7 +213,7 @@ colDef = {
         </ul>
     </p>
 
-    <show-example example="exampleHeaderCheckbox"></show-example>
+    <?= example('Header Checkbox', 'header-checkbox', 'generated') ?>
 
     <h4 id="headerSelectionExample2">Header Checkbox Example 2 - Filtered Only = false</h4>
 
@@ -222,7 +226,7 @@ colDef = {
     </ul>
     </p>
 
-    <show-example example="exampleHeaderCheckboxEntireSet"></show-example>
+    <?= example('Header Checkbox Entire Set', 'header-checkbox-entire-set', 'generated') ?>
 
     <h3 id="selectionEvents">Selection Events</h3>
 
@@ -238,7 +242,7 @@ colDef = {
         </ul>
     </p>
 
-    <show-example example="example3"></show-example>
+    <?= example('Selection Events', 'selection-events', 'generated') ?>
 
     <h3 id="nodeSelectionApi">Node Selection API</h3>
 
@@ -250,17 +254,18 @@ colDef = {
         <li><b>clearSelection</b> (optional): for selection only. If true, other nodes selection will be cleared.
             Use this if you do not want multi selection and want this node to be exclusively selected.</li>
     </ul>
-    <pre><span class="codeComment">// set selected, keep any other selections</span>
+    <snippet>
+// set selected, keep any other selections
 node.setSelected(true);
 
-<span class="codeComment">// set selected, exclusively, remove any other selections</span>
+// set selected, exclusively, remove any other selections
 node.setSelected(true, true);
 
-<span class="codeComment">// un-select</span>
+// un-select
 node.setSelected(false);
 
-<span class="codeComment">// check status of node selection</span>
-var selected = node.isSelected();</pre>
+// check status of node selection
+var selected = node.isSelected();</snippet>
 
     The selected status method returns true if the node is selected, or false if it is not selected. If the
     node is a group node and the group selection is set to 'children', then this will return true if all child
@@ -283,11 +288,12 @@ var selected = node.isSelected();</pre>
     </p>
     <p>
         If you want to select only filtered out rows nodes, then you do this following:
-        <pre><span class="codeComment">// loop through each node after filter</span>
+        <snippet>
+// loop through each node after filter
 api.forEachNodeAfterFilter( function(node) {
-  <span class="codeComment">// select the node</span>
+  // select the node
   node.setSelected(true);
-});</pre>
+});</snippet>
     </p>
 
     <h3 id="deep-dive-example-using-for-each-node">Deep Dive Example - Using <i>forEachNode</i></h3>
@@ -299,15 +305,7 @@ api.forEachNodeAfterFilter( function(node) {
         data for selection purposes.
     </p>
 
-    <show-complex-example example="example4.html"
-                      sources="{
-                            [
-                                { root: './', files: 'example4.html,example4.js' }
-                            ]
-                          }"
-                      plunker="https://embed.plnkr.co/ehKrzYNuZ64CYBOClbL6/"
-                      exampleheight="500px">
-    </show-complex-example>
+    <?= example('Using forEachNode', 'using-foreachnode', 'generated') ?>
 
     <h3 id="selectionArrowKeys">Selection with Keyboard Arrow Keys</h3>
 
@@ -323,20 +321,22 @@ api.forEachNodeAfterFilter( function(node) {
         override the default arrow key navigation
     </p>
 
-    <pre><code>var gridOptions = {
+    <snippet>
+var gridOptions = {
 
         // ...
 
         navigateToNextCell: myNavigation
 
-}</code></pre>
+}</snippet>
 
 
     <p>
         From the code below you can see that we iterate over each node and call the <i>setSelected()</i>
         method if matches the current rowIndex.</p>
 
-    <pre><code>function myNavigation(params) {
+    <snippet>
+function myNavigation(params) {
 
    var previousCell = params.previousCellDef;
    var suggestedNextCell = params.nextCellDef;
@@ -350,7 +350,7 @@ api.forEachNodeAfterFilter( function(node) {
        case KEY_DOWN:
            previousCell = params.previousCellDef;
            // set selected cell on current cell + 1
-           gridOptions.api.forEachNode( (node) => {
+           gridOptions.api.forEachNode( (node) =&gt; {
                if (previousCell.rowIndex + 1 === node.rowIndex) {
                    node.setSelected(true);
                }
@@ -359,7 +359,7 @@ api.forEachNodeAfterFilter( function(node) {
        case KEY_UP:
            previousCell = params.previousCellDef;
            // set selected cell on current cell - 1
-           gridOptions.api.forEachNode( (node) => {
+           gridOptions.api.forEachNode( (node) =&gt; {
                if (previousCell.rowIndex - 1 === node.rowIndex) {
                    node.setSelected(true);
                }
@@ -371,9 +371,9 @@ api.forEachNodeAfterFilter( function(node) {
        default:
            throw "this will never happen, navigation is always on of the 4 keys above";
    }
-}</code></pre>
+}</snippet>
 
-    <show-example example="example5" example-height="450px"></show-example>
+    <?= example('Selection with Keyboard Arrow Keys', 'selection-with-arrow-keys') ?>
 
 </div>
 

@@ -1,62 +1,3 @@
-<div class="dropdown frameworkBox">
-    <div class="frameworkContainer">
-        <h4 class="frameworkHeading">Framework</h4>
-        <button class="btn btn-default frameworkDropdownButton dropdown-toggle<?php if (isFrameworkAll()) { ?> frameworkAllButton<?php } ?>"
-                type="button" onclick="this.classList.toggle('active');" data-toggle="dropdown">
-            <?php if (isFrameworkAll()) { ?>
-                All Frameworks
-            <?php } elseif (isFrameworkAngular2()) { ?>
-                <img src="/images/angular2_small.png" alt="Angular"/>
-                Angular
-            <?php } elseif (isFrameworkAngular1()) { ?>
-                <img src="/images/angularjs_small.png" alt="Angular 1"/>
-                Angular JS
-            <?php } elseif (isFrameworkAurelia()) { ?>
-                <img src="/images/aurelia_small.png" alt="Aurelia"/>
-                Aurelia
-            <?php } elseif (isFrameworkReact()) { ?>
-                <img src="/images/svg/react.alt.svg" width="22" alt="React"/>
-                React
-            <?php } elseif (isFrameworkVue()) { ?>
-                <img src="/images/vue_small.png" alt="Vue"/>
-                Vue JS
-            <?php } elseif (isFrameworkJavaScript()) { ?>
-                <img src="/images/javascript_small.png" alt="JavaScript"/>
-                JavaScript
-            <?php } elseif (isFrameworkWebComponents()) { ?>
-                <img src="/images/webComponents_small.png" alt="Web Components"/>
-                <span class="web-components">Web Components</span>
-            <?php } ?>
-
-            <span class="caret"></span></button>
-        <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-            <li class="frameworkDropdownText">Documentation not relevant to your framework choice will be filtered
-                out.
-            </li>
-            <li class="divider"></li>
-            <li><a class="frameworkDropdown-link" data-id="javascript" href="#"><img src="/images/javascript_small.png"
-                                                                                     alt="JavaScript"/> Just JavaScript
-                    (no framework)</a></li>
-            <li><a class="frameworkDropdown-link" data-id="react" href="#"><img src="/images/svg/react.alt.svg"
-                                                                                width="22" alt="React"/> React</a></li>
-            <li><a class="frameworkDropdown-link" data-id="angular" href="#"><img src="/images/angularjs_small.png"
-                                                                                  alt="Angular 1"/> Angular (Angular 2
-                    and later)</a></li>
-            <li><a class="frameworkDropdown-link" data-id="angularjs" href="#"><img src="/images/angularjs_small.png"
-                                                                                    alt="Angular 1"/> Angular JS
-                    (Angular 1)</a></li>
-            <li><a class="frameworkDropdown-link" data-id="aurelia" href="#"><img src="/images/aurelia_small.png"
-                                                                                  alt="Aurelia"/> Aurelia</a></li>
-            <li><a class="frameworkDropdown-link" data-id="vue" href="#"><img src="/images/vue_small.png" width="22"
-                                                                              alt="Vue"/> Vue JS</a></li>
-            <li><a class="frameworkDropdown-link" data-id="webcomponents" href="#"><img
-                            src="../images/webComponents_small.png" alt="Web Components"/> Web Components</a></li>
-            <li><a class="frameworkDropdown-link all-frameworks" data-id="all" href="#">All Frameworks (show
-                    everything)</a></li>
-        </ul>
-    </div>
-</div>
-
 <a href="#" class="expandAll text-right">
     <?php if ($expandAll === 'true') { ?>
         Close All <i class="fa fa-arrow-down" aria-hidden="true"></i>
@@ -77,17 +18,16 @@
 <div class="docsMenu-content">
 
     <?php
-    if (isFrameworkJavaScript()) {
+        menuItem(0, 'Getting Started', 'Overview', 'javascript-grid-getting-started/');
+
         menuItem(1, 'Overview JavaScript', 'Javascript', 'best-javascript-data-grid/');
         menuItem(2, 'Getting Started Javascript', 'Getting Started', 'javascript-getting-started');
         menuItem(2, 'More Detail Javascript', 'More Details', 'javascript-more-details/');
-    }
-    if (isFrameworkReact()) {
+
         menuItem(1, 'Overview React', 'ReactJS', 'best-react-data-grid/');
         menuItem(2, 'Getting Started React', 'Getting Started', 'react-getting-started/');
         menuItem(2, 'More Detail React', 'More Details', 'react-more-details/');
-    }
-    if (isFrameworkAngular2()) {
+
         menuItem(1, 'Overview Angular', 'Angular 2.x/4.x', 'best-angular-2-data-grid/');
         menuItem(2, 'Getting Started Angular', 'Getting Started', 'angular-getting-started/');
         menuItem(2, 'More Detail Angular', 'More Details', 'angular-more-details/');
@@ -97,48 +37,42 @@
         menuItemCollapsibleChild(3, 'Angular Webpack 2', 'Webpack 2', 'ag-grid-angular-webpack-2/', 'angularParent', 'angularChild');
         menuItemCollapsibleChild(3, 'Angular ngtools Webpack', '@ngtools', 'ag-grid-angular-ngtools-webpack/', 'angularParent', 'angularChild');
         menuItemCollapsibleChild(3, 'Angular SystemJS', 'SystemJS', 'ag-grid-angular-systemjs/', 'angularParent', 'angularChild', 'end');
-    }
-    if (isFrameworkAngular1()) {
+
+        menuItem(1, 'Overview Polymer', 'Polymer', 'best-polymer-data-grid/');
+        menuItem(2, 'Getting Started Polymer', 'Getting Started', 'polymer-getting-started/');
+        menuItem(2, 'More Detail Polymer', 'More Details', 'polymer-more-details/');
+
         menuItem(1, 'Getting Started ng1', 'AngularJS 1.x', 'best-angularjs-data-grid/');
-    }
 
-    if (isFrameworkVue()) {
         menuItem(1, 'Getting Started VueJS', 'VueJS', 'best-vuejs-data-grid/');
-    }
 
-    if (isFrameworkAurelia()) {
         menuItem(1, 'Getting Started Aurelia', 'Aurelia', 'best-aurelia-data-grid/');
-    }
 
-    if (isFrameworkWebComponents()) {
         menuItem(1, 'Getting Started Web Components', 'Web Components', 'best-web-component-data-grid/');
-    }
 
-    if (isFrameworkAll()) {
         menuItem(1, 'Getting Started TypeScript & Webpack 2', 'TypeScript', 'ag-grid-typescript-webpack-2/');
-    }
     ?>
 
 </div>
 
-<div class="docsMenu-header <?php if ($pageGroup == "interfacing" || $expandAll == "true") { ?> active<?php } ?>"
+<div class="docsMenu-header <?php if ($pageGroup == "reference" || $expandAll == "true") { ?> active<?php } ?>"
      data-id="interfacing">
     <h4>
         <img src="../images/svg/docs/interfacing.svg"/>
         &nbsp;
-        Interfacing
+        Reference
     </h4>
     <i class="fa fa-arrow-right" aria-hidden="true"></i>
 </div>
 
 <div class="docsMenu-content">
     <?php
-    menuItem(0, 'Interfacing Overview', 'Overview', 'javascript-grid-interfacing-overview/');
-    menuItem(0, 'Properties', 'Properties', 'javascript-grid-properties/');
-    menuItem(0, 'Column Properties', 'Columns', 'javascript-grid-column-properties/');
-    menuItem(0, 'Events', 'Events', 'javascript-grid-events/');
-    menuItem(0, 'Callbacks', 'Callbacks', 'javascript-grid-callbacks/');
+    menuItem(0, 'Reference Overview', 'Overview', 'javascript-grid-reference-overview/');
+    menuItem(0, 'Properties', 'Grid Properties', 'javascript-grid-properties/');
+    menuItem(0, 'Events', 'Grid Events', 'javascript-grid-events/');
+    menuItem(0, 'Callbacks', 'Grid Callbacks', 'javascript-grid-callbacks/');
     menuItem(0, 'Grid API', 'Grid API', 'javascript-grid-api/');
+    menuItem(0, 'Column Properties', 'Column Properties', 'javascript-grid-column-properties/');
     menuItem(0, 'Column API', 'Column API', 'javascript-grid-column-api/');
     ?>
 </div>
@@ -156,8 +90,10 @@
 <div class="docsMenu-content">
     <?php
     menuItem(0, 'Features', 'Overview', 'javascript-grid-features/');
-    menuItem(0, 'Width & Height', 'Grid Size', 'javascript-grid-width-and-height/');
-    menuItem(0, 'Sorting', 'Sorting', 'javascript-grid-sorting/');
+    menuItem(0, 'ColumnDefs', 'Column Definitions', 'javascript-grid-column-definitions/');
+    menuItem(0, 'Grouping Columns', 'Column Groups', 'javascript-grid-grouping-headers/');
+    menuItem(0, 'Column Header', 'Column Headers', 'javascript-grid-column-header/');
+    menuItem(0, 'Resizing', 'Column Resizing', 'javascript-grid-resizing/');
     menuItem(0, 'Column Filter', 'Column Filter', 'javascript-grid-filtering/');
 
     menuItem(1, 'Text Filter', 'Text Filter', 'javascript-grid-filter-text/');
@@ -169,55 +105,61 @@
     menuItem(0, 'Quick Filter', 'Quick Filter', 'javascript-grid-filter-quick/');
     menuItem(0, 'External Filter', 'External Filter', 'javascript-grid-filter-external/');
 
-    menuItem(0, 'Selection', 'Selection', 'javascript-grid-selection/');
+    menuItem(0, 'Sorting', 'Row Sorting', 'javascript-grid-sorting/');
+    menuItem(0, 'Selection', 'Row Selection', 'javascript-grid-selection/');
     menuItemWithIcon('enterprise.png', 0, 'Range Selection', 'Range Selection', 'javascript-grid-range-selection/');
-    menuItem(0, 'ColumnDefs', 'Column Definitions', 'javascript-grid-column-definitions/');
-    menuItem(0, 'Resizing', 'Column Resizing', 'javascript-grid-resizing/');
-    menuItem(0, 'Pinning', 'Column Pinning', 'javascript-grid-pinning/');
-    menuItem(0, 'Column Header', 'Column Header', 'javascript-grid-column-header/');
-    menuItem(0, 'Grouping Columns', 'Column Grouping', 'javascript-grid-grouping-headers/');
+    menuItem(0, 'Width & Height', 'Grid Size', 'javascript-grid-width-and-height/');
     menuItem(0, 'Column Spanning', 'Column Spanning', 'javascript-grid-column-spanning/');
-    menuItem(0, 'Tree Data', 'Tree Data', 'javascript-grid-tree/');
+    menuItem(0, 'Pinning', 'Column Pinning', 'javascript-grid-pinning/');
+    menuItem(0, 'Row Pinning', 'Row Pinning', 'javascript-grid-row-pinning/');
     menuItem(0, 'Row Height', 'Row Height', 'javascript-grid-row-height/');
-    menuItem(0, 'Floating', 'Floating Rows', 'javascript-grid-floating/');
-    menuItem(0, 'Getters and Formatters', 'Getters & Formatters', 'javascript-grid-value-getters/');
-    menuItem(0, 'Setters and Parsers', 'Setters and Parsers', 'javascript-grid-value-setters/');
-    menuItem(0, 'Cell Expressions', 'Expressions', 'javascript-grid-cell-expressions/');
-    menuItem(0, 'Cell Styling', 'Cell Styling', 'javascript-grid-cell-styling/');
-    menuItem(0, 'Cell Renderer', 'Cell Renderer', 'javascript-grid-cell-rendering/');
+    menuItem(0, 'Cell Styles', 'Cell Styles', 'javascript-grid-cell-styles/');
+    menuItem(0, 'Row Styles', 'Row Styles', 'javascript-grid-row-styles/');
+
+    menuItem(0, 'Value Handlers', 'Value Handlers', 'javascript-grid-value-handlers/');
+    menuItem(1, 'Getters and Formatters', 'Getters & Formatters', 'javascript-grid-value-getters/');
+    menuItem(1, 'Setters and Parsers', 'Setters and Parsers', 'javascript-grid-value-setters/');
+    menuItem(1, 'Cell Expressions', 'Expressions', 'javascript-grid-cell-expressions/');
+    menuItem(1, 'Value Cache', 'Value Cache', 'javascript-grid-value-cache/');
+    menuItem(1, 'Reference Data', 'Reference Data', 'javascript-grid-reference-data/');
+    menuItem(0, 'Cell Rendering', 'Cell Rendering', 'javascript-grid-cell-rendering/');
     menuItem(0, 'Cell Editing', 'Cell Editing', 'javascript-grid-cell-editing/');
-    menuItem(0, 'Pagination', 'Pagination', 'javascript-grid-pagination/');
-    menuItem(0, 'Context', 'Context', 'javascript-grid-context/');
-    menuItem(0, 'AccessingData', 'Accessing Data', 'javascript-grid-accessing-data/');
+
+    menuItem(0, 'Keyboard Navigation', 'Keyboard Navigation', 'javascript-grid-keyboard-navigation/');
+    menuItem(0, 'Touch', 'Touch Support', 'javascript-grid-touch/');
     menuItem(0, 'Animation', 'Animation', 'javascript-grid-animation/');
-    menuItem(0, 'DataUpdate', 'Data Update', 'javascript-grid-data-update/');
+    menuItem(0, 'AccessingData', 'Accessing Data', 'javascript-grid-accessing-data/');
+
+    menuItem(0, 'Pagination', 'Pagination', 'javascript-grid-pagination/');
+    menuItem(0, 'DataUpdate', 'Updating Data', 'javascript-grid-data-update/');
     menuItem(0, 'Refresh', 'View Refresh', 'javascript-grid-refresh/');
     menuItem(0, 'Change Detection', 'Change Detection', 'javascript-grid-change-detection/');
-    menuItem(0, 'Keyboard Navigation', 'Keyboard Navigation', 'javascript-grid-keyboard-navigation/');
     menuItem(0, 'Internationalisation', 'Internationalisation', 'javascript-grid-internationalisation/');
-    menuItemWithIcon('lab.png', 0, 'Accessibility', 'Accessibility', 'javascript-grid-accessibility/');
+    menuItem(0, 'Performance', 'Performance', 'javascript-grid-performance/');
+    menuItem(0, 'Accessibility', 'Accessibility', 'javascript-grid-accessibility/');
     menuItem(0, 'Full Width Rows', 'Full Width Rows', 'javascript-grid-full-width-rows/');
-    menuItem(0, 'Master Detail', 'Master Detail', 'javascript-grid-master-detail/');
-    menuItem(0, 'Master / Slave', 'Master / Slave', 'javascript-grid-master-slave/');
-    menuItem(0, 'Touch', 'Touch', 'javascript-grid-touch/');
+    menuItemWithIcon('enterprise.png',0, 'Master Detail', 'Master / Detail', 'javascript-grid-master-detail/');
+    menuItem(0, 'Aligned Grids', 'Aligned Grids', 'javascript-grid-aligned-grids/');
     menuItem(0, 'Data Export', 'CSV Export', 'javascript-grid-export/');
     menuItemWithIcon('enterprise.png', 0, 'Excel Export', 'Excel Export', 'javascript-grid-excel/');
     menuItem(0, 'RTL', 'RTL', 'javascript-grid-rtl/');
-    menuItem(0, 'Icons', 'Icons', 'javascript-grid-icons/');
+    menuItem(0, 'Icons', 'Custom Icons', 'javascript-grid-icons/');
     menuItem(0, 'Overlays', 'Overlays', 'javascript-grid-overlays/');
-    menuItem(0, 'For Print', 'For Print', 'javascript-grid-for-print/');
+    menuItem(0, 'For Print', 'Layout For Print', 'javascript-grid-for-print/');
 
-    menuItemWithIcon('enterprise.png', 0, 'Data Functions', 'Data Functions', 'javascript-grid-data-functions/');
-    menuItemWithIcon('enterprise.png', 1, 'Grouping', 'Grouping Rows', 'javascript-grid-grouping/');
-    menuItemWithIcon('enterprise.png', 1, 'Aggregation', 'Aggregation', 'javascript-grid-aggregation/');
-    menuItemWithIcon('enterprise.png', 1, 'Pivoting', 'Pivoting', 'javascript-grid-pivoting/');
+    menuItemWithIcon('enterprise.png', 0, 'Row Grouping', 'Row Grouping', 'javascript-grid-grouping/');
+    menuItemWithIcon('enterprise.png', 0, 'Tree Data', 'Tree Data', 'javascript-grid-tree-data/');
 
+    menuItemWithIcon('enterprise.png', 0, 'Aggregation', 'Aggregation', 'javascript-grid-aggregation/');
+    menuItemWithIcon('enterprise.png', 0, 'Pivoting', 'Pivoting', 'javascript-grid-pivoting/');
     menuItemWithIcon('enterprise.png', 0, 'Tool Panel', 'Tool Panel', 'javascript-grid-tool-panel/');
     menuItemWithIcon('enterprise.png', 0, 'Clipboard', 'Clipboard', 'javascript-grid-clipboard/');
     menuItemWithIcon('enterprise.png', 0, 'Column Menu', 'Column Menu', 'javascript-grid-column-menu/');
     menuItemWithIcon('enterprise.png', 0, 'Context Menu', 'Context Menu', 'javascript-grid-context-menu/');
     menuItemWithIcon('enterprise.png', 0, 'Status Bar', 'Status Bar', 'javascript-grid-status-bar/');
     menuItemWithIcon('enterprise.png', 0, 'License Key', 'License Key', 'javascript-grid-set-license/');
+
+    menuItem(0, 'Context', 'Context', 'javascript-grid-context/');
 
     ?>
 </div>
@@ -248,7 +190,7 @@
     <h4>
         <img src="../images/svg/docs/themes.svg"/>
         &nbsp;
-        Themes
+        Themes <sup class="new">new</sup>
     </h4>
     <i class="fa fa-arrow-right" aria-hidden="true"></i>
 </div>
@@ -256,12 +198,12 @@
 <div class="docsMenu-content">
 
     <?php
-    menuItem(0, 'Styling', 'Overview', 'javascript-grid-styling/');
-    menuItem(0, 'Fresh Theme', 'Fresh Theme', 'javascript-grid-themes/fresh-theme.php');
-    menuItem(0, 'Blue Theme', 'Blue Theme', 'javascript-grid-themes/blue-theme.php');
-    menuItem(0, 'Dark Theme', 'Dark Theme', 'javascript-grid-themes/dark-theme.php');
-    menuItem(0, 'Material Theme', 'Material Theme', 'javascript-grid-themes/material-theme.php');
-    menuItem(0, 'Bootstrap Theme', 'Bootstrap Theme', 'javascript-grid-themes/bootstrap-theme.php');
+    menuItem(0, 'Styling', 'Overview <sup class="new">new</sup>', 'javascript-grid-styling/');
+    menuItem(0, 'Fresh Theme', 'Fresh ', 'javascript-grid-themes/fresh-theme.php');
+    menuItem(0, 'Blue Theme', 'Blue', 'javascript-grid-themes/blue-theme.php');
+    menuItem(0, 'Dark Theme', 'Dark', 'javascript-grid-themes/dark-theme.php');
+    menuItem(0, 'Bootstrap Theme', 'Bootstrap', 'javascript-grid-themes/bootstrap-theme.php');
+    menuItem(0, 'Material Theme', 'Material', 'javascript-grid-themes/material-theme.php');
     ?>
 
 </div>
@@ -279,7 +221,7 @@
 <div class="docsMenu-content">
     <?php
     menuItem(0, 'Components', 'Overview', 'javascript-grid-components/');
-    menuItem(0, 'Cell Rendering', 'Cell Renderer', 'javascript-grid-cell-rendering-components/');
+    menuItem(0, 'Cell Rendering Components', 'Cell Renderer', 'javascript-grid-cell-rendering-components/');
     menuItem(0, 'Cell Editor', 'Cell Editor', 'javascript-grid-cell-editor/');
     menuItem(0, 'Filter Component', 'Filter Component', 'javascript-grid-filter-component/');
     menuItem(0, 'Floating Filter Component', 'Floating Filter Component', 'javascript-grid-floating-filter-component/');
@@ -301,38 +243,48 @@
 <div class="docsMenu-examples">
     <?php
 
-    menuItem(0, 'ag-Grid Examples', 'ag-Grid Examples', 'javascript-grid-examples/');
-    if (isFrameworkReact() || isFrameworkAll()) {
-        menuItemWithIcon('react_small.png', 1, 'React Examples', 'React Examples', 'example-react/', true);
-        menuItem(2, 'React Rich Grid', 'Rich Grid', 'example-react-rich-grid/');
-        menuItem(2, 'React Dynamic', 'Cell Renderers', 'example-react-dynamic/');
-        menuItem(2, 'React Editor', 'Editor Component', 'example-react-editor/');
-        menuItem(2, 'React Filter', 'Filter Component', 'example-react-filter/');
-        menuItem(2, 'React Floating Row', 'Floating Rows', 'example-react-floating-row/');
-        menuItem(2, 'React Full Width', 'Full Width Rows', 'example-react-full-width-rows/');
-        menuItem(2, 'React Group Row', 'Group Rows', 'example-react-grouped-row/');
-        menuItem(2, 'React MasterDetail', 'Master/Detail', 'example-react-master-detail/');
-        menuItem(2, 'React Redux', 'Redux Examples', 'example-react-redux/');
-    }
-    if (isFrameworkAngular2() || isFrameworkAll()) {
-        menuItemWithIcon('angular2_small.png', 1, 'Angular Examples', 'Angular Examples', 'example-angular/', true);
-        menuItem(2, 'Angular Rich Grid', 'Rich Grid', 'example-angular-rich-grid/');
-        menuItem(2, 'Angular Markup', 'Grid via Markup', 'example-angular-rich-grid-markup/');
-        menuItem(2, 'Angular Dynamic', 'Cell Renderers', 'example-angular-dynamic/');
-        menuItem(2, 'Angular Editor', 'Editor Component', 'example-angular-editor/');
-        menuItem(2, 'Angular Filter', 'Filter Component', 'example-angular-filter/');
-        menuItem(2, 'Angular Floating Filter', 'Floating Filter', 'javascript-grid-floating-filter-component/#ng2Angular');
-        menuItem(2, 'Angular Floating Row', 'Floating Rows', 'example-angular-floating-row/');
-        menuItem(2, 'Angular Full Width', 'Full Width Rows', 'example-angular-full-width-rows/');
-        menuItem(2, 'Angular Group Row', 'Group Rows', 'example-angular-grouped-row/');
-        menuItem(2, 'Angular MasterDetail', 'Master/Detail', 'example-angular-master-detail/');
-        menuItem(2, 'Angular RxJS', 'RxJS', 'example-angular-rxjs/');
-        menuItem(2, 'Angular Third Party', 'Third Party', 'example-angular-third-party/');
-    }
-    menuItem(1, 'Styled Report', 'Styled Report', 'example-account-report/');
-    menuItem(1, 'File Browser', 'File Browser', 'example-file-browser/');
-    menuItem(1, 'Expressions and Context', 'Expressions', 'example-expressions-and-context/');
-    menuItem(1, 'Gallery', 'Gallery', 'example-gallery/');
+    menuItem(0, 'Examples Overview', 'Overview', 'javascript-grid-examples/');
+
+    menuItemWithIcon('react_small.png', 1, 'React Examples', 'React Examples', 'example-react/', true);
+    menuItem(2, 'React Rich Grid', 'Rich Grid', 'react-getting-started#react-rich-grid-example');
+    menuItem(2, 'React Dynamic', 'Cell Renderers', 'example-react-dynamic/');
+    menuItem(2, 'React Editor', 'Editor Component', 'javascript-grid-cell-editor#example-cell-editing-using-react-components');
+    menuItem(2, 'React Filter', 'Filter Component', 'javascript-grid-filter-component#example-filtering-using-react-components');
+    menuItem(2, 'React Floating Filter', 'Floating Filter', 'javascript-grid-floating-filter-component#react-floating-filter-example');
+    menuItem(2, 'React Pinned Row', 'Pinned Rows', 'example-react-floating-row/');
+    menuItem(2, 'React Full Width', 'Full Width Rows', 'example-react-full-width-rows/');
+    menuItem(2, 'React Group Row', 'Group Rows', 'example-react-grouped-row/');
+    menuItem(2, 'React Redux', 'Redux Examples', 'example-react-redux/');
+
+    menuItemWithIcon('angular2_small.png', 1, 'Angular Examples', 'Angular Examples', 'example-angular/', true);
+    menuItem(2, 'Angular Rich Grid', 'Rich Grid', 'angular-getting-started#angular-rich-grid-example');
+    menuItem(2, 'Angular Markup', 'Grid via Markup', 'angular-more-details#example-rich-grid-using-markup');
+    menuItem(2, 'Angular Dynamic', 'Cell Renderers', 'example-angular-dynamic/');
+    menuItem(2, 'Angular Editor', 'Editor Component', 'javascript-grid-cell-editor#example-cell-editing-using-angular-components');
+    menuItem(2, 'Angular Filter', 'Filter Component', 'javascript-grid-filter-component#example-filtering-using-angular-components');
+    menuItem(2, 'Angular Floating Filter', 'Floating Filter', 'javascript-grid-floating-filter-component#ng2Angular');
+    menuItem(2, 'Angular Pinned Row', 'Pinned Rows', 'example-angular-floating-row/');
+    menuItem(2, 'Angular Full Width', 'Full Width Rows', 'example-angular-full-width-rows/');
+    menuItem(2, 'Angular Group Row', 'Group Rows', 'example-angular-grouped-row/');
+    menuItem(2, 'Angular RxJS', 'RxJS', 'example-angular-rxjs/');
+    menuItem(2, 'Angular Third Party', 'Third Party', 'example-angular-third-party/');
+
+    menuItemWithIcon('polymer-small.png', 1, 'Polymer Examples', 'Polymer Examples', 'example-polymer/', true);
+    menuItem(2, 'Polymer Rich Grid', 'Rich Grid', 'polymer-getting-started#polymer-rich-grid-example');
+    menuItem(2, 'Polymer Dynamic', 'Cell Renderers', 'example-polymer-dynamic/');
+    menuItem(2, 'Polymer Editor', 'Editor Component', 'javascript-grid-cell-editor#example-cell-editing-using-polymer-components');
+    menuItem(2, 'Polymer Filter', 'Filter Component', 'javascript-grid-filter-component#example-filtering-using-polymer-components');
+    menuItem(2, 'Polymer Floating Filter', 'Floating Filter', 'javascript-grid-floating-filter-component#polymerFilter');
+    menuItem(2, 'Polymer Pinned Row', 'Pinned Rows', 'example-polymer-floating-row/');
+    menuItem(2, 'Polymer Full Width', 'Full Width Rows', 'example-polymer-full-width-rows/');
+    menuItem(2, 'Polymer Group Row', 'Group Rows', 'example-polymer-grouped-row/');
+
+    menuItemWithIcon('svg/javascript.svg', 1, 'JavaScript Examples', 'Plain JavaScript', 'example-javascript/', true);
+    menuItem(2, 'Styled Report', 'Styled Report', 'example-account-report/');
+    menuItem(2, 'File Browser', 'File Browser', 'example-file-browser/');
+    menuItem(2, 'Expressions and Context', 'Expressions', 'example-expressions-and-context/');
+    menuItem(2, 'Import Excel', 'Excel Import', 'example-excel-import/');
+    menuItem(2, 'Gallery', 'Gallery', 'example-gallery/');
     ?>
 </div>
 
@@ -366,7 +318,6 @@
     <div class="docsMenu-content">
         <?php
         menuItem(0, 'Change Log', 'Change Log', 'change-log/changeLogIndex.php');
-        menuItem(0, 'Roadmap', 'Roadmap', 'javascript-grid-roadmap');
         menuItem(0, 'Intermediate Tutorial', 'Tutorials', 'ag-grid-tutorials/');
         menuItem(0, 'Responsiveness', 'Responsive Design', 'javascript-grid-responsiveness/');
         menuItem(0, 'Testing', 'Testing', 'javascript-grid-testing/');
@@ -386,7 +337,7 @@
                 <img src="../images/github100.png" style="width: 50px"/>
             </td>
             <td>
-                <iframe src="https://ghbtns.com/github-btn.html?user=ceolter&repo=ag-grid&type=star&count=true"
+                <iframe src="https://ghbtns.com/github-btn.html?user=ag-grid&repo=ag-grid&type=star&count=true"
                         frameborder="0" scrolling="0" width="120px" height="20px"
                         style="position: relative; top: 3px;" class="hide-when-medium">
                 </iframe>

@@ -21,7 +21,7 @@ include '../documentation-main/documentation_header.php';
     </p>
 
     <p>
-        <b>Months</b> are effected by the context. The data displayed is either x_act or x_bud data for the month
+        <b>Months</b> are affected by the context. The data displayed is either x_act or x_bud data for the month
         (eg jan_act when jan is green, or jan_bud when jan is red). Likewise the background color is also
         changed using class rules dependent on the selected month.
     </p>
@@ -40,7 +40,7 @@ include '../documentation-main/documentation_header.php';
         This example is best viewed by opening it in a new tab (click the link on the top right of the example).
     </p>
 
-    <show-example example="monthlySales"></show-example>
+    <?= example("Monthly Sales", "monthly-sales", "vanilla", array("enterprise" => true, "extras" => array("fontawesome", "bootstrap"))) ?>
 
 </div>
 

@@ -1,74 +1,126 @@
 var gulp = require('gulp');
 var inlinesource = require('gulp-inline-source');
+
 var htmlmin = require('gulp-htmlmin');
-var uncss  = require('gulp-uncss');
+var uncss = require('gulp-uncss');
 const debug = require('gulp-debug');
 
-gulp.task('copy-from-docs', copyFromDocs);
-gulp.task('copy-from-ag-grid', copyFromAgGrid);
-gulp.task('copy-from-ag-grid-enterprise', copyFromAgGridEnterprise);
-gulp.task('uncss', ['copy-from-docs','copy-from-ag-grid','copy-from-ag-grid-enterprise'], uncssTask);
-gulp.task('inline-into-php', ['uncss'], inlineIntoPhp);
+const cp = require('child_process');
 
-gulp.task('default', ['inline-into-php']);
-gulp.task('release', ['inline-into-php']);
+const webpack = require('webpack-stream');
+const named = require('vinyl-named');
+const path = require('path');
 
-function uncssTask() {
-    return gulp.src('./dist/dist/bootstrap/css/bootstrap.css')
-        .pipe(uncss({
-            html: ['src/**/*.php','src/**/*.html'],
-            ignore: [
-                '.nav-pills > li.active > a',
-                '.nav-pills > li.active > a:hover',
-                '.nav-pills > li.active > a:focus',
-            ]
-        }))
-        .pipe(gulp.dest('./dist/dist/bootstrap/css'));
-}
+const filter = require('gulp-filter');
+const gulpIf = require('gulp-if');
+const replace = require('gulp-replace');
+
+const merge = require('merge-stream');
+
+const SKIP_INLINE = true;
+
+gulp.task('release', ['generate-examples', 'process-src', 'bundle-site', 'copy-from-dist', 'populate-dev']);
+gulp.task('default', ['release']);
+
+gulp.task('bundle-site', () => {
+    const theWebpack = require('webpack')
+    const webpackConfig = require('./webpack-config/site.js');
+    webpackConfig.entry.site = './src/_assets/ts/site';
+    webpackConfig.plugins = [ new theWebpack.DefinePlugin({
+        MAX_ACTIVE_EXAMPLES: JSON.stringify(100)
+    }) ];
+    webpackConfig.output.filename = 'site.js'
+
+    return gulp
+        .src('./src/_assets/ts/site.ts')
+        .pipe(named())
+        .pipe(webpack(webpackConfig))
+        .pipe(gulp.dest('dist/dist'));
+});
+
+const PACKAGES_DIR = "dev";
 
 // the below caused errors if we tried to copy in from ag-grid and ag-grid-enterprise linked folders
-function copyFromDocs() {
-    return gulp.src(['./src/**/*','!./src/dist/ag-grid/','!./src/dist/ag-grid-enterprise/'])
-        .pipe(gulp.dest('./dist'));
-}
+gulp.task('process-src', () => {
+    const version = require('../ag-grid/package.json').version;
 
-function copyFromAgGrid() {
-    return gulp.src(['../ag-grid/dist/ag-grid.js'])
-        .pipe(gulp.dest('./dist/dist/ag-grid/'));
-}
+    const phpFilter = filter('**/*.php', {restore: true});
+    const bootstrapFilter = filter('src/dist/bootstrap/css/bootstrap.css', {
+        restore: true
+    });
 
-function copyFromAgGridEnterprise() {
-    return gulp.src(['../ag-grid-enterprise/dist/ag-grid-enterprise.js'])
-        .pipe(gulp.dest('./dist/dist/ag-grid-enterprise'));
-}
+    const uncssPipe = uncss({
+        html: ['src/**/*.php', 'src/**/*.html'],
+        ignore: ['.nav-pills > li.active > a', '.nav-pills > li.active > a:hover', '.nav-pills > li.active > a:focus']
+    });
 
-function inlineIntoPhp() {
-    return gulp.src(['./dist/**/*.php'])
-        .pipe(debug())
-        .pipe(inlinesource())
-        // this plugin couldn't handle javascript examples in the documentation, and also messed up the
-        // layout of the index.html features list (the diamond separated list)
-        //.pipe(htmlmin({collapseWhitespace: true}))
-        .pipe(gulp.dest('./dist'));
-}
-
-/*
-gulp.task('copy-bootstrap', function() {
-    return gulp.src([
-        './node_modules/bootstrap/dist/js/bootstrap.js',
-        './node_modules/bootstrap/dist/css/bootstrap.css',
-        './node_modules/bootstrap/dist/css/bootstrap-theme.css'
-    ])
-        .pipe(gulp.dest('./dist/dist'));
+    return (
+        gulp
+            .src(['./src/**/*', '!./src/dist/ag-grid/', '!./src/dist/ag-grid-enterprise/', `!${PACKAGES_DIR}`])
+            // inline the PHP part
+            .pipe(phpFilter)
+            // .pipe(debug())
+            .pipe(gulpIf(!SKIP_INLINE, inlinesource()))
+            .pipe(phpFilter.restore)
+            // do uncss
+            .pipe(bootstrapFilter)
+            // .pipe(debug())
+            .pipe(gulpIf(!SKIP_INLINE, uncssPipe))
+            .pipe(bootstrapFilter.restore)
+            .pipe(gulp.dest('./dist'))
+    );
 });
 
-gulp.task('copy-font-awesome', function() {
-    return gulp.src([
-            './node_modules/font-awesome/css/font-awesome.css',
-            './node_modules/font-awesome/fonts/!*'
-        ]
-        , {base: './node_modules/font-awesome'}
-    )
-        .pipe(gulp.dest('./dist/dist/font-awesome'));
+gulp.task('populate-dev', () => {
+    const standard = gulp.src('../ag-grid/**/*.*', {base: '../ag-grid/'}).pipe(gulp.dest(`dist/${PACKAGES_DIR}/ag-grid`));
+
+    const enterprise = gulp.src('../ag-grid-enterprise/**/*.*', {base: '../ag-grid-enterprise/'}).pipe(gulp.dest(`dist/${PACKAGES_DIR}/ag-grid-enterprise`));
+
+    const enterpriseBundle = gulp.src('../ag-grid-enterprise/dist/ag-grid-enterprise.js').pipe(gulp.dest(`dist/${PACKAGES_DIR}/ag-grid-enterprise-bundle/`));
+
+    const react = gulp.src('../ag-grid-react/**/*.*', {base: '../ag-grid-react/'}).pipe(gulp.dest(`dist/${PACKAGES_DIR}/ag-grid-react`));
+
+    const angular = gulp.src('../ag-grid-angular/**/*.*', {base: '../ag-grid-angular/'}).pipe(gulp.dest(`dist/${PACKAGES_DIR}/ag-grid-angular`));
+
+    return merge(standard, enterprise, enterpriseBundle, react, angular);
 });
-*/
+
+gulp.task('replace-to-cdn', () => {
+    const version = require('../ag-grid/package.json').version;
+
+    return gulp
+        .src('./dist/config.php')
+        .pipe(replace('$$LOCAL$$', version))
+        .pipe(gulp.dest('./dist'));
+});
+
+gulp.task('copy-from-dist', () => {
+    return merge(
+        gulp.src(['../ag-grid/dist/ag-grid.js']).pipe(gulp.dest('./dist/dist/ag-grid/')),
+        gulp
+            .src(['../ag-grid-enterprise/dist/ag-grid-enterprise.js', '../ag-grid-enterprise/dist/ag-grid-enterprise.min.js'])
+            .pipe(gulp.dest('./dist/dist/ag-grid-enterprise'))
+    );
+});
+
+const generateExamples = require('./example-generator');
+gulp.task('serve', require('./dev-server'));
+gulp.task('generate-examples', generateExamples);
+
+gulp.task('serve-preview', () => {
+    const php = cp.spawn('php', ['-S', '127.0.0.1:9999', '-t', 'dist'], {
+        stdio: 'inherit'
+    });
+
+    process.on('exit', () => {
+        php.kill();
+    });
+});
+
+/* for ci */
+gulp.task('copy-ag-dependencies-to-dist', () => {
+    return merge(
+        gulp.src(['./node_modules/ag-grid/dist/ag-grid.js']).pipe(gulp.dest('./src/dist/ag-grid/')),
+        gulp.src(['./node_modules/ag-grid-enterprise/dist/ag-grid-enterprise.js']).pipe(gulp.dest('./src/dist/ag-grid-enterprise/'))
+    );
+});

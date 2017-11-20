@@ -9,7 +9,7 @@ include '../documentation-main/documentation_header.php';
 
 <div>
 
-    <h1 class="first-h1" id="grouping-columns">Grouping Columns</h1>
+    <h1 class="first-h1" id="grouping-columns">Column Groups</h1>
 
     <p>
         Grouping columns allows you to have multiple levels of columns in your header and the ability,
@@ -25,7 +25,8 @@ include '../documentation-main/documentation_header.php';
         Here is a code snippet of providing two groups of columns.
     </p>
 
-    <pre><code>gridOptions.columnDefs = [
+    <snippet>
+gridOptions.columnDefs = [
     {
         headerName: "Athlete Details",
         children: [
@@ -44,7 +45,7 @@ include '../documentation-main/documentation_header.php';
             {headerName: "Bronze", columnGroupShow: 'open'}
         ]
     }
-];</code></pre>
+];</snippet>
 
     <h2 id="column-definitions-vs-column-group-definitions">Column Definitions vs Column Group Definitions</h2>
 
@@ -130,9 +131,18 @@ include '../documentation-main/documentation_header.php';
     <p>
         The grid doesn't color the groups for you. However you can use the column definition
         <i>headerClass</i> for this purpose. The <i>headerClass</i> attribute is available
-        on both columns and column groups. The example below shows using the headerClass
-        to set the header name based on the group the column is inside.
+        on both columns and column groups.
     </p>
+
+    <snippet>columnDefs = [
+    {
+        headerName: 'Athlete Details',
+        // this CSS class will get applied to the header group
+        headerClass: 'my-css-class',
+        // then children as normal
+        children: [ ... ]
+    }
+]</snippet>
 
     <h2 id="grouping-example">Grouping Example</h2>
 
@@ -140,7 +150,7 @@ include '../documentation-main/documentation_header.php';
         Here is a basic example of grouping in action.
     </p>
 
-    <show-example example="example1"></show-example>
+    <?= example('Basic Grouping', 'basic-grouping', 'generated') ?>
 
     <h2 id="grouping-example-with-marrychildren-set">Marry Children</h2>
 
@@ -169,7 +179,7 @@ include '../documentation-main/documentation_header.php';
         </li>
     </ul>
 
-    <show-example example="exampleMarryChildren"></show-example>
+    <?= example('Marry Children', 'marry-children', 'generated') ?>
 
     <h2 id="advanced-grouping-example">Advanced Grouping Example</h2>
 
@@ -201,8 +211,7 @@ include '../documentation-main/documentation_header.php';
     <p>
     </p>
 
-    <show-example example="exampleColumnGroupComplex"></show-example>
-
+    <?= example('Advanced Grouping', 'advanced-grouping', 'generated', array("extras" => array("fontawesome"))) ?>
 </div>
 
 <?php include '../documentation-main/documentation_footer.php';?>

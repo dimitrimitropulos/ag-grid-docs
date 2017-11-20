@@ -9,14 +9,14 @@ include '../documentation-main/documentation_header.php';
 
 <div>
 
-    <h2 id="keyboard-navigation">Keyboard Navigation</h2>
+    <h1 id="keyboard-navigation">Keyboard Navigation</h1>
 
     <p>
         Clicking on a cell gives the cell focus. You can then navigate and interact with the grid in the
         following ways...
     </p>
 
-    <h4 id="navigation">Navigation</h4>
+    <h3 id="navigation">Navigation</h3>
 
     <p>
         Use the <b>arrow keys</b> to move focus to the selection up, down, left and right. If the selected cell is
@@ -35,7 +35,7 @@ include '../documentation-main/documentation_header.php';
         navigating, the grouping row is skipped.
     </p>
 
-    <h4 id="groups">Groups</h4>
+    <h3 id="groups">Groups</h3>
 
     <p>
         If on a group element, hitting the <b>enter key</b> will expand or collapse the group. This only works
@@ -43,21 +43,21 @@ include '../documentation-main/documentation_header.php';
         is not selectable.
     </p>
 
-    <h4 id="editing">Editing</h4>
+    <h3 id="editing">Editing</h3>
 
     <p>
         Pressing the <b>enter key</b> on a cell will put the cell into edit mode, if editing is allowed on the cell.
         This will work for the default cell editor.
     </p>
 
-    <h4 id="selection">Selection</h4>
+    <h3 id="selection">Selection</h3>
 
     <p>
         Pressing the <b>space key</b> on a cell will select the cells row, or deselect the row if already selected.
         If multi-select is enabled, then the selection will not remove any previous selections.
     </p>
 
-    <h4 id="custom-actions">Custom Actions</h4>
+    <h3 id="custom-actions">Custom Actions</h3>
 
     <p>
         Custom cell renderers can listen to key presses on the focused div. The grid element that receives
@@ -66,20 +66,20 @@ include '../documentation-main/documentation_header.php';
         on the cell eg hitting 'x' may execute a command in your application for that cell.
     </p>
 
-    <h4 id="suppress-cell-selection">Suppress Cell Selection</h4>
+    <h3 id="suppress-cell-selection">Suppress Cell Selection</h3>
 
     <p>
         If you want keyboard navigation turned off, then set <i>suppressCellSelection=true</i> in the <i>gridOptions</i>.
     </p>
 
-    <h4>Example</h4>
+    <h3>Example</h3>
 
     <p>
         All the items above (navigation, editing, groups, selection) are observable in the test drive.
         As such, a separate example is not provided here.
     </p>
 
-    <h2 id="customNavigation">Custom Navigation</h2>
+    <h3 id="customNavigation">Custom Navigation</h3>
 
     <p>
         Most people will be happy with the default navigation the grid does when you use the arrow keys
@@ -88,66 +88,69 @@ include '../documentation-main/documentation_header.php';
         two methods: <i>navigateToNextCell</i> and <i>tabToNextCell</i>.
     </p>
 
-    <h4 id="navigate-to-next-cell">navigateToNextCell</h4>
+    <h3 id="navigate-to-next-cell">navigateToNextCell</h3>
 
     <p>
         Provide a callback <i>navigateToNextCell</i> if you want to override the arrow key navigation. The
         function signature is as follows:
     </p>
 
-    <pre>export NavigateToNextCellParams {
+    <snippet>
+interface NavigateToNextCellParams {
 
-    <span class="codeComment">// the keycode for the arrow key pressed, left = 37, up = 38, right = 39, down = 40</span>
+    // the keycode for the arrow key pressed, left = 37, up = 38, right = 39, down = 40
     key: number;
 
-    <span class="codeComment">// the cell that currently has focus</span>
+    // the cell that currently has focus
     previousCellDef: GridCellDef;
 
-    <span class="codeComment">// the cell the grid would normally pick as the next cell for this navigation</span>
+    // the cell the grid would normally pick as the next cell for this navigation
     nextCellDef: GridCellDef;
-}</pre>
+}</snippet>
 
-     <h4 id="tab-to-next-cell">tabToNextCell</h4>
+    <h3 id="tab-to-next-cell">tabToNextCell</h3>
 
     <p>
         Provide a callback <i>tabToNextCell</i> if you want to override the tab key navigation. The
         parameter object is as follows:
     </p>
 
-    <pre>interface TabToNextCellParams {
+    <snippet>
+interface TabToNextCellParams {
 
-    <span class="codeComment">// true if the shift key is also down</span>
+    // true if the shift key is also down
     backwards: boolean;
 
-    <span class="codeComment">// true if the current cell is editing (you may want to skip cells that are not editable,</span>
-    <span class="codeComment">// as the grid will enter the next cell in editing mode also if tabbing)</span>
+    // true if the current cell is editing (you may want to skip cells that are not editable,
+    // as the grid will enter the next cell in editing mode also if tabbing)
     editing: boolean;
 
-    <span class="codeComment">// the cell that currently has focus</span>
+    // the cell that currently has focus
     previousCellDef: GridCellDef;
 
-    <span class="codeComment">// the cell the grid would normally pick as the next cell for this navigation</span>
+    // the cell the grid would normally pick as the next cell for this navigation
     nextCellDef: GridCellDef;
-}</pre>
+}</snippet>
 
-    <h4 id="grid-cell-def">GridCellDef</h4>
+    <h3 id="grid-cell-def">GridCellDef</h3>
 
     <p>
         Both functions above use GridCellDef. This is an object that represents a cell in the grid. Its
         interface is as follows:
     </p>
 
-    <pre>interface GridCellDef {
+    <snippet>
+interface GridCellDef {
 
-    <span class="codeComment">// either 'top', 'bottom' or undefined/null (for not floating)</span>
+    // either 'top', 'bottom' or undefined/null (for not floating)
     floating: string;
 
-    <span class="codeComment">// a positive number from 0 to n, where n is the last row the grid is rendering</span>
+    // a positive number from 0 to n, where n is the last row the grid is rendering
     rowIndex: number;
 
-    <span class="codeComment">// the grid column</span>
+    // the grid column
     column: Column;
-}</pre>
+}</snippet>
 
     <p>
         The functions take a GridCellDef for current and next cells, as well as returning a GridCellDef object.
@@ -155,7 +158,7 @@ include '../documentation-main/documentation_header.php';
         to stick with the grid default behaviour. Return null/undefined to skip the navigation.
     </p>
 
-    <h4 id="example-customer-navigation">Example Customer Navigation</h4>
+    <h3 id="example-custom-navigation">Example Custom Navigation</h3>
 
     <p>
         The example below shows both <i>navigateToNextCell</i> and <i>tabToNextCell</i> in practice.
@@ -163,7 +166,67 @@ include '../documentation-main/documentation_header.php';
         to go up and down rather than right and left.
     </p>
 
-    <show-example example="exampleNavigation"></show-example>
+    <?= example('Custom Keyboard Navigation', 'custom-keyboard-navigation', 'generated') ?>
+
+
+    <h1 id="tabbing-into-grid">Tabbing into the Grid</h1>
+
+    <p>
+        In applications where the grid is embedded into a larger page it may be useful to tab into grid from another
+        element or user action such as a button click.
+    </p>
+
+    <p>
+        This can be achieved by using a combination of DOM event listeners and Grid API calls shown in the following code
+        snippet:
+    </p>
+
+    <snippet>
+// obtain reference to input element
+var myInput = document.getElementById("my-input");
+
+// intercept key strokes within input element
+myInput.addEventListener("keydown", function (event) {
+    // code for tab key
+    var tabKeyCode = 9;
+
+    // ignore non tab key strokes
+    if(event.keyCode !== tabKeyCode) return;
+
+    // prevents tabbing into the url section
+    event.preventDefault();
+
+    // scrolls to the first row
+    gridOptions.api.ensureIndexVisible(0);
+
+    // scrolls to the first column
+    var firstCol = gridOptions.columnApi.getAllDisplayedColumns()[0];
+    gridOptions.api.ensureColumnVisible(firstCol);
+
+    // sets focus into the first grid cell
+    gridOptions.api.setFocusedCell(0, firstCol);
+
+}, true);
+</snippet>
+
+    <h3>Example - Tabbing into the Grid</h3>
+
+    <p>
+        In the following example there is an input box provided to test tabbing into the grid. Notice the following:
+
+        <ul>
+            <li>
+                Tabbing out of the input box will gain focus on the first grid cell.
+            </li>
+            <li>
+                When the first cell is out of view due to either scrolling down (rows) or across (columns), tabbing out
+                of the input will cause the grid to navigate to the first cell.
+            </li>
+        </ul>
+    </p>
+
+
+    <?= example('Tabbing into the Grid', 'tabbing-into-grid', 'vanilla') ?>
 
 </div>
 

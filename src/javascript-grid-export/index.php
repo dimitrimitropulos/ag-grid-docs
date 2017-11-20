@@ -9,7 +9,7 @@ include '../documentation-main/documentation_header.php';
 
 <div>
 
-    <h2 id="data-export">Data Export</h2>
+    <h2 id="data-export">CSV Export</h2>
 
     <note>
         If you are looking to export your data formatted for Excel use the ag-Grid Enterprise feature
@@ -22,6 +22,9 @@ include '../documentation-main/documentation_header.php';
         is responsible for the export (some older browsers will require you to send the data to the server and do
         an old school 'file download' from the server).
     </p>
+
+    <note>If you want to disable CSV export, you can set the property <code>suppressCsvExport = true</code> in your
+        <code>gridOptions</code></note>
 
     <p>
         The API methods are as follows:
@@ -92,11 +95,11 @@ include '../documentation-main/documentation_header.php';
         The same data that is in the grid gets exported, but none of the GUI representation of the data will be.
         What this means is:
         <ul>
-            <li>The raw values, and not the result of cellRenderer, will get used, meaning:
+            <li>The raw values, and not the result of cell renderer, will get used, meaning:
                 <ul>
-                    <li>cellRenderers will NOT be used.</li>
-                    <li>valueGetters will be used.</li>
-                    <li>cellFormatters will NOT be used (use <i>processCellCallback</i> instead).</li>
+                    <li>Cell Renderer's will NOT be used.</li>
+                    <li>Value Getters will be used.</li>
+                    <li>Cell Formatter's will NOT be used (use <i>processCellCallback</i> instead).</li>
                 </ul>
             </li>
             <li>If row grouping, all data will be exported regardless of groups open or closed.</li>
@@ -122,7 +125,7 @@ include '../documentation-main/documentation_header.php';
         <li>Heading groups are exported as part of the csv.</li>
     </ul>
 
-    <show-example example="exampleExport"></show-example>
+    <?= example('CSV Export', 'csv-export', 'generated', array("enterprise" => 1)) ?>
 
 </div>
 

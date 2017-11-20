@@ -9,18 +9,18 @@ include '../documentation-main/documentation_header.php';
 
 <div>
 
-    <h1 class="first-h1" id="value-getters">Value Setters & Parsers</h1>
+    <h1 class="first-h1" id="value-getters">Value Setters & Value Parsers</h1>
 
     <p>
         The section <a href="../javascript-grid-value-getters">Getters and Formatters</a>
-        explained how to use <i>valueGetter</i> and <i>valueFormatter</i>
-        to get and format the value for displaying. This section explains their
-        equivalents <i>valueSetter</i> and <i>valueParser</i> that are used for saving
+        explained how to use <code>valueGetter</code> and <code>valueFormatter</code>
+        to get and format the value before displaying it. This section explains their
+        counterparts; <code>valueSetter</code> and <code>valueParser</code>, which are used for saving
         edited values.
     </p>
 
     <p>
-        Use a <code>valueSetter</code> to set a value into you data after editing when the
+        Use a <code>valueSetter</code> to set a value into your data after editing when the
         normal <code>colDef.field</code> attribute will not suffice.
     </p>
     <p>
@@ -39,7 +39,7 @@ include '../documentation-main/documentation_header.php';
     </table>
 
     <p>
-        These can be a function or <a href="../javascript-grid-cell-expressions/">expression</a>.
+        These can be a function or an <a href="../javascript-grid-cell-expressions/">expression</a>.
         This page assumes functions. Once you understand this page, you can go to
         <a href="../javascript-grid-cell-expressions/">expression</a> to learn how to specify them as
         expressions.
@@ -74,13 +74,9 @@ include '../documentation-main/documentation_header.php';
             <code>valueSetter</code> is used for setting the parts back into the grid (eg if you type 'Sam Boots',
             then 'Sam' gets set as the first name and 'Boots' as the last name.
         </li>
-        <li>
-            <b>Column 'A', 'B', 'A+B':</b> Columns A and B are simple number columns. Column A+B demonstrates
-            using a <code>valueGetter</code> to calculate a value for display.
-        </li>
     </ul>
 
-    <show-example example="exampleSettersAndParsers"></show-example>
+    <?= example('Setters and Parsers', 'setters-and-parsers', 'generated') ?>
 
     <h2>Value Saving Flow</h2>
 
@@ -90,7 +86,7 @@ include '../documentation-main/documentation_header.php';
 
     <img src="valueSetterFlow.svg"/>
 
-    <h2>Value Setter</h2>
+    <h2 id="value-setter">Value Setter</h2>
 
     <p>
         A <code>valueSetter</code> is the inverse of a <code>valueGetter</code>, it allows you to put
@@ -98,38 +94,37 @@ include '../documentation-main/documentation_header.php';
         The interface for <code>valueSetter</code> is as follows:
     </p>
 
-    <pre><span class="codeComment">// function for valueSetter</span>
-function valueSetter(params: ValueSetterParams) => boolean;
+    <snippet>
+// function for valueSetter
+function valueSetter(params: ValueSetterParams) =&gt; boolean;
 
-<span class="codeComment">// interface for params</span>
+// interface for params
 interface ValueGetterParams {
-    oldValue: any, <span class="codeComment">// the value before the change</span>
-    newValue: any, <span class="codeComment">// the value after the change</span>
-    data: any, <span class="codeComment">// the data you provided for this row</span>
-    node: RowNode, <span class="codeComment">// the row node for this row</span>
-    colDef: ColDef, <span class="codeComment">// the column def for this column</span>
-    column: Column, <span class="codeComment">// the column for this column</span>
-    api: GridApi, <span class="codeComment">// the grid API</span>
-    columnApi: ColumnApi, <span class="codeComment">// the grid Column API</span>
-    context: any  <span class="codeComment">// the context</span>
+    oldValue: any, // the value before the change
+    newValue: any, // the value after the change
+    data: any, // the data you provided for this row
+    node: RowNode, // the row node for this row
+    colDef: ColDef, // the column def for this column
+    column: Column, // the column for this column
+    api: GridApi, // the grid API
+    columnApi: ColumnApi, // the grid Column API
+    context: any  // the context
 }
 
-<span class="codeComment">// example value setter, put into a particular part of the data</span>
+// example value setter, put into a particular part of the data
 colDef.valueSetter = function(params) {
-    <span class="codeComment">// see if values are different, if you have a complex object,</span>
-    <span class="codeComment">// it would be more complicated to do this.</span>
+    // see if values are different, if you have a complex object,
+    // it would be more complicated to do this.
     if (params.oldValue!==params.newValue) {
         params.data[someField] = params.newValue;
-        <span class="codeComment">// get grid to refresh the cell</span>
+        // get grid to refresh the cell
         return true;
     } else {
-        <span class="codeComment">// no change, so no refresh needed</span>
+        // no change, so no refresh needed
         return false;
     }
-}</pre>
-
-
-    <h2>Value Parser</h2>
+}</snippet>
+    <h2 id="value-parser">Value Parser</h2>
 
     <p>
         A <code>valueParser</code> allows you to parse values after an edit (or after the user sets
@@ -137,27 +132,28 @@ colDef.valueSetter = function(params) {
         The interface for <code>valueParser</code> is as follows:
     </p>
 
-    <pre><span class="codeComment">// function for valueParser</span>
-function valueParser(params: ValueParserParams) => any;
+    <snippet>
+// function for valueParser
+function valueParser(params: ValueParserParams) =&gt; any;
 
-<span class="codeComment">// interface for params</span>
+// interface for params
 interface ValueParserParams {
-    oldValue: any, <span class="codeComment">// the value before the change</span>
-    newValue: any, <span class="codeComment">// the value after the change</span>
-    data: any, <span class="codeComment">// the data you provided for this row</span>
-    node: RowNode, <span class="codeComment">// the row node for this row</span>
-    colDef: ColDef, <span class="codeComment">// the column def for this column</span>
-    column: Column, <span class="codeComment">// the column for this column</span>
-    api: GridApi, <span class="codeComment">// the grid API</span>
-    columnApi: ColumnApi, <span class="codeComment">// the grid Column API</span>
-    context: any  <span class="codeComment">// the context</span>
+    oldValue: any, // the value before the change
+    newValue: any, // the value after the change
+    data: any, // the data you provided for this row
+    node: RowNode, // the row node for this row
+    colDef: ColDef, // the column def for this column
+    column: Column, // the column for this column
+    api: GridApi, // the grid API
+    columnApi: ColumnApi, // the grid Column API
+    context: any  // the context
 }
 
-<span class="codeComment">// example value parser, convert a string to a number</span>
+// example value parser, convert a string to a number
 colDef.valueParser = function(params) {
-    <span class="codeComment">// this is how to convert a string to a number using JavaScript</span>
-    return Number(params.value);
-}</pre>
+    // this is how to convert a string to a number using JavaScript
+    return Number(params.newValue);
+}</snippet>
 
 </div>
 

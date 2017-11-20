@@ -9,7 +9,7 @@ include '../documentation-main/documentation_header.php';
 
 <div>
 
-    <h1 class="first-h1">Refresh</h1>
+    <h1 class="first-h1">View Refresh</h1>
 
     <p>
         The grid has change detection. So as long as you are updating the data via the grid's API,
@@ -52,16 +52,17 @@ include '../documentation-main/documentation_header.php';
         To get the grid to refresh the cells, call <code>api.refreshCells()</code>. The interface is as follows:
     </p>
 
-    <pre><span class="codeComment">// method for refreshing cells</span>
+    <snippet>
+// method for refreshing cells
 function refreshCells(params: RefreshCellsParams = {}): void;
 
-<span class="codeComment">// params for refresh cells</span>
+// params for refresh cells
 interface RefreshCellsParams {
-    rowNodes?: RowNode[]; <span class="codeComment">// specify rows, or all rows by default</span>
-    columns?: (string|Column)[]; <span class="codeComment">// specify columns, or all columns by default</span>
-    forceRefresh?: boolean; <span class="codeComment">// skips change detection, refresh everything</span>
-    volatile?: boolean; <span class="codeComment">// only volatile cells - deprecated - for backwards compatibility</span>
-}</pre>
+    rowNodes?: RowNode[]; // specify rows, or all rows by default
+    columns?: (string|Column)[]; // specify columns, or all columns by default
+    force?: boolean; // skips change detection, refresh everything
+    volatile?: boolean; // only volatile cells - deprecated - for backwards compatibility
+}</snippet>
 
     <p>
         Each parameter is optional. The simplest is to call with no parameters which will refresh
@@ -73,12 +74,12 @@ interface RefreshCellsParams {
         <h3>Deprecated - Volatile Columns</h3>
 
         <p>
-            Volatile columns allow you to mark specific columns for refresh when you call
-            <code>api.refreshCells()</code>.
+            Volatile columns allowed you to mark specific columns for refresh when you called
+            <code>api.softRefresh()</code>.
         </p>
 
         <p>
-            Columns are marked as volatile by setting the column definition property
+            Columns were marked as volatile by setting the column definition property
             <code>volatile = true</code>.
         </p>
 
@@ -89,9 +90,9 @@ interface RefreshCellsParams {
 
         <p>
             If you are using volatile columns, instead of calling <code>api.softRefresh()</code>,
-            can call <code>api.refreshCells({volatile: true})</code> instead to achieve the same.
+            you can call <code>api.refreshCells({volatile: true})</code> instead to achieve the same.
             However volatile columns are deprecated so will be removed in a future release.
-            You should instead move to passing a list of columns to the <code>api.softRefresh()</code>
+            You should instead move to passing a list of columns to the <code>api.refreshCells()</code>
             method.
         </p>
 
@@ -101,7 +102,7 @@ interface RefreshCellsParams {
 
     <p>
         Below shows calling <code>api.refreshCells()</code> with different scenarios using a mixture of the
-        <code>rowNodes</code>, <code>columns</code> and <code>forceRefresh</code> parameters. From the example, the
+        <code>rowNodes</code>, <code>columns</code> and <code>force</code> parameters. From the example, the
         following can be noted:
     </p>
 
@@ -110,8 +111,8 @@ interface RefreshCellsParams {
             The grid has <code>enableCellChangeFlash=true</code>, so cells that are refreshed will be flashed.
         </li>
         <li>
-            The grid has two floating rows at the top and two floating rows at the bottom. This is to demonstrate
-            that cell refreshing works for floating rows also.
+            The grid has two pinned rows at the top and two pinned rows at the bottom. This is to demonstrate
+            that cell refreshing works for pinned rows also.
         </li>
         <li>
             The three buttons each make use of a <b>scramble</b> operation. The scramble operation selects
@@ -131,7 +132,7 @@ interface RefreshCellsParams {
         </li>
         <li>
             The <b>Scramble & Refresh Top to Bottom</b> button will scramble as before, then call
-            <code>api.refreshCells({rowNodes})</code> 20 times, 100ms apart, once for each row (including floating rows).
+            <code>api.refreshCells({rowNodes})</code> 20 times, 100ms apart, once for each row (including pinned rows).
             This will show the grid refreshing one row at a time from top to bottom.
         </li>
         <li>
@@ -141,7 +142,7 @@ interface RefreshCellsParams {
         </li>
     </ul>
 
-    <show-example example="exampleRefreshApi"></show-example>
+    <?= example('Refresh Cells', 'refresh-cells', 'generated') ?>
 
     <note>
         You may be wondering why would you want to force refresh, what is the point in refreshing a cell that
@@ -180,13 +181,14 @@ interface RefreshCellsParams {
         To get the grid to redraw rows, call <code>api.redrawRows()</code>. The interface is as follows:
     </p>
 
-    <pre><span class="codeComment">// method for redraw rows</span>
+    <snippet>
+// method for redraw rows
 function redrawRows(params: RedrawRowsParams = {})
 
-<span class="codeComment">// params for redraw rows</span>
+// params for redraw rows
 interface RedrawRowsParams {
-    rowNodes?: RowNode[]; <span class="codeComment">// the row nodes to redraw</span>
-}</pre>
+    rowNodes?: RowNode[]; // the row nodes to redraw
+}</snippet>
 
     <h3>Example Redraw Nodes</h3>
 
@@ -206,7 +208,7 @@ interface RedrawRowsParams {
 
     </ul>
 
-    <show-example example="exampleRedrawRows"></show-example>
+    <?= example('Redraw Rows', 'redraw-rows', 'generated') ?>
 
 </div>
 

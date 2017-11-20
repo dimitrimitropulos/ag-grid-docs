@@ -13,39 +13,472 @@ include '../documentation-main/documentation_header.php';
         For a detailed breakdown of items please refer to the detailed changelog <a href="/ag-grid-changelog/">here</a>.
     </note>
 
-    <h2>Version NEXT</h2>
+    <h2>14.x</h2>
+
+    <h3>Version 14.2.0 [16-NOV-2017]</h3>
+
+    <p>For details of this release, check our dedicated <a href="../ag-grid-blog-14-2-0/">blog post for v14.2.0</a>.</p>
+
+    <h4>Enhancements</h4>
+    <ul>
+
+        <li>AG-897: Master/Detail. New streamlined and simplifed offering, allowing for much easier <a href="../javascript-grid-master-detail/">Master/Detail</a>.</li>
+        <li>AG-530: Implement React declarative offering. Allow Grid & Column definitions to be entirely in markup.</li>
+        <li>AG-891: Themes. Bring all legacy themes in line with new Material theme.</li>
+    </ul>
+
+    <h4>Bug Fixes</h4>
+    <ul>
+        <li>AG-1094: Fix an issue where async set filters wouldn’t work with the enterprise row model</li>
+        <li>AG-1047: Keep row group after delta updates is broken when using groups</li>
+        <li>AG-993: State not preserved when row grouping and data transactions</li>
+        <li>AG-1098: Angular 1 Issue with filters</li>
+        <li>AG-1056: Issue with enterprise row model and null categories</li>
+        <li>AG-997: suppressAnimationFrame with col pinning scrolling issue when using arrow up/down</li>
+        <li>AG-944: domLayout:autoHeight not working when autoGroupColumn and the group column in pinned left</li>
+    </ul>
+
+    <h3>Version 14.1.0 [07-NOV-2017]</h3>
+    <h4>Enhancements</h4>
+    <ul>
+        <li>AG-895: Angular 5 supported. Now you can use ag-grid with the latest angular version!</li>
+    </ul>
+
+    <h4>Bug Fixes</h4>
+    <ul>
+        <li>AG-1010: Fix an issue where Polymer would not work in Firefox</li>
+    </ul>
+
+    <h3>Version 14.0.0 [02-NOV-2017]</h3>
+
+    <p>For details of this release, check our dedicated <a href="../change-log/v14/index.php">blog post for v14 aka Halloween</a>.</p>
+
+    <h4>Enhancements</h4>
+    <ul>
+        <li>AG-459: Revamped Feature: <a href="../javascript-grid-tree-data/">Tree Data</a>, we have rewritten tree data
+        to make it more powerful and easy to use.</li>
+        <li>AG-459: <a href="../javascript-grid-grouping/#example-unbalanced-groups">Unbalanced Grouping</a>. We now
+            show as leaf rows that are part of a group but their grouping key is null.</li>
+        <li>AG-875: If you are a React fan, then you will be excited to lean that ag-Grid v14 comes with full support for Asynchronous Components</li>
+        <li>AG-544: You can now provide <a href="../javascript-grid-column-header/#header-template">custom HTML templates</a> to customise how the column headers look. </li>
+        <li>AG-804: Set filters can now have their values specified <a href="../javascript-grid-filter-set/#example-callback-async">asynchronously</a></li>
+        <li>AG-816: More options for <a href="../javascript-grid-grouping/">grouping</a> with groupRemoveSingleChildren.</li>
+        <li>AG-744: Delta updates now maintain row order.</li>
+    </ul>
+
+    <h4>Bug Fixes</h4>
+    <ul>
+        <li>AG-910: New component editor uses mergeDeep - causes stack overflow when certain observables are used</li>
+        <li>AG-946: Improve memory usage of vue vs js</li>
+        <li>AG-884: [excel] DateType were restricted to String and Number, added Boolean DateTime and Error</li>
+        <li>AG-901: [regression] SetFilter not displaying (Blanks) anymore for null values</li>
+        <li>AG-878: [master detail] Error raised in detail panel when using Cell Editors</li>
+        <li>AG-864: Sanitise Data in tooltip and cellRenderer</li>
+        <li>AG-855: Grids fail on ie11 when dealing with tree data</li>
+        <li>AG-820: [column types] - numericColumn not working</li>
+        <li>AG-817: [cellEditor richSelect]  cellEditorParams.values nulls and blanks are not handled well</li>
+        <li>AG-778: [frameworks] Aurelia - Add pinnedRowCellRenderer support</li>
+        <li>AG-777: [aurelia] Add dateComponent support</li>
+        <li>AG-772: Polymer CLI - PolymerFrameworkFactory is not defined </li>
+        <li>AG-882: [Copy&Paste] Copying Blank Cells not working</li>
+        <li>AG-924: If context menu very long, overflow entries are clipped</li>
+        <li>AG-921: ensureRowIndex/Node "middle" not working</li>
+        <li>AG-914: Status bar is not styled in new material theme</li>
+        <li>AG-874: Declarative column def does not match properties from ag-grid</li>
+        <li>AG-872: [grouping] - Group count info lost when reducing column's size</li>
+        <li>AG-850: with material theme, on the tool panel, in the values section (when you drag a column to aggregate), the background is transparent</li>
+        <li>AG-849: on set filter in material theme, if label is to large, we get it onto the other line</li>
+        <li>AG-672: [navigation] Navigating with arrows does not skip the columns marked with "suppressNavigable"</li>
+        <li>AG-433: [navigation] Keyboard Navigation Problems - home & end</li>
+        <li>AG-311: [keyboard navigation] bug in wide columns</li>
+        <li>AG-925: Empty cells retain old cell value tooltip</li>
+        <li>AG-913: getSelectedRowNodes sometimes returns an empty array when it shouldn't</li>
+        <li>AG-935: [material] checkboxes are too dense on main demo</li>
+        <li>AG-934: [material] aggregation function select popup is not styled</li>
+        <li>AG-770: Pinned row data was not getting bound to React correctly/li>
+    </ul>
+
+    <h2>13.3.x</h2>
+    <h3>Version 13.3.1 [04-OCT-2017]</h3>
+    <h4>Enhancements</h4>
+        <li>AG-851: Added support for React 16</li>
+        <li>AG-698: Added support for <a href="../javascript-grid-row-styles">row class rules</a></li>
+        <li>AG-754: The <a href="../javascript-grid-icons">floating filter icon</a> now can be configured.</li>
+        <li>AG-776: Aurelia now supports <a href="../javascript-grid-header-rendering">header components and header group components</a>.</li>
+        <li>AG-815: <a href="../javascript-grid-api#scrolling">Grid Api for scrolling</a> has been improved so that
+        <code>api.ensureNodeVisible</code> and <code>api.ensureIndexVisible</code> now take an optional
+        second parameter to specify where the node/index should be positioned on the screen. The valid values are:
+        <code>top</code>, <code>middle</code> and <code>bottom</code>. If not specified, would not scroll into the
+        row if already visible in the current viewport.</li>
+    <ul>
+    </ul>
+
+    <h4>Bug Fixes</h4>
+        <li>AG-862: Double clicking a group cell was not expanding the group</li>
+        <li>AG-861: Fixed issue with expandAll when using <code>hideOpenParents:true</code></li>
+        <li>AG-759: Clear button does not work well when also providing filterOptions</li>
+        <li>AG-547: Set filter tristate was not working</li>
+        <li>AG-842: Fix issue with autosize for the columns and the new matherial theme</li>
+        <li>AG-829: Fix error in CellComp.prototype.stopEditing in certain cases</li>
+        <li>AG-406: Fix issue on touch devices where sub menus and custom menu items wouldn't work.</li>
+    <ul>
+    </ul>
+
+    <h2>13.2.x</h2>
+    <h3>Version 13.2.0 [21-SEP-2017]</h3>
+
+    <h4>Enhancements</h4>
+    <ul>
+        <li>
+            AG-785: Pivoting is now possible in the <a href="../javascript-grid-enterprise-model/">Enterprise Row Model</a>.
+            If you are using the row model and do not want pivoting, then set grid properties
+            <code>toolPanelSuppressPivotMode=true</code> and <code>toolPanelSuppressValues=true</code> to remove the pivot
+            from the grid UI.
+        </li>
+        <li>AG-795: New callback <code>paginationNumberFormatter</code> to format numbers in pagination panel, should you
+            no like the default formatting. See
+            <a href="../javascript-grid-pagination/#customising-pagination">Example: Customising Pagination</a>.
+        </li>
+        <li>
+            AG-693: <a href="../javascript-grid-enterprise-model/#child-count">Child Count</a> can now be set for Enterprise Row Model.
+        </li>
+        <li>
+            AG-800: Put in callback <a href="../javascript-grid-cell-editor/#suppress-keyboard-event">colDef.suppressKeyboardNavigation()</a>
+            to allow suppressing keyboard events while editing.
+        </li>
+    </ul>
+
+    <h4>Bug Fixes</h4>
+    <ul>
+        <li>AG-770: pinnedBottomRowData and pinnedTopRowData were not getting changes updated when bound as component property (eg if using React or Angular bindings to change these)</li>
+        <li>AG-667: unnecessary console log "not supported" when using infinite row model and scrolling after cell selection</li>
+        <li>AG-400: rich select - when focus goes off the component, the selection was kept</li>
+        <li>AG-563: When sorting by count in pivot mode it does Alphabetical sort not numerical</li>
+        <li>AG-793: Group expand / contract was not working with double click, now it opens and closes quickly</li>
+        <li>AG-649: Configuring checkbox icons was not getting applied when icons set at the column def level (ie colDef.checkboxSelection=true and colDef.icons = {customIcons})</li>
+        <li>AG-622: Copy Paste with Master Detail Grid was not working</li>
+    </ul>
+
+    <h2>Version 13.1.x</h2>
+    <h3>Version 13.1.2 [11-SEP-2017]</h3>
+    <h4>Bug Fixes</h4>
+    <ul>
+        <li>AG-764: fix bug introduced in 13.1 that breaks aurelia cell renderers.</li>
+        <li>AG-761: make suppressExcelExport and suppressCsvExport optional properties.</li>
+        <li>AG-755: innerRendererFramework does not use framework to render leaf nodes in tree data</li>
+        <li>AG-755: fontName property for Excel Export was being ignored</li>
+        <li>AG-755: when using 'aligned grids', removed infinite loop on horizontal scroll</li>
+        <li>AG-756: column virtualisation and full row edit were not working with each other, as user scrolled, newly created cells were not editable.</li>
+        <li>AG-760: tabbing to next row when, when next cell was not virtualised (due to column virtualisation) was failing</li>
+    </ul>
+
+    <h3>Version 13.1.1 [08-SEP-2017]</h3>
+    <h4>Bug Fixes</h4>
+    <ul>
+        <li>AG-746: fixing bug where an error is thrown if a renderer returns something other than a string or a Dom Element</li>
+        <li>AG-379: fixing bug where function names where not translated in the tool panel or generated columns</li>
+        <li>AG-683/411: fixing bug where floating filters wouldn't get redrawn if showing/hiding columns from the tool panel</li>
+        <li>AG-473: fixing bug where the context menu wouldn't appear in the pinned are if there were no rows to show</li>
+        <li>AG-738: pinning columns by dragging mouse to edge was broke</li>
+        <li>AG-739: event columnGroupOpened had reference to column rather than the original column group</li>
+        <li>AG-729: ag-row-focus CSS class was getting added to every row</li>
+        <li>AG-743: aligned grids was not working in Firefox</li>
+    </ul>
+
+    <h4>Enhancements</h4>
+    <ul>
+        <li>
+            Grid callback <code>getDocument()</code> now used for adding clicks to background for closing popups,
+            useful if you don't want to use the standard documents.body (for people using non-standard browsers to GWT
+            embedded)
+        </li>
+        <li>AG-313 excel and csv export now by setting to true the properties <code>suppressCsvExport</code> <code>suppressExcelExport</code>.</li>
+        <li>AG-669 excel export now has a property <code>sheetName</code> that allows to configure the name of the generated Excel sheet.</li>
+        <li>AG-749 headerName is now optional in the columnDef, if your provide a field the name would be derived from the field name</li>
+        <li>AG-737 the menu items 'expand all' and 'contract all' now only appear for InMemoryRowModel</li>
+        <li>AG-651: allow saving / restoring col group 'open/closed' state</li>
+    </ul>
+
+
+    <h3>Version 13.1.0 [01-SEP-2017]</h3>
+    <h4>Revert of Breaking Change</h4>
 
     <ul>
-        <li>Bug fix: when using multiple group auto columns and header checkbox selection,
-            the header checkbox now only appears in the first column header.</li>
+        <li>
+            <p>
+                In v13.0 we introduced the method <code>afterGuiAttached()</code> for the cell renderers. The purpose of this was to allow
+                cell renderers to be created before the DOM existed which gave a marginal performance boost. This has caused
+                issues for frameworks like React and Angular (which sometimes need the parent DOM element to exist before the
+                component is created). For this reason we have reverted back to how things worked prior to v13.0.
+            </p>
+            <p>
+                So in summary, v13.0 introduced <code>afterGuiAttached()</code>, v13.1 takes <code>afterGuiAttached()</code> back out.
+            </p>
+        </li>
+    </ul>
+
+    <h4>Bug Fixes</h4>
+
+    <ul>
+        <li>AG-721: When in pivot, it was possible open level groups via API or via double clicking. Bottom level groups in pivot should be locked closed.</li>
+        <li>AG-597: Preserve grouped column order after dragging to new position</li>
+        <li>AG-620: Retain hidden columns when group moved</li>
+        <li>AG-733: resolved an issue with react+redux where the store was not injected</li>
+    </ul>
+
+    <h2>Version 13.0.x</h2>
+
+    <h3>Version 13.0.1 [29-AUG-2017]</h3>
+
+    <h4>Bug Fixes</h4>
+    <ul>
+        <li>AG-711: blank cells with no defined cell renderer were causing error</li>
+        <li>AG-709: column header attribute was colId instead of col-id</li>
+        <li>AG-706: rows were not rendering sometimes when cellRenderer was not returning back true 'object' or string</li>
+        <li>AG-705: angular 1 cells were not getting compiled</li>
+        <li>AG-710: Fixed an issues where drag and drop did not work as expected in ag-grid-react</li>
+        <li>AG-712: Fixed an issue with headers no longer displaying ellipsis (&hellip;) when too narrow.</li>
+        <li>AG-708: The themes are shipped without minifictation for easier debugging.</li>
+        <li>AG-707: Fixed an issue introduced with new SVG icons - some of the icons passed through the <code>gridOptions</code> stopped working</li>
+        <li>AG-714: Fixed an issue a column with a <code>cellRenderer='group'</code> and with an innerRenderer was not
+            using the innerRenderer when displayed as a leaf cell</li>
+    </ul>
+
+    <h3>Version 13.0.0 [25-AUG-2017]</h3>
+
+    <h4>Enhancements</h4>
+    <ul>
+        <li>
+            New rendering engine - now the grid works blazing fast, even on IE9 and IE10! Our tests show the grid
+            work 6 times faster. One better browsers (Chrome etc) you will notice the scrolling much smoother.
+        </li>
+        <li>
+            New material design theme (go to our <a href="../example.php">Main Demo</a> and select the material
+            theme). This is our first step towards modernising all our themes.
+        </li>
+        <li>New SVG icons for all the themes. This is in line with industry best practices.
+            The previous ones are available in the <code>src/styles/legacy</code> directory - you can <a href="https://www.ag-grid.com/javascript-grid-icons/">set them back through the API</a>.</li>
+        <li>AG-664: Added support for <a href="../javascript-grid-reference-data/">Reference Data</a> to manage
+            key / value pairs inside data.
+        </li>
+        <li>
+            <code>suppressScrollLag</code> and <code>isScrollLag</code> no longer used. The new rendering engine
+            doesn't need them due to how it uses animation frames.
+        </li>
+        <li>AG-685: Number and Date filter have an option to configure what to do when filtering <code>null</code> values.
+            See: <a href="../javascript-grid-filtering#nullFiltering">Null filtering</a></li>
+        <li>AG-579: Excel an CSV export now works in all row models. If exporting outside of the in memory row model
+            Only the data loaded for the currently displayed grid gets exported.</li>
+        <li>The event 'itemsAdded' didn't make sense any more since introducing transaction updates in v11. So now the grid fires rowDataUpdated instead.</li>
+        <li>AG-695: The 'type' property on a ColDef now supports an array of column type keys</li>
+        <li>AG-634: <a href="../javascript-grid-filter-text">Text filter</a> has the parameter <code>caseSensitive</code>.
+        </li>
+        <li>AG-679: Improved error handling when Column Types are not correctly configured</li>
+    </ul>
+
+    <h4>Bug Fixes</h4>
+    <ul>
+        <li>The HTML attribute 'row' on the row div was showing the index. It was supposed to be the row. Also row-id was
+            showing the business key. To avoid confusion, move everything to dash-case (not CamelCase), the following
+            are now the attributes:
+            <ul>
+                <li>row-id - matches the row node id.</li>
+                <li>row-index - matches the row index (0..n, or t0..tn for pinned top rows and b0..bn for pinned bottom rows).</li>
+                <li>row-business-key - matches the business key (if user implements callback getBusinessKey())</li>
+            </ul>
+            Similarly colId on the cell is now col-id. These fixes / breaking changes only impact your code if you were
+            using these in CSS selectors outside of the grid.
+        </li>
+        <li>AG-697: Fixed an issue where export group headers was not working correctly when more than 2 groups of headers</li>
+        <li>AG-696: Fixed issue where column groups kept expand / collapse icons even when group is no longer expandable</li>
+        <li>AG-654: Fixed issue with pinning rows when pivoting</li>
+        <li>AG-615: Fixed issue when moving column groups with marry children</li>
+        <li>AG-380: Fixed an issue when using a framework like angular/react... cellRendererFramework in a column was not considered
+        when grouping by that column </li>
+        <li>AG-253: Support for innnerRendererFramework</li>
+        <li>AG-50: Support for cellRendererFramework inside filterParams</li>
+        <li>AG-688: Fixed compatibility issue with Internet Explorer 10</li>
+    </ul>
+
+    <h4>Breaking Change</h4>
+    <ul>
+        <li>In cell renderer, the eGridDiv and eParentOfValue no longer exist in init(), instead they are in afterGuiAttached().
+            We don't like breaking changes, however this was neccessay to allow the new rendering engine.</li>
+    </ul>
+
+    <h2>Version 12.0.x</h2>
+    <h3>Version 12.0.2 [26-JUL-2017]</h3>
+
+    <h4>Bug Fixes</h4>
+    <ul>
+        <li>AG-646: Enhancement: updateRowData now <a href="../javascript-grid-data-update/#bulk-updating">returns the rows updated</a>.</li>
+        <li>AG-645: Bugfix: Error creating bean CsvCreator due to minimifying issues. Still causing issues after 12.0.1</li>
+    </ul>
+
+    <h3>Version 12.0.1 [25-JUL-2017]</h3>
+
+    <h4>Bug Fixes</h4>
+    <ul>
+        <li>AG-645: Bugfix: Error creating bean CsvCreator due to minimifying issues.</li>
+        <li>AG-636: Bugfix: Normal rowModelType was not deprecated properly.</li>
+        <li>AG-639: Bugfix: Date component was still broken after previous fix AG-541/600</li>
+        <li>AG-633: Bugfix: Fixed bug where "not contains" filter would not work with emtpy strings</li>
+        <li>AG-641: Bugfix: When using row groups and footer rows, deprecation warning message was printed to the console, fixed it so it is now (internally grid was using a deprecate method).</li>
+    </ul>
+
+    <h3>Version 12.0.0 [21-JUL-2017]</h3>
+
+    <h4>New Features</h4>
+    <ul>
+        <li>
+            New feature: <a href="../best-polymer-data-grid/">Polymer Support</a>. #UseThePlatform
+        </li>
+        <li>
+            New feature: <a href="../javascript-grid-change-detection/">Change Detection</a>. Say goodbye to
+            grid refreshes.
+        </li>
+        <li>
+            New feature: <a href="../javascript-grid-value-cache/">Value Cache</a>. Get better performance if your
+            valueGetter's are CPU intensive.
+        </li>
+        <li>
+            New feature: <a href="../javascript-grid-column-spanning/">Column Spanning</a>.
+        </li>
+        <li>
+            New feature: <a href="../javascript-grid-column-definitions/">Column Types</a>.
+        </li>
+        <li>
+            New feature: <a href="../javascript-grid-enterprise-model/#enterprise-dynamic-row-height">Dynamic Row Height on Enterprise Row Model</a>.
+        </li>
+    </ul>
+    <h4>Documentation</h4>
+    <ul>
+        <li>
+            Rewrite of <a href="../javascript-grid-refresh/">Grid Refresh</a>. There were once a few similar confusing
+            methods. There are are two clear and clean methods: cellRefresh() and redrawRows().
+            See 'Changes to Refresh' below for more details.
+        </li>
+        <li>Update Documentation: <a href="../javascript-grid-value-getters/">Getters and Formatters.</a></li>
+        <li>Update Documentation: <a href="../javascript-grid-value-setters/">Setters and Parsers.</a></li>
+        <li>Renamed 'Master / Slave' to '<a href="../javascript-grid-aligned-grids/">Aligned Grids</a>' so that it's not confused with 'Master / Detail', which is nothing to do with 'Aligned Grids'.</li>
+        <li>Renamed 'Pinned Rows' to '<a href="../javascript-grid-row-pinning/">Pinned Rows</a>' because it was confusing, now we have <a href="../javascript-grid-row-pinning/">Pinned Rows</a> and <a href="../javascript-grid-pinning/">Pinned Columns</a> which are similar, but one for rows and one for columns.</li>
+    </ul>
+    <h4>Enhancements</h4>
+    <ul>
+        <li>AG-572: For accessibility, rows in the DOM are now placed in the same order you see on the screen. To turn on, set property ensureDomOrder=true.</li>
         <li>AG-469: Enhancement: new event for column 'menuVisibleChanged', gets fired when column menu is shown / hidden.
         Useful if doing your own headerComponent and want the header to look different when menu is shown / hidden.</li>
         <li>Enhancement: Now header DIV will contain class <i>ag-column-menu-visible</i> when the column menu is showing.</li>
+        <li>AG-619: New option to always show status bar</li>
+        <li>AG-523: Allow 'shift-click' selections on all row models</li>
+        <li>AG-519: ASet filter use the checkboxes specified by the user, not the browser checkboxes</li>
+    </ul>
+    <h4>Bug Fixes</h4>
+    <ul>
+        <li>Bug fix: when using multiple group auto columns and header checkbox selection,
+            the header checkbox now only appears in the first column header.</li>
+        <li>AG-592: Bugfix: Allow empty groups if the user provides empty strings, not null or undefined</li>
+        <li>AG-541/600: Bugfix: [Date component] Date component not working when specified in both filter and floating filter</li>
+        <li>AG-586/584: Bugfix: Excel and CSV export are not using the default fileName when exporting</li>
+        <li>AG-479: Bugfix: If you group dynamically in pivoting, the filter column shows an empty set</li>
         <li>AG-366: Bugfix: Multiple sort numbers were disappearing after horizontal scrolling</li>
+        <li>AG-317: Bugfix: Agg/Pivot Display Issues With Longer Col Names</li>
+        <li>AG-578: Bugfix: Exception raised when performing range selection and filtering on the enterprise row model</li>
+        <li>AG-327: Bugfix: Cumalative sort numbers disappear when refreshHeader is called</li>
         <li>AG-375: After calling columnApi.setState() and doing multi-column sort,
             the sort numbers were not getting displayed beside the relevant column.</li>
-        <li>Value Getter Cache</li>
+        <li>AG-602: Bugfix: Enterprise Row Model success callback interface was missing 'lastRow'.</li>
+        <li>AG-617: Buffix: Enterprise Row Model unable to perform full width groups</li>
+        <li>AG-625: Now Enterprise Row Model works with complex objects (eg valueGetters and fields with dot notation).</li>
+        <li>AG-624: 'select' editor, when you select a value, was closing 'full row edit'. Now select works fine with 'full row edit'.</li>
+        <li>AG-593: Added missing exports to exports.ts</li>
+        <li>AG-628: Bugfix: Enterprise Data Source can now be set as a grid property (previously API had to be used).</li>
+        <li>AG-629: Bugfix: Row order now maintained when using ag-Grid Enterprise and inserting with transaction using 'addIndex'.</li>
+        <li>AG-631: The internationalisation text 'drag here to aggregate' was incorrectly showing the 'drag here to pivot' message.</li>
     </ul>
 
-    <h2>Breaking Changes</h2>
-    <ul>
-        <li>api.softRefresh() renamed to api.refreshVolatileCells()</li>
-        <li>cellRenderer.params.valueGetter() is now called cellRenderer.params.getValue()</li>
-        <li>AG-591: cellRenderer.refresh() is now a mandatory method and returns boolean (previously it
-            was optional and returned void). This is to
-            support TypeScript 2.4 that mandated a breaking change (TypeScript 2.4 doesn't allow
-            interface with just optional methods). Check the
-            <a href="../javascript-grid-cell-rendering-components/#cell-renderer-component">cellRenderer Refresh</a>
-            documentation for details on how to now implement this method. In summary, if you implemented
-            this method before, just make sure you return true. If you did not implement this method before,
-            then implment an empty version of it that returns false.
-        </li>
 
+    <h4>Breaking changes</h4>
+    <p>
+        <b>Changes to Refresh</b>
+    </p>
+    <p>
+        The multiple refresh methods in the grid were confusing. We reviewed all the methods and replaced them with
+        two simple equivalents:
+        <a href="../javascript-grid-refresh/">api.refreshCells(params)</a> and
+        <a href="../javascript-grid-refresh/">api.redrawRows(params)</a>. For 99% of the time, you will call
+        api.refreshCells(params). However - given the grid now has change detection, you may find that you don't
+        need to call refresh ever again.
+    </p>
+    <ul>
+        <li>
+            refreshView() -> use api.refreshCells(params) instead
+        </li>
+        <li>
+            softRefreshView() -> use api.refreshCells(params) instead and include (the volatile) columns in params
+        </li>
+        <li>
+            refreshRows(rowNodes) -> use api.refreshCells(params) instead and include rows in params
+        </li>
+        <li>
+            refreshCells(rowNodes, colIds) -> use api.refreshCells(params) instead and include rows and columns in params
+        </li>
+        <li>
+            refreshGroupRows() -> use api.refreshCells(params) instead and include rows and columns in params
+        </li>
+    </ul>
+
+    <p>
+        <b>Other API And Property Changes</b>
+    </p>
+    <p>
+        The following API and property changes were done around the renaming of pinned rows and aligned grids.
+        All this is done to make the grid API easier to understand and interface with.
+        <ul>
+            <li>colDef.floatingCellRenderer -> colDef.pinnedRowCellRenderer</li>
+            <li>colDef.floatingCellRendererFramework -> colDef.pinnedRowCellRendererFramework</li>
+            <li>colDef.floatingCellRendererParams -> colDef.pinnedRowCellRendererParams</li>
+            <li>colDef.floatingValueFormatter -> colDef.pinnedRowValueFormatter</li>
+            <li>gridApi.setFloatingTopRowData-> api.setPinnedTopRowData</li>
+            <li>gridApi.setFloatingBottomRowData-> api.setPinnedBottomRowData</li>
+            <li>gridApi.getFloatingTopRowCount-> api.getPinnedTopRowCount</li>
+            <li>gridApi.getFloatingBottomRowCount-> api.getPinnedBottomRowCount</li>
+            <li>gridApi.getFloatingTopRow-> api.getPinnedTopRow</li>
+            <li>gridApi.getFloatingBottomRow-> api.getPinnedBottomRow</li>
+            <li>gridApi.getFirstRenderedRow-> api.getFirstDisplayedRow</li>
+            <li>gridApi.getLastRenderedRow-> api.getLastDisplayedRow</li>
+            <li>gridOptions.floatingTopRowData -> gridOptions.pinnedTopRowData</li>
+            <li>gridOptions.floatingBottomRowData -> gridOptions.pinnedBottomRowData</li>
+            <li>gridOptions.slaveGrids -> gridOptions.alignedGrids</li>
+            <li>rowNode.floating -> rowNode.rowPinned</li>
+        </ul>
+    </p>
+
+    <p>
+        <b>AG-591: Breaking Change to Cell Renderer - To Support TypeScript 2.4</b>
+    </p>
+
+    <p>
+        cellRenderer.refresh() is now a mandatory method and returns boolean (previously it
+        was optional and returned void). This is to
+        support TypeScript 2.4 that mandated a breaking change (TypeScript 2.4 doesn't allow
+        interface with just optional methods). Check the
+        <a href="../javascript-grid-cell-rendering-components/#cell-renderer-component">cellRenderer Refresh</a>
+        documentation for details on how to now implement this method. In summary, if you implemented
+        this method before, just make sure you return true. If you did not implement this method before,
+        then implement an empty version of it that returns false.
+    </p>
+    <p>
+        <b>Breaking Changes</b>
+    </p>
+    <ul>
+        <li>cellRenderer.params.valueGetter() is now called cellRenderer.params.getValue()</li>
+        <li>Grid property slaveGrids is now called alignedGrids.</li>
+        <li>Grid property paginationStartPage is gone, use api.paginationGoToPage(x) instead.</li>
     </ul>
 
     <h2>Version 11.0.x</h2>
     <h3>Version 11.0.0 [26-JUN-2017]</h3>
-
 
     <h4>Documentation</h4>
     <ul>
@@ -728,7 +1161,7 @@ include '../documentation-main/documentation_header.php';
     <li>Breaking Change: setColumnVisible() no longer accepts ColDefs as an argument. colIds or Columns are the available options now.</li>
     <li>Enhancement: Tooltips now don't show if null or undefined.</li>
     <li>Enhancement: Added api.getFloatingTopRowCount(), api.getFloatingBottomRowCount(), api.getFloatingTopRow(index),
-        api.getFloatingBottomRow(index) for accessing floating rows</li>
+        api.getFloatingBottomRow(index) for accessing pinned rows</li>
 
     <h3>2 - Improved React and Angular 2 Support</h3>
 
@@ -736,12 +1169,13 @@ include '../documentation-main/documentation_header.php';
         Lots of work has been done to support natively React and Angular 2, to allow you to plug in React
         and Angular 2 cellEditors and cellRenderers simply. Now, instead of using cellRenderer, you use
         cellRendererFramework as follows:
-        <pre><span class="codeComment">// when not using React or Angular 2</span>
+        <snippet>
+// when not using React or Angular 2
 colDef.cellRenderer = MyCellRenderer;
 
-<span class="codeComment">// in v6, you can use React or Angular 2 components directly</span>
-colDef.cellRendererFramework = MyReactCellRenderer; <span class="codeComment">// for React</span>
-colDef.cellRendererFramework = MyAngular2CellRenderer; <span class="codeComment">// for Angular</span></pre>
+// in v6, you can use React or Angular 2 components directly
+colDef.cellRendererFramework = MyReactCellRenderer; // for React
+colDef.cellRendererFramework = MyAngular2CellRenderer; // for Angular</snippet>
     Full details on how get this all working are in the updated React and Angular 2 sections of the docs.
     If you are using Angular 2 or React, it's best you read these sections to see how to do things
     in the new improved way.
@@ -760,8 +1194,8 @@ colDef.cellRendererFramework = MyAngular2CellRenderer; <span class="codeComment"
                 to the filter component directly via api.getFilterInstance(colKey). From here you can access all
                 methods on the filter component. So if you want to add extra items to (what used to be) the API, now
                 you just add them directly to your filter component.
-        <pre>
-<span class="codeComment">// eg if your filter was like this:</span>
+        <snippet>
+// eg if your filter was like this:
 function MyFilter() {}
 
 MyFilter.prototype.getApi = function() {
@@ -775,7 +1209,7 @@ MyFilter.prototype.getApi = function() {
     }
 }
 
-<span class="codeComment">// it should now be like this:</span>
+// it should now be like this:
 function MyFilter() {}
 
 MyFilter.prototype.getModel = function() {
@@ -784,19 +1218,19 @@ MyFilter.prototype.getModel = function() {
 
 MyFilter.prototype.setModel = function(model) {
     ...
-}</pre>
+}</snippet>
             </li>
             <li><b>If you were providing custom params to your custom filters</b> then these used to be passed to the filter embedded into the filter params.
                 Now the custom params are added to the main params.
-        <pre>
-<span class="codeComment">// eg when you define this:</span>
+        <snippet>
+// eg when you define this:
 colDef = {
     ...
     filter: MyFilter,
     filterParams: {a: 'A', b: 'B'}
 }
 
-<span class="codeComment">// the old way resulted in:</span>
+// the old way resulted in:
 params = {
     column: Column,
     ...
@@ -806,13 +1240,13 @@ params = {
     }
 }
 
-<span class="codeComment">// but now it results in:</span>
+// but now it results in:
 params = {
     column: Column,
     ...
     a: 'A',
     b: 'B'
-}</pre>
+}</snippet>
             </li>
             <li>
     <p>
@@ -1438,10 +1872,10 @@ params = {
 
     <p>
         <b>25 April</b> - Bug fixes:
-        <a href="https://github.com/ceolter/angular-grid/issues/35">Pinned Blank Space</a>,
-        <a href="https://github.com/ceolter/angular-grid/issues/91">Group Sorting</a>,
-        <a href="https://github.com/ceolter/angular-grid/issues/90">Cell Templates</a>,
-        <a href="https://github.com/ceolter/angular-grid/issues/29">Expand / Collapse</a>
+        <a href="https://github.com/ag-grid/angular-grid/issues/35">Pinned Blank Space</a>,
+        <a href="https://github.com/ag-grid/angular-grid/issues/91">Group Sorting</a>,
+        <a href="https://github.com/ag-grid/angular-grid/issues/90">Cell Templates</a>,
+        <a href="https://github.com/ag-grid/angular-grid/issues/29">Expand / Collapse</a>
     </p>
 
     <hr/>

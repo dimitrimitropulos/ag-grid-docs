@@ -9,18 +9,19 @@ include '../documentation-main/documentation_header.php';
 
 <div>
 
-    <h2 id="width-and-height">Grid Size</h2>
+    <h1 class="first-h1" id="width-and-height">Grid Size</h1>
 
     <p>
         The grid width and height should be set using CSS width and height styles.
         This can be done using pixels or percentages.
     </p>
 
-    <pre><span class="codeComment">// set width using percentages</span>
-&lt;div id="myGrid" class="ag-fresh" <b>style="width: 100%; height: 100%;"</b>>&lt;/div>
+    <snippet>
+// set width using percentages
+&lt;div id="myGrid" class="ag-theme-fresh" style="width: 100%; height: 100%;"&gt;&lt;/div&gt;
 
-<span class="codeComment">// OR set width using fixed pixels</span>
-&lt;div id="myGrid" class="ag-fresh" <b>style="width: 500px; height: 200px;"</b>>&lt;/div></pre>
+// OR set width using fixed pixels
+&lt;div id="myGrid" class="ag-theme-fresh" style="width: 500px; height: 200px;"&gt;&lt;/div&gt;</snippet>
 
     <h3 id="percent-width-and-height">Pitfall When Using Percent Width & Height</h3>
 
@@ -55,24 +56,24 @@ include '../documentation-main/documentation_header.php';
         the resize to avoid a flicker.
     </p>
 
-    <show-example example="exampleWidthAndHeight"></show-example>
+    <?= example('Width & Height', 'width-and-height', 'multi', array( 'exampleHeight' => 600 )) ?>
 
-    <h2>Grid Layout</h2>
+    <h2 id="dom-layout">DOM Layout</h2>
 
     <p>
-        There is a property <i>gridLayout</i> which changes how the grid is laid into the DOM.
+        The property <code>domLayout</code> changes how the grid is laid into the DOM.
         By default the grid will have horizontal and vertical scrolls which will meet your needs
-        95 of the time. So don't change the <i>gridLayout</i> property unless you want one
+        95 of the time. So don't set the <code>domLayout</code> property unless you want one
         of the following:
     </p>
 
     <p>
         <ul>
-            <li><b>Auto Height: </b>The auto height (explained below) allows the grid to resize based
+            <li><b>Auto Height: </b>Auto height (explained below) allows the grid to resize based
             on the number of rows so that there is no vertical scrolls. Use this if you have relatively
-            few rows in your grid and want to pack them into your webpage (so that there is no blank
-            area in the screen where the grid is bigger than needed for the rows that you have).</li>
-            <li><b>For Print: </b>The <a href="../javascript-grid-for-print/">for print</a> will have
+            few rows in your grid and want to pack them into your web-page (so that there is no blank
+            space in the grid after the last row).</li>
+            <li><b>For Print: </b><a href="../javascript-grid-for-print/">For print</a> will have
             no scrolls, very bad for performance (as a large grid will create a lot of DOM) however
             ideal if you want to print the grid, as it will remove all scrolls and pinned areas,
             so that every element is rendered into the DOM.</li>
@@ -105,7 +106,7 @@ include '../documentation-main/documentation_header.php';
             <li>As the grid height exceeds the height of the browser, you will need to use the browser vertical scroll
             to view data (or the iFrames scroll if you are looking at the example embedded below).</li>
             <li>The height will also adjust as you filter, to add and remove rows.</li>
-            <li>If you have floating rows, the grid will size to accommodate the floating rows.</li>
+            <li>If you have pinned rows, the grid will size to accommodate the pinned rows.</li>
             <li>Vertical scrolling will not happen, however horizontal scrolling, including pinned columns, will work as normal.</li>
         </ul>
     </p>
@@ -114,7 +115,8 @@ include '../documentation-main/documentation_header.php';
         The following test is best viewed if you open it in a new tab, so it is obvious that there are no scroll bars.
         Note that if you use the example inlined the scroll bars shown are for the containing iframe, not the grid.
     </note>
-    <show-example example="exampleAutoHeight"></show-example>
+
+    <?= example('Auto Height', 'auto-height', 'generated') ?>
 
     <h3>Animation with Auto Height</h3>
 
@@ -126,7 +128,7 @@ include '../documentation-main/documentation_header.php';
         using top pixel location - which is needed for the animations to work.
     </p>
 
-    <h4>Full Width and Auto Height</h4>
+    <h3>Full Width and Auto Height</h3>
 
     <p>
         The <a href="../javascript-grid-full-width-rows/">fullWidth</a> feature, when used with autoHeight,
@@ -134,6 +136,19 @@ include '../documentation-main/documentation_header.php';
         This means if using fullWidth, the fullWidth rows will scroll horizontally with the other rows and if
         pinning, the fullWidth row will be split into the pinned sections.
     </p>
+
+    <h3>Max Height with Auto Height</h3>
+
+    <p>
+        It is not possible to specify a max height when using auto-height. It is also not possible to change
+        the layout once the grid has initialised.
+    </p>
+
+    <note>
+        Users ask on the forum, is it possible to set a max height when using auto-height? The answer is no.
+        If using auto-height, the grid is set up to work in a different way. It is not possible to switch.
+        If you do need to switch, you will need to change to a new instance of the grid.
+    </note>
 
     <h2>Max Rows in Grid</h2>
 

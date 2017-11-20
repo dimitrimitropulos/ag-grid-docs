@@ -23,6 +23,9 @@ include '../documentation-main/documentation_header.php';
         </ol>
     </p>
 
+    <note>If you want to disable Excel export, you can set the property <code>suppressExcelExport = true</code> in your
+    <code>gridOptions</code></note>
+
     <h3 id="ExcelExportApi">API</h3>
 
     <p>
@@ -58,6 +61,7 @@ include '../documentation-main/documentation_header.php';
         <li><b>customHeader</b>: If you want to put some rows at the top of the xls file, stick it here.
             The format of this rows is specified below in the section custom rows.</li>
         <li><b>customFooter</b>: Same as customHeader, but for the end of the file.</li>
+        <li><b>sheetName</b>: The name of the sheet in excel where the grid will get exported. If not specified defaults to 'ag-grid'.</li>
     </ul>
 
 
@@ -126,7 +130,7 @@ include '../documentation-main/documentation_header.php';
         below 'Export with Styles'
         </li>
     </ul>
-    <pre>
+    <snippet>
 [
     [],
     [{styleId:'bigHeader', data:{type:'String', value:'Summary'}}],
@@ -135,7 +139,7 @@ include '../documentation-main/documentation_header.php';
         {styleId:'amount', data:{type:'Number', value:'3695.36'}}
     ],
     []
-]</pre>
+]</snippet>
     </p>
 
     <p>
@@ -152,11 +156,11 @@ include '../documentation-main/documentation_header.php';
     <p>Regardless, the following needs to be taken into consideration</p>
 
     <ul>
-        <li>The raw values, and not the result of cellRenderer, will get used, meaning:
+        <li>The raw values, and not the result of cell renderer, will get used, meaning:
             <ul>
-                <li>cellRenderers will NOT be used.</li>
-                <li>valueGetters will be used.</li>
-                <li>cellFormatters will NOT be used (use <i>processCellCallback</i> instead).</li>
+                <li>Cell Renderer's will NOT be used.</li>
+                <li>Value Getters will be used.</li>
+                <li>Cell Formatter's will NOT be used (use <i>processCellCallback</i> instead).</li>
             </ul>
         </li>
         <li>If row grouping, all data will be exported regardless of groups open or closed.</li>
@@ -184,14 +188,14 @@ include '../documentation-main/documentation_header.php';
         <li>For groups, the first exported value (column) will always have the group key.</li>
     </ul>
 
-    <show-example example="exampleExcel"></show-example>
+    <?= example('Excel Export Without Styles', 'excel-export-without-styles', 'generated', array("enterprise" => 1)) ?>
 
     <h3>Export with Styles</h3>
 
     <p>
         The main reason to export to Excel instead of CSV is so that the look and feel remain as consistent as possible with your ag-Grid application. In order to
-        simplify the configuration the Excel Export reuses the <a href="../javascript-grid-cell-styling/#cellClassRules">cellClassRules</a>
-        and the <a href="../javascript-grid-cell-styling/#cellClass">cellClass</a> from the column definition.
+        simplify the configuration the Excel Export reuses the <a href="../javascript-grid-cell-styles/#cellClassRules">cellClassRules</a>
+        and the <a href="../javascript-grid-cell-styles/#cellClass">cellClass</a> from the column definition.
         Whatever resultant class is applicable to the cell then is expected to be provided as an Excel Style to the
         ExcelStyles property in the <a href="../javascript-grid-properties/">gridOptions</a>.
     </p>
@@ -209,7 +213,7 @@ include '../documentation-main/documentation_header.php';
     </p>
 
     <ul>
-        <li><b>id</b> (mandatory): The id of the style, this has to be a unique string and has to match the name of the style from the <a href="../javascript-grid-cell-styling/#cellClassRules">cellClassRules</a></li>
+        <li><b>id</b> (mandatory): The id of the style, this has to be a unique string and has to match the name of the style from the <a href="../javascript-grid-cell-styles/#cellClassRules">cellClassRules</a></li>
         <li><b>alignment</b> (optional): Vertical and horizontal alignmen:<ul>
                 <li>horizontal: String one of Automatic, Left, Center, Right, Fill, Justify, CenterAcrossSelection, Distributed, and JustifyDistributed</li>
                 <li>indent: Number of indents</li>
@@ -261,7 +265,7 @@ include '../documentation-main/documentation_header.php';
                     when worksheet protection is enabled.</li>
             </ul>
         </li>
-        <li><b>dataType</b> (optional): One of (string or number). In most cases this is not necessary since this value is
+        <li><b>dataType</b> (optional): One of (string, number, boolean, dateTime, error). In most cases this is not necessary since this value is
             guessed based in weather the cell content is numeric or not. This is helpful if you want to fix the type of the
             cell. ie. If your cell content is 003, this cell will be default be interpreted as numeric, and in Excel, it will
             show up as 3. But if you want to keep your original formatting, you can do so by setting this property to string.
@@ -281,33 +285,33 @@ include '../documentation-main/documentation_header.php';
 
 
     <h4>Excel Style Definition Example</h4>
-    <pre>
+    <snippet>
 var columnDef = {
     ...,
-    <span class="codeComment">// The same cellClassRules and cellClass can be used for CSS and Excel</span>
+    // The same cellClassRules and cellClass can be used for CSS and Excel
     cellClassRules: {
-        greenBackground: function(params) { return params.value < 23}
+        greenBackground: function(params) { return params.value &lt; 23}
     },
     cellClass: 'redFont'
 }
 
-<span class="codeComment">// In this example we can see how we merge the styles in Excel.</span>
-<span class="codeComment">// Everyone less than 23 will have a green background, and a light green color font (#e0ffc1)</span>
-<span class="codeComment">// also because redFont is set in cellClass, it will always be applied</span>
+// In this example we can see how we merge the styles in Excel.
+// Everyone less than 23 will have a green background, and a light green color font (#e0ffc1)
+// also because redFont is set in cellClass, it will always be applied
 
 var gridOptions = {
     ...,
     ExcelStyles: [
-        <span class="codeComment">// The base style, red font.</span>
+        // The base style, red font.
         {
             id: "redFont",
             interior: {
                 color: "#FF0000", pattern: 'Solid'
             }
         },
-        <span class="codeComment">// The cellClassStyle: background is green and font color is light green,</span>
-        <span class="codeComment">// note that since this excel style it's defined after redFont</span>
-        <span class="codeComment">// it will override the red font color obtained through cellClass:'red'</span>
+        // The cellClassStyle: background is green and font color is light green,
+        // note that since this excel style it's defined after redFont
+        // it will override the red font color obtained through cellClass:'red'
         {
             id: "greenBackground",
             alignment: {
@@ -336,13 +340,13 @@ var gridOptions = {
     ]
 }
 
-    </pre>
+   </snippet>
 
     <h4>Resolving Excel Styles</h4>
 
     <p>
-        All the defined classes from <a href="../javascript-grid-cell-styling/#cellClass">cellClass</a> and all the classes resultant of evaluating
-        the <a href="../javascript-grid-cell-styling/#cellClassRules">cellClassRules</a>
+        All the defined classes from <a href="../javascript-grid-cell-styles/#cellClass">cellClass</a> and all the classes resultant of evaluating
+        the <a href="../javascript-grid-cell-styles/#cellClassRules">cellClassRules</a>
         are applied to each cell when exporting to Excel.
         Normally these styles map to CSS classes when the grid is doing normal rendering. In Excel Export, the styles are mapped against the Excel styles
         that you have provided. If more than one Excel style is found, the results are merged (similar to how CSS classes
@@ -402,8 +406,23 @@ var gridOptions = {
         </ul>
     </p>
 
-    <show-example example="exampleExcelStyles"></show-example>
+    <?= example('Excel Export With Styles', 'excel-export-with-styles', 'generated', array("enterprise" => 1)) ?>
 
+    <h3>
+        Example 3 - Data types
+    </h3>
+
+    <p>
+        The following example demonstrates how to use other data types for your export. Note that:
+    <ul>
+        <li>Boolean works off using 1 for true</li>
+        <li>The date time format for excel follows this format yyyy-mm-ddThh:MM:ss.mmm: </li>
+        <li>If you try to pass data that is not compatible with the underlying data type Excel will throw an error</li>
+        <li>When using <code>dataType: 'dateTime'</code> Excel doesn't format the resultant value, in this example
+        it shows 39923. You need to add the formatting inside Excel</li>
+    </ul>
+    </p>
+    <?= example('Excel Data Typs', 'excel-data-types', 'generated', array("enterprise" => 1)) ?>
 
     <h3 id="exportToXlsx">
         Exporting To XLSX
@@ -440,15 +459,16 @@ var gridOptions = {
         <li><a href="http://sheetjs.com/" target="_blank">sheetJs</a> Is included as a third party library</li>
         <li>
             The "Export to Excel (xlsx)" button reuses the XML and passes it to sheetJs to generate a xlsx</li>
-<pre>
+<snippet>
     var content = gridOptions.api.getDataAsExcel(params);
     var workbook = XLSX.read(content, {type: 'binary'});
-    var xlsxContent = XLSX.write(workbook, {bookType: 'xlsx', type: 'base64'});</pre>
+    var xlsxContent = XLSX.write(workbook, {bookType: 'xlsx', type: 'base64'});</snippet>
         </li>
         <li>There is some code to handle the conversion from base64 to blob adapted from
             <a href="http://stackoverflow.com/questions/16245767/creating-a-blob-from-a-base64-string-in-javascript">stackOverflow</a></li>
         <li>There is some code to handle the download of the blob:
-<pre>function download (params, content){
+<snippet>
+function download (params, content){
     var fileNamePresent = params && params.fileName && params.fileName.length !== 0;
     var fileName = fileNamePresent ? params.fileName : 'noWarning.xlsx';
 
@@ -457,10 +477,10 @@ var gridOptions = {
 
 
     if (window.navigator.msSaveOrOpenBlob) {
-        <span class="codeComment">// Internet Explorer</span>
+        // Internet Explorer
         window.navigator.msSaveOrOpenBlob(blobObject, fileName);
     } else {
-        <span class="codeComment">// Chrome</span>
+        // Chrome
         var downloadLink = document.createElement("a");
         downloadLink.href = URL.createObjectURL(blobObject);
         downloadLink.download = fileName;
@@ -468,7 +488,7 @@ var gridOptions = {
         document.body.appendChild(downloadLink);
         downloadLink.click();
         document.body.removeChild(downloadLink);
-}</pre></li>
+}</snippet></li>
     <li>Note that this example doesnt't import the styles to xls. To add styling to the xlsx, the logic could be extended
         to read the XML styling information received from
         <i>gridOptions.api.getDataAsExcel(params)</i>, and it could thn be passed into SheetJs through the object returned by
@@ -477,7 +497,6 @@ var gridOptions = {
     </li>
     </ul>
 
-    <show-example example="exampleXlsx"></show-example>
-
+    <?= example('Custom XLSX', 'custom-xlsx', 'generated', array("enterprise" => 1, "extras" => array('xlsx'))) ?>
 
 <?php include '../documentation-main/documentation_footer.php';?>

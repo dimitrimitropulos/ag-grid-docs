@@ -21,6 +21,133 @@ include('../includes/mediaHeader.php');
 
 <div style="overflow: hidden; border: 1px solid darkgrey; background-color: #eee; padding: 10px; margin: 30px 5px 5px 5px;">
     <div style="float: left; width: 240px;">
+        <a href="../ag-grid-blog-14-2-0/">
+            <img src="../ag-grid-blog-14-2-0/cover.jpg" style="width: 225px;"/>
+        </a>
+    </div>
+
+    <div style="overflow: hidden;">
+        <div style="font-size: 20px; color: #167ac6; float: left;">
+            <a href="../ag-grid-blog-14-2-0/">
+                What's New in ag-Grid v14.2.0
+            </a>
+        </div>
+        <div style="float: right;  color: #767676;">
+            14th November 2017
+        </div>
+    </div>
+    <div style="color: #767676">
+        Sophia Lazarova
+    </div>
+    <div style="color: #767676; padding-top: 20px;">
+        <p>Find out what the team has prepared for you with v14.2.0</p>
+    </div>
+</div>
+
+<div style="overflow: hidden; border: 1px solid darkgrey; background-color: #eee; padding: 10px; margin: 30px 5px 5px 5px;">
+    <div style="float: left; width: 240px;">
+        <a href="../ag-grid-datagrid-crud-part-2/">
+            <img src="../ag-grid-datagrid-crud-part-1/crud_overview.png" style="width: 225px;"/>
+        </a>
+    </div>
+
+    <div style="overflow: hidden;">
+        <div style="font-size: 20px; color: #167ac6; float: left;">
+            <a href="../ag-grid-datagrid-crud-part-2/">
+                Building a CRUD Application with ag-Grid - Part 2
+            </a>
+        </div>
+        <div style="float: right;  color: #767676;">
+            7th November 2017
+        </div>
+    </div>
+    <div style="color: #767676">
+        Sean Landsman
+    </div>
+    <div style="color: #767676; padding-top: 20px;">
+        <p>The second part in a series of blogs about Building a CRUD Application with ag-Grid. In this part we take a look
+            at the Middle Tier - exposing our data with a REST Service.</p>
+    </div>
+</div>
+
+<div style="overflow: hidden; border: 1px solid darkgrey; background-color: #eee; padding: 10px; margin: 30px 5px 5px 5px;">
+    <div style="float: left; width: 240px;">
+        <a href="../change-log/v14/">
+            <img src="../change-log/v14/v14-200.png" style="width: 225px;"/>
+        </a>
+    </div>
+
+    <div style="overflow: hidden;">
+        <div style="font-size: 20px; color: #167ac6; float: left;">
+            <a href="../change-log/v14/">
+                ag-Grid v14 Released
+            </a>
+        </div>
+        <div style="float: right;  color: #767676;">
+            2nd November 2017
+        </div>
+    </div>
+    <div style="color: #767676">
+        Niall Crosby
+    </div>
+    <div style="color: #767676; padding-top: 20px;">
+        <p>With improved tree data, row grouping, examples in React and Angular and much more.</p>
+    </div>
+</div>
+
+<div style="overflow: hidden; border: 1px solid darkgrey; background-color: #eee; padding: 10px; margin: 30px 5px 5px 5px;">
+    <div style="float: left; width: 240px;">
+        <a href="../ag-grid-datagrid-crud-part-1/">
+            <img src="../ag-grid-datagrid-crud-part-1/crud_overview.png" style="width: 225px;"/>
+        </a>
+    </div>
+
+    <div style="overflow: hidden;">
+        <div style="font-size: 20px; color: #167ac6; float: left;">
+            <a href="../ag-grid-datagrid-crud-part-1/">
+                Building a CRUD Application with ag-Grid - Part 1
+            </a>
+        </div>
+        <div style="float: right;  color: #767676;">
+            24th October 2017
+        </div>
+    </div>
+    <div style="color: #767676">
+        Sean Landsman
+    </div>
+    <div style="color: #767676; padding-top: 20px;">
+        <p>The first in a series of blogs about building a CRUD Application with ag-Grid (all the way from the Database to ag-Grid).
+            We use Java, Hibernate and Spring in the middle tier, with Angular and ag-Grid on the frontend.</p>
+    </div>
+</div>
+
+<div style="overflow: hidden; border: 1px solid darkgrey; background-color: #eee; padding: 10px; margin: 30px 5px 5px 5px;">
+    <div style="float: left; width: 240px;">
+        <a href="../ag-grid-8-performance-hacks-for-javascript/">
+            <img src="../images/agGridDaily.png" style="width: 225px;"/>
+        </a>
+    </div>
+
+    <div style="overflow: hidden;">
+        <div style="font-size: 20px; color: #167ac6; float: left;">
+            <a href="../ag-grid-8-performance-hacks-for-javascript/">
+                8 Performance Hacks for JavaScript
+            </a>
+        </div>
+        <div style="float: right;  color: #767676;">
+            20th Sept 2017
+        </div>
+    </div>
+    <div style="color: #767676">
+        Niall Crosby
+    </div>
+    <div style="color: #767676; padding-top: 20px;">
+        Performance patterns, or performance 'hacks', used in ag-Grid that puts the grid on steroids.
+    </div>
+</div>
+
+<div style="overflow: hidden; border: 1px solid darkgrey; background-color: #eee; padding: 10px; margin: 30px 5px 5px 5px;">
+    <div style="float: left; width: 240px;">
         <a href="../ag-grid-big-data-small-browser/">
             <img src="../images/agGridDaily.png" style="width: 225px;"/>
         </a>

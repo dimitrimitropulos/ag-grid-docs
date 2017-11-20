@@ -18,10 +18,10 @@ include '../documentation-main/documentation_header.php';
 
     <p>
         There are two types of header components:
-        <ul>
-            <li><b>Header Component</b>: For rendering the normal column headers. Configured for columns.</li>
-            <li><b>Header Group Component</b>: For rendering column groups. Configured for column groups.</li>
-        </ul>
+    <ul>
+        <li><b>Header Component</b>: For rendering the normal column headers. Configured for columns.</li>
+        <li><b>Header Group Component</b>: For rendering column groups. Configured for column groups.</li>
+    </ul>
     </p>
 
     <p>
@@ -29,20 +29,21 @@ include '../documentation-main/documentation_header.php';
         in the default column definition to impact all columns).
     </p>
 
-    <pre><span class="codeComment">// a list of column definitions</span>
+    <snippet>
+// a list of column definitions
 var myColumns = {
 
-    <span class="codeComment">// these columns use the default header</span>
+    // these columns use the default header
     {headerName: "Athlete", field: "athlete"},
     {headerName: "Sport", field: "sport"},
 
-    <span class="codeComment">// this column uses a custom header</span>
+    // this column uses a custom header
     {headerName: "Age", field: "age", headerComponent: MyHeaderComponent},
 
-    <span class="codeComment">// you can also specify header components for groups</span>
+    // you can also specify header components for groups
     {
         headerName: "Medals",
-        <span class="codeComment">// custom header component</span>
+        // custom header component
         headerGroupComponent: MyHeaderGroupComponent,
         children: [
             {headerName: "Gold", field: "gold"},
@@ -51,7 +52,7 @@ var myColumns = {
         ]
     }
 }
-</pre>
+    </snippet>
 
     <note>
         Header Components were introduced in v8 of ag-Grid. Before this customising the header was done
@@ -63,8 +64,8 @@ var myColumns = {
     <h2 id="headerComponent">Header Component</h2>
 
     <p>
-        This section details how to put a header component into ag-Grid. How to create header <b>group</b> components
-        is explained in the next section.
+        This section details how to put a header component into ag-Grid. How to create header group components is
+        explained in the next section.
     </p>
 
     <h3 id="grid-vs-your-responsibilities">Grid vs Your Responsibilities</h3>
@@ -75,46 +76,55 @@ var myColumns = {
         be worried about, eg the resizing and moving of columns. The HTML of the header cell is similar
         to the following:
     </p>
-<pre><span class="codeComment">// the ag-header-cell is always provided by ag-Grid</span>
-<span class="codeComment">// column moving and resize logic is put on this element by the grid</span>
-&lt;div class="ag-header-cell">
+    <snippet language="html">
+&lt;!-- the ag-header-cell is always provided by ag-Grid --!&gt;
+&lt;!-- column moving and resize logic is put on this element by the grid --!&gt;
+&lt;div class="ag-header-cell"&gt;
 
-    <span class="codeComment">// ag-Grid will also always provide a resize bar (if column resizing</span>
-    <span class="codeComment">// is enabled) and take care of all the resize logic. the grid usually</span>
-    <span class="codeComment">// floats this element to the right.</span>
-    &lt;div class="ag-header-cell-resize"/>
+&lt;!-- ag-Grid will also always provide a resize bar (if column resizing
+ is enabled) and take care of all the resize logic. the grid usually
+ floats this element to the right.--!&gt;
+&lt;div class="ag-header-cell-resize"&gt;&lt;/div&gt;
 
-    <span class="codeComment">// checkbox for selection, if turned on.</span>
-    <span class="codeComment">// the grid usually floats this element to the left.</span>
-    &lt;div class="ag-header-select-all"/>
+&lt;!-- checkbox for selection, if turned on.
+ the grid usually floats this element to the left.
+&lt;div class="ag-header-select-all"&gt;&lt;/div&gt;
 
-    <span class="codeComment">// the header component - this is the piece that you can customise</span>
-    &lt;div class="ag-header-component"/>
-&lt;/div>
-</pre>
+&lt;!-- the header component - this is the piece that you can customise --!&gt;
+&lt;div class="ag-header-component"&gt; &lt;/div&gt;
+&lt;/div&gt;
+    </snippet>
 
     <p>
         The grid is always responsible for the following:
-        <ul>
-            <li><a href="../javascript-grid-resizing/"><b>Resizing:</b></a> When enabled, the grid will put an invisible widget to be grabbed by
-            the mouse for resizing.</li>
-            <li><a href="../javascript-grid-selection/"><b>Checkbox Selection:</b></a> When enabled, the grid puts a checkbox for 'select all' in the header.</li>
-        </ul>
+    <ul>
+        <li><a href="../javascript-grid-resizing/"><b>Resizing:</b></a> When enabled, the grid will put an invisible
+            widget to be grabbed by
+            the mouse for resizing.
+        </li>
+        <li><a href="../javascript-grid-selection/"><b>Checkbox Selection:</b></a> When enabled, the grid puts a
+            checkbox for 'select all' in the header.
+        </li>
+    </ul>
     </p>
 
     <p>
         The header component (your bit) will be responsible for the following:
-        <ul>
+    <ul>
         <li><b>Sorting:</b> You will need to process user interaction for sorting. The default grid
-        component sorts when the user clicks the header with the mouse. You may also need to display
-        icons as the sort state of the column changes.</li>
+            component sorts when the user clicks the header with the mouse. You may also need to display
+            icons as the sort state of the column changes.
+        </li>
         <li><b>Filtering:</b> You do not filter via the column (you filter from inside the menu), however
-        you may need to display icons as the filter state of the column changes.</li>
+            you may need to display icons as the filter state of the column changes.
+        </li>
         <li><b>Menu:</b> If you want the user to be able to open the column menu, you will need to
-        manage this user interaction. The default grid component provides a button for the user to click
-        to show the menu.</li>
+            manage this user interaction. The default grid component provides a button for the user to click
+            to show the menu.
+        </li>
         <li><b>Anything Else:</b> Whatever you want, you are probably creating a custom
-            header to add your own functionality in.</li>
+            header to add your own functionality in.
+        </li>
     </ul>
     </p>
 
@@ -124,55 +134,59 @@ var myColumns = {
         Header components work similar to other component types in ag-Grid in which they should
         implement the following interface:
     </p>
-    <pre>interface IHeaderComp {
+    <snippet>
+        interface IHeaderComp {
 
-    <span class="codeComment">// optional method, gets called once with params</span>
-    init?(params: IHeaderCompParams): void;
+        // optional method, gets called once with params
+        init?(params: IHeaderCompParams): void;
 
-    <span class="codeComment">// gets called once, you should return the HTML element</span>
-    getGui(): HTMLElement;
+        // gets called once, you should return the HTML element
+        getGui(): HTMLElement;
 
-    <span class="codeComment">// optional method, gets called once, when component is destroyed</span>
-    destroy?(): void;
+        // optional method, gets called once, when component is destroyed
+        destroy?(): void;
 
-}</pre>
+        }
+    </snippet>
 
     <p>The params passed to <i>init()</i> are as follows:</p>
-    <pre>export interface IHeaderCompParams {
+    <snippet>
+    export interface IHeaderCompParams {
 
-    <span class="codeComment">// the column the header is for</span>
-    column: Column;
+        // the column the header is for
+        column: Column;
 
-    <span class="codeComment">// the name to display for the column. if the column is using a headerValueGetter,</span>
-    <span class="codeComment">// the displayName will take this into account.</span>
-    displayName: string;
+        // the name to display for the column. if the column is using a headerValueGetter,
+        // the displayName will take this into account.
+        displayName: string;
 
-    <span class="codeComment">// whether sorting is enabled for the column. only put sort logic into</span>
-    <span class="codeComment">// your header if this is true.</span>
-    enableSorting: boolean;
+        // whether sorting is enabled for the column. only put sort logic into
+        // your header if this is true.
+        enableSorting: boolean;
 
-    <span class="codeComment">// whether menu is enabled for the column. only display a menu button</span>
-    <span class="codeComment">// in your header if this is true.</span>
-    enableMenu: boolean;
+        // whether menu is enabled for the column. only display a menu button
+        // in your header if this is true.
+        enableMenu: boolean;
 
-    <span class="codeComment">// callback to progress the sort for this column.</span>
-    <span class="codeComment">// the grid will decide the next sort direction eg ascending, descending or 'no sort'.</span>
-    <span class="codeComment">// pass multiSort=true if you want to do a multi sort (eg user has shift held down when they click)</span>
-    progressSort(multiSort: boolean): void;
+        // callback to progress the sort for this column.
+        // the grid will decide the next sort direction eg ascending, descending or 'no sort'.
+        // pass multiSort=true if you want to do a multi sort (eg user has shift held down when they click)
+        progressSort(multiSort: boolean): void;
 
-    <span class="codeComment">// callback to set the sort for this column.</span>
-    <span class="codeComment">// pass the sort direction to use ignoring the current sort eg one of 'asc', 'desc' or null (for no sort).</span>
-    <span class="codeComment">// pass multiSort=true if you want to do a multi sort (eg user has shift held down when they click)</span>
-    setSort(sort: string, multiSort?: boolean): void;
+        // callback to set the sort for this column.
+        // pass the sort direction to use ignoring the current sort eg one of 'asc', 'desc' or null (for no sort).
+        // pass multiSort=true if you want to do a multi sort (eg user has shift held down when they click)
+        setSort(sort: string, multiSort?: boolean): void;
 
-    <span class="codeComment">// callback to request the grid to show the column menu.</span>
-    <span class="codeComment">// pass in the html element of the column menu to have the </span>
-    <span class="codeComment">// grid position the menu over the button.</span>
-    showColumnMenu(menuButton: HTMLElement): void;
+        // callback to request the grid to show the column menu.
+        // pass in the html element of the column menu to have the
+        // grid position the menu over the button.
+        showColumnMenu(menuButton: HTMLElement): void;
 
-     <span class="codeComment">// The grid API</span>
-    api: any;
-}</pre>
+        // The grid API
+        api: any;
+    }
+    </snippet>
 
     <h3 id="sorting">Sorting</h3>
 
@@ -183,52 +197,56 @@ var myColumns = {
 
     <p>
         After the user requests a sort, you should call ONE of the following:
-        <ol>
-            <li><i>params.progressSort(multiSort):</i> This is the simplest. Call it to progress the sort on
+    <ol>
+        <li><i>params.progressSort(multiSort):</i> This is the simplest. Call it to progress the sort on
             the column to the next stage. Using this uses the grid logic for working out what the
-            next sort stage is (eg 'descending' normally follows 'ascending').</li>
-            <li><i>params.setSort(direction, multiSort):</i> Use this to set to sort to a specific state. Use this
-            if you don't want to use the grids logic for working out the next sort state.</li>
-        </ol>
+            next sort stage is (eg 'descending' normally follows 'ascending').
+        </li>
+        <li><i>params.setSort(direction, multiSort):</i> Use this to set to sort to a specific state. Use this
+            if you don't want to use the grids logic for working out the next sort state.
+        </li>
+    </ol>
     </p>
 
-    <pre><span class="codeComment">// option 1) tell the grid when you want to progress the sorting</span>
-myHeaderElement.addEventListener('click', function(event) {
-    <span class="codeComment">// in this example, we do multi sort if shift key is pressed</span>
-    params.progressSort(event.shiftKey);
-});
+    <snippet>
+        // option 1) tell the grid when you want to progress the sorting
+        myHeaderElement.addEventListener('click', function(event) {
+        // in this example, we do multi sort if shift key is pressed
+        params.progressSort(event.shiftKey);
+        });
 
-<span class="codeComment">// or option 2) tell the grid when you want to set the sort explicitly</span>
-<span class="codeComment">// button that always sorts ASCENDING</span>
-mySortAscButton.addEventListener('click', function(event) {
-    params.setSort('asc', event.shiftKey);
-});
-<span class="codeComment">// button that always sorts DESCENDING</span>
-mySortDescButton.addEventListener('click', function(event) {
-    params.setSort('desc', event.shiftKey);
-});
-</pre>
+        // or option 2) tell the grid when you want to set the sort explicitly
+        // button that always sorts ASCENDING
+        mySortAscButton.addEventListener('click', function(event) {
+        params.setSort('asc', event.shiftKey);
+        });
+        // button that always sorts DESCENDING
+        mySortDescButton.addEventListener('click', function(event) {
+        params.setSort('desc', event.shiftKey);
+        });
+    </snippet>
 
     <p>
         To know when a column's sort state has change (eg when to update your icons), you should listen
         for <i>sortChanged</i> event on the column.
     </p>
-    <pre><span class="codeComment">// listen to the column for sort events</span>
-column.addEventListener('sortChanged', function() {
+    <snippet>
+        // listen to the column for sort events
+        column.addEventListener('sortChanged', function() {
 
-    <span class="codeComment">// get sort state from column</span>
-    var sort = column.getSort();
-    console.log('sort state of column is ' + sort); <span class="codeComment">// prints one of ['asc',desc',null]</span>
+        // get sort state from column
+        var sort = column.getSort();
+        console.log('sort state of column is ' + sort); // prints one of ['asc',desc',null]
 
-    <span class="codeComment">// then do what you need, eg set relevant icons visible</span>
-    var sortingAscending = sort==='asc';
-    var sortingDescending = sort==='desc';
-    var notSorting = !sortingAscending && !sortingDescending;
-    <span class="codeComment">// how you update your GUI accordingly is up to you</span>
-});
+        // then do what you need, eg set relevant icons visible
+        var sortingAscending = sort==='asc';
+        var sortingDescending = sort==='desc';
+        var notSorting = !sortingAscending && !sortingDescending;
+        // how you update your GUI accordingly is up to you
+        });
 
-<span class="codeComment">// don't forget to remove your listener in your destroy code</span>
-</pre>
+        // don't forget to remove your listener in your destroy code
+    </snippet>
 
     <h3 id="filtering">Filtering</h3>
 
@@ -238,14 +256,15 @@ column.addEventListener('sortChanged', function() {
         know when to show a filter icon, listen to the column for filterChanged events.
     </p>
 
-    <pre><span class="codeComment">// listen to the column for filter events</span>
-column.addEventListener('filterChanged', function() {
-    <span class="codeComment">// when filter changes on the col, this will print one of [true,false]</span>
-    console.log('filter of column is ' + column.isFilterActive());
-});
+    <snippet>
+        // listen to the column for filter events
+        column.addEventListener('filterChanged', function() {
+        // when filter changes on the col, this will print one of [true,false]
+        console.log('filter of column is ' + column.isFilterActive());
+        });
 
-<span class="codeComment">// don't forget to remove your listener in your destroy code</span>
-</pre>
+        // don't forget to remove your listener in your destroy code
+    </snippet>
 
 
     <h3 id="menu">Menu</h3>
@@ -257,9 +276,11 @@ column.addEventListener('filterChanged', function() {
         to drop down from the button).
     </p>
 
-    <pre>myMenuButton.addEventListener('click', function() {
-    params.showColumnMenu(myMenuButton);
-});</pre>
+    <snippet>
+        myMenuButton.addEventListener('click', function() {
+        params.showColumnMenu(myMenuButton);
+        });
+    </snippet>
 
     <h3 id="complementing-params">Complementing Params</h3>
 
@@ -269,29 +290,31 @@ column.addEventListener('filterChanged', function() {
         have a header component for formatting currency but that needs the currency symbol.
     </p>
 
-    <pre>colDef = {
-    ...
-    headerComponent: MyHeaderComponent;
-    headerComponentParams : {
-        currencySymbol: '£' <span class="codeComment">// the pound symbol will be placed into params</span>
-    }
-}
-</pre>
+    <snippet>
+        colDef = {
+        ...
+        headerComponent: MyHeaderComponent;
+        headerComponentParams : {
+        currencySymbol: '£' // the pound symbol will be placed into params
+        }
+        }
+    </snippet>
 
     <h3 id="example-header-component">Example - Header Component</h3>
 
     <p>
         The example below shows a header component in action. The following can be observed
         in the demo:
-        <ul>
-            <li>Column moving and resizing is working without requiring any logic in the header component.</li>
-            <li>Some columns have suppressMenu=true, so the header component doesn't show the menu.</li>
-            <li>Some columns have suppressSorting=true, so the header component doesn't add sorting logic.</li>
-            <li>The header component uses additional parameters to allowing configuring the menu icon.</li>
-        </ul>
+    <ul>
+        <li>Column moving and resizing is working without requiring any logic in the header component.</li>
+        <li>Some columns have suppressMenu=true, so the header component doesn't show the menu.</li>
+        <li>Some columns have suppressSorting=true, so the header component doesn't add sorting logic.</li>
+        <li>The header component uses additional parameters to allowing configuring the menu icon.</li>
+    </ul>
     </p>
 
-    <show-example example="exampleHeaderComponent"></show-example>
+    <?= example('Header component', 'header-component', 'vanilla', array("extras" => array("fontawesome"))) ?>
+
 
     <h2 id="headerGroupComponent">Header Group Component</h2>
 
@@ -310,8 +333,9 @@ column.addEventListener('filterChanged', function() {
 
     <ul>
         <li><b>Group Open / Close:</b> If the group can expand (one or more columns visibility
-        depends on the open / closed state of the group) then your header group component
-        should handle the interaction with the user for opening and closing groups.</li>
+            depends on the open / closed state of the group) then your header group component
+            should handle the interaction with the user for opening and closing groups.
+        </li>
         <li><b>Anything Else:</b> Whatever you want, it's your component!</li>
     </ul>
 
@@ -322,33 +346,37 @@ column.addEventListener('filterChanged', function() {
         The only difference is the params object passed to the <i>init()</i> method.
     </p>
 
-    <pre>export interface IHeaderGroupComp {
+    <snippet>
+        export interface IHeaderGroupComp {
 
-    <span class="codeComment">// optional method, gets called once with params</span>
-    init?(params: IHeaderGroupCompParams): void;
+        // optional method, gets called once with params
+        init?(params: IHeaderGroupCompParams): void;
 
-    <span class="codeComment">// gets called once, you should return the HTML element</span>
-    getGui(): HTMLElement;
+        // gets called once, you should return the HTML element
+        getGui(): HTMLElement;
 
-    <span class="codeComment">// optional method, gets called once, when component is destroyed</span>
-    destroy?(): void;
+        // optional method, gets called once, when component is destroyed
+        destroy?(): void;
 
-}</pre>
+        }
+    </snippet>
 
 
     <p>The params passed to <i>init()</i> are as follows:</p>
-    <pre>export interface IHeaderGroupParams {
+    <snippet>
+        export interface IHeaderGroupParams {
 
-    <span class="codeComment">// the column group the header is for</span>
-    columnGroup: ColumnGroup;
+        // the column group the header is for
+        columnGroup: ColumnGroup;
 
-    <span class="codeComment">// the text label to render. if the column is using a headerValueGetter,</span>
-    <span class="codeComment">// the displayName will take this into account.</span>
-    displayName: string;
+        // the text label to render. if the column is using a headerValueGetter,
+        // the displayName will take this into account.
+        displayName: string;
 
-    <span class="codeComment">// opens / closes the column group</span>
-    setExpanded(expanded: boolean): void;
-}</pre>
+        // opens / closes the column group
+        setExpanded(expanded: boolean): void;
+        }
+    </snippet>
 
     <h3 id="opening-closing-groups">Opening / Closing Groups</h3>
 
@@ -359,58 +387,58 @@ column.addEventListener('filterChanged', function() {
         group.
     </p>
 
-    <pre>var showExpandableIcons = params.columnGroup.isExpandable()</pre>
+    <snippet>
+        var showExpandableIcons = params.columnGroup.isExpandable()
+    </snippet>
 
     <p>
         To check if a column group is open or closed, check the <i>isExpanded()</i> method
         on the column group.
     </p>
 
-    <pre>var groupIsOpen = params.columnGroup.isExpanded();</pre>
+    <snippet>
+        var groupIsOpen = params.columnGroup.isExpanded();
+    </snippet>
 
     <p>
         To open / close a column group, use the <i>params.setExpanded(boolean)</i> method.
     </p>
 
-    <pre><span class="codeComment">// this code toggles the expanded state</span>
-var oldValue = params.columnGroup.isExpanded();
-var newValue = !oldValue;
-params.setExpanded(newValue);</pre>
+    <snippet>
+        // this code toggles the expanded state
+        var oldValue = params.columnGroup.isExpanded();
+        var newValue = !oldValue;
+        params.setExpanded(newValue);
+    </snippet>
 
     <p>
         To know if a group is expanded or collapsed, listen for the <i>expandedChanged</i>
         event on the column group.
     </p>
 
-    <pre><span class="codeComment">// get a reference to the original column group</span>
-var columnGroup = params.columnGroup.getOriginalColumnGroup();
-<span class="codeComment">// create listener</span>
-var listener = function() { console.log('group was opened or closed'); };
-<span class="codeComment">// add listener</span>
-columnGroup.addEventListener('expandedChanged', listener);
+    <snippet>
+        // get a reference to the original column group
+        var columnGroup = params.columnGroup.getOriginalColumnGroup();
+        // create listener
+        var listener = function() { console.log('group was opened or closed'); };
+        // add listener
+        columnGroup.addEventListener('expandedChanged', listener);
 
-<span class="codeComment">// don't forget to remove the listener in your destroy method</span>
-columnGroup.removeEventListener('expandedChanged', listener);</pre>
+        // don't forget to remove the listener in your destroy method
+        columnGroup.removeEventListener('expandedChanged', listener);
+    </snippet>
 
     <h3 id="example-header-group-cells">Example - Header Group Cells</h3>
 
-    <show-example example="exampleHeaderGroupComponent"></show-example>
+    <?= example('Header Group', 'header-group-component', 'vanilla', array("extras" => array("fontawesome"))) ?>
 
-    <?php if (isFrameworkAngular2()) { ?>
-        <?php include './angular.php';?>
-    <?php } ?>
+    <?php include './angular.php'; ?>
 
-    <?php if (isFrameworkAurelia()) { ?>
-        <?php include './aurelia.php';?>
-    <?php } ?>
+    <?php include './aurelia.php'; ?>
 
-    <?php if (isFrameworkReact()) { ?>
-        <?php include './react.php';?>
-    <?php } ?>
+    <?php include './react.php'; ?>
 
-    <?php if (isFrameworkVue()) { ?>
-        <?php include './vuejs.php';?>
-    <?php } ?>
+    <?php include './vuejs.php'; ?>
 
     <hr>
     <p>&nbsp;</p>
@@ -423,17 +451,20 @@ columnGroup.removeEventListener('expandedChanged', listener);</pre>
 
         <note>Header components (explained above) replace the need for header templates. If using header templates,
             you should refactor your code to use header components instead. Support for header templates will be
-            dropped in ag-Grid v9.</note>
+            dropped in ag-Grid v9.
+        </note>
 
         <p>
             You provide a header template to change the overall layout of a header cell. You can provide
             header templates in the following places:
         <ul>
             <li><b>colDef.headerCellTemplate:</b> Can be a string of HTML, a DOM element, or a function
-                that returns a string of HTML or a DOM element.</li>
+                that returns a string of HTML or a DOM element.
+            </li>
             <li><b>gridOptions.headerCellTemplate:</b> Can be a string of HTML or a DOM element.</li>
             <li><b>gridOptions.getHeaderCellTemplate:</b> A function that returns a string of HTML or
-                a DOM element.</li>
+                a DOM element.
+            </li>
         </ul>
         </p>
 
@@ -497,21 +528,27 @@ columnGroup.removeEventListener('expandedChanged', listener);</pre>
         <p>There are two methods useful in the API for showing the column menu if you don't like the provided logic:</p>
         <ul>
             <li><b>showColumnMenuAfterButtonClick(colKey, buttonElement)</b>: Shows a menu and positions relative
-                to the provided button element - so it appears over the element giving the impression of the dropdown menu.</li>
+                to the provided button element - so it appears over the element giving the impression of the dropdown
+                menu.
+            </li>
             <li><b>showColumnMenuAfterMouseClick(colKey, mouseEvent)</b>: Shows a menu and positions relative
-                to the provided mouse event - use this for context menu, so the menu appears where you click the mouse.</li>
+                to the provided mouse event - use this for context menu, so the menu appears where you click the mouse.
+            </li>
         </ul>
-        <p>It is unusual to use these methods, only use them if you can't get what you want from the normal behaviour.</p>
+        <p>It is unusual to use these methods, only use them if you can't get what you want from the normal
+            behaviour.</p>
 
         <h4 id="example-header-template">Example Header Template</h4>
         <p>
-            The example below shows defining header templates in different ways. The <i>gridOptions.headerCellTemplate</i>
+            The example below shows defining header templates in different ways. The
+            <i>gridOptions.headerCellTemplate</i>
             is provided with a string of HTML that is used for all the columns bar 'Athlete' and 'Country'.
             The 'Country' column
             definition is provided with a function that returns a DOM element (not a string) with some functionality
             attached to it. The functionality shows a message when you click on the additional 'Calendar' icon.
 
-            The 'Athlete' column uses the two api methods above, one api method to show menu when you mouse click on the button,
+            The 'Athlete' column uses the two api methods above, one api method to show menu when you mouse click on the
+            button,
             and the other api method to show menu when you right click on the athlete header.
         </p>
         <show-example example="exampleHeaderTemplate"></show-example>
@@ -519,17 +556,19 @@ columnGroup.removeEventListener('expandedChanged', listener);</pre>
         <p>
             For your reference, the default header template is as follows:
         </p>
-        <pre><code>&lt;div class="ag-header-cell">
-        &lt;div id="agResizeBar" class="ag-header-cell-resize">&lt;/div>
-        &lt;span id="agMenu" class="ag-header-icon ag-header-cell-menu-button">&lt;/span>
-        &lt;div id="agHeaderCellLabel" class="ag-header-cell-label">
-            &lt;span id="agSortAsc" class="ag-header-icon ag-sort-ascending-icon">&lt;/span>
-            &lt;span id="agSortDesc" class="ag-header-icon ag-sort-descending-icon">&lt;/span>
-            &lt;span id="agNoSort" class="ag-header-icon ag-sort-none-icon">&lt;/span>
-            &lt;span id="agFilter" class="ag-header-icon ag-filter-icon">&lt;/span>
-            &lt;span id="agText" class="ag-header-cell-text">&lt;/span>
-        &lt;/div>
-    &lt;/div></code></pre>
+        <snippet language="html">
+            &lt;div class="ag-header-cell"&gt;
+            &lt;div id="agResizeBar" class="ag-header-cell-resize"&gt;&lt;/div&gt;
+            &lt;span id="agMenu" class="ag-header-icon ag-header-cell-menu-button"&gt;&lt;/span&gt;
+            &lt;div id="agHeaderCellLabel" class="ag-header-cell-label"&gt;
+            &lt;span id="agSortAsc" class="ag-header-icon ag-sort-ascending-icon"&gt;&lt;/span&gt;
+            &lt;span id="agSortDesc" class="ag-header-icon ag-sort-descending-icon"&gt;&lt;/span&gt;
+            &lt;span id="agNoSort" class="ag-header-icon ag-sort-none-icon"&gt;&lt;/span&gt;
+            &lt;span id="agFilter" class="ag-header-icon ag-filter-icon"&gt;&lt;/span&gt;
+            &lt;span id="agText" class="ag-header-cell-text"&gt;&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;/div&gt;
+        </snippet>
 
         <h4 id="header-templates-and-custom-icons">Header Templates and Custom Icons</h4>
 
@@ -543,9 +582,12 @@ columnGroup.removeEventListener('expandedChanged', listener);</pre>
     <div style="border-left: 4px solid lightcoral; padding-left: 4px;">
         <h2 id="deprecated-header-rendering"><span style="color: darkred;">DEPRECATED -</span> Header Rendering</h2>
 
-        <note>Header components (explained above) replace the need for header rendering. If using header rendering,
-            you should refactor your code to use header components instead. Support for header rendering will be
-            dropped in ag-Grid v9.</note>
+        <note>
+            Check <a href="../javascript-grid-column-header>">Column Headers</a> for the new way of
+            specifying templates in ag-Grid. This old way for doing headers is kept in ag-Grid for
+            ag-Grid v14 only so both ways are working concurrently. In v15 we plan to drop the deprecated
+            way shown in this section.
+        </note>
 
         <p>
             Header rendering allows you to control what's inside the label in a header.
@@ -608,4 +650,4 @@ columnGroup.removeEventListener('expandedChanged', listener);</pre>
     </div>
 </div>
 
-<?php include '../documentation-main/documentation_footer.php';?>
+<?php include '../documentation-main/documentation_footer.php'; ?>

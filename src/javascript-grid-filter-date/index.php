@@ -25,11 +25,12 @@ include '../documentation-main/documentation_header.php';
     date filter parameters below</li>
 </ol>
 
-<p>In order to set the filter type to text you need to add the following to your column definition</p>
+<p>In order to set the filter type to <code>date</code> you need to add the following to your column definition</p>
 
-<p><pre>colDef:{
+<p><snippet>
+colDef:{
     filter:'date'
-}</pre></p>
+}</snippet></p>
 
 <h2 id="dateFilterParameters">Date Filter Parameters</h2>
 
@@ -51,6 +52,8 @@ A date filter can take the following parameters:
         lessThanOrEqual, greaterThan, greaterThanOrEqual, inRange}. If not specified the default type is {equals},
         if {equals} is not available because is removed using <i>filterOptions</i>, then the default
         is the first item in the filterOptions</li>
+    <li><b>nullComparator:</b> If specified, it will be used to specify if null values should be included when filtering.
+        See: <a href="../javascript-grid-filtering#nullFiltering">Null filtering</a></li>
 </ul>
 
 
@@ -81,38 +84,37 @@ This pattern is intended to be similar to the JavaScript <i>compareTo(a,b)</i> f
     Below is an example of using a date filter with a comparator.
 </p>
 
-<pre>
+<snippet>
 colDef = {
     ...
-    <span class="codeComment">// specify we want to use the date filter</span>
+    // specify we want to use the date filter
     filter: 'date',
 
-    <span class="codeComment">// add extra parameters for the date filter</span>
+    // add extra parameters for the date filter
     filterParams:{
 
-        <span class="codeComment">// provide comparator function</span>
+        // provide comparator function
         comparator: function (filterLocalDateAtMidnight, cellValue) {
 
-            <span class="codeComment">// In the example application, dates are stored as dd/mm/yyyy</span>
-            <span class="codeComment">// We create a Date object for comparison against the filter date</span>
+            // In the example application, dates are stored as dd/mm/yyyy
+            // We create a Date object for comparison against the filter date
             var dateParts  = cellValue.split("/");
             var day = Number(dateParts[2]);
             var month = Number(dateParts[1]) - 1;
             var year = Number(dateParts[0]);
             var cellDate = new Date(day, month, year);
 
-            <span class="codeComment">// Now that both parameters are Date objects, we can compare</span>
-            if (cellDate < filterLocalDateAtMidnight) {
+            // Now that both parameters are Date objects, we can compare
+            if (cellDate &lt; filterLocalDateAtMidnight) {
                 return -1;
-            } else if (cellDate > filterLocalDateAtMidnight) {
+            } else if (cellDate &gt; filterLocalDateAtMidnight) {
                 return 1;
             } else {
                 return 0;
             }
         }
     }
-}
-</pre>
+}</snippet>
 
 <h2 id="model">Date Filter Model</h2>
 
@@ -120,27 +122,27 @@ colDef = {
     Get and set the state of the date filter by getting and setting the model on the filter instance.
 </p>
 
-<p><pre><span class="codeComment">// get filter instance</span>
+<p><snippet>
+// get filter instance
 var dobFilterComponent = gridOptions.api.getFilterInstance('dob');
 
-<span class="codeComment">// get filter model</span>
+// get filter model
 var model = dobFilterComponent.getModel();
 
-<span class="codeComment">// OR set filter model and update</span>
+// OR set filter model and update
 dobFilterComponent.setModel({
     type:'equals',
     dateFrom:'2008-08-24'
 });
 gridOptions.api.onFilterChanged()
 
-<span class="codeComment">// NOTE number filter allows for ranges</span>
+// NOTE number filter allows for ranges
 dobFilterComponent.setModel({
     type:'inRange',
     dateFrom:'2008-08-24'
     dateTo:'2012-08-24'
 });
-gridOptions.api.onFilterChanged()
-</pre></p>
+gridOptions.api.onFilterChanged()</snippet></p>
 
 <note>
     <p>The dates for the date filter model are always serialised and expected to be a string with the format

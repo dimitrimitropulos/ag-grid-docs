@@ -9,14 +9,12 @@ include '../documentation-main/documentation_header.php';
 
 <div>
 
-    <h1>
-        <img src="../images/svg/docs/getting_started.svg" width="50"/>
-        <img style="vertical-align: middle" src="/images/angular2_small.png" height="25px"/>
-        Angular 2 Grid
+    <h1 class="first-h1">
+        <img style="vertical-align: middle" src="../images/angular2_large.png" height="50px"/>
+        Angular 2+ Datagrid - More Details
     </h1>
-    <h2>More Details</h2>
 
-    <note>Full working examples of ag-Grid and Angular can be found in <a href="https://github.com/ceolter/ag-grid-angular-example">Github</a>, illustrating
+    <note>Full working examples of ag-Grid and Angular can be found in <a href="https://github.com/ag-grid/ag-grid-angular-example">Github</a>, illustrating
         (amongst others) Rich Grids, Filtering with Angular Components, Master/Detail Grid and so on.</note>
 
     <h3>Downloading the ag-Grid Angular Component</h3>
@@ -66,31 +64,32 @@ include '../documentation-main/documentation_header.php';
 
     <p>You can then reference the dependency as follows in the top of your component:</p>
 
-    <pre>import {AgGridModule} from 'ag-grid-angular/main';</pre>
+    <snippet>
+import {AgGridModule} from 'ag-grid-angular/main';</snippet>
 
     <p>
         Which you can then use as a dependency inside your module:
     </p>
 
-    <pre>@NgModule({
+    <snippet>
+@NgModule({
     imports: [
         BrowserModule,
         AgGridModule.withComponents([...optional Angular Components to be used in the grid....]),
         ...
-})</pre>
+})</snippet>
 
     <p>And finally, reference it in your template as follows:</p>
-<pre>
-<span class="codeComment">// component template</span>
-&lt;ag-grid-angular style="width: 500px; height: 115px;" class="ag-fresh"
+<snippet>
+// component template
+&lt;ag-grid-angular style="width: 500px; height: 115px;" class="ag-theme-fresh"
                 [rowData]="rowData"
                 [columnDefs]="columnDefs"&gt;
-&lt;/ag-grid-angular&gt;
-</pre>
+&lt;/ag-grid-angular&gt;</snippet>
 
     <h3><img src="../images/enterprise_50.png" style="height: 22px;margin-right: 5px"/>Downloading the ag-Grid Angular Enterprise Dependency</h3>
 
-    <p>If you're using the ag-Grid Enteprise features, then in addition to the ag-Grid Angular dependency above, you also require
+    <p>If you're using the ag-Grid Enterprise features, then in addition to the ag-Grid Angular dependency above, you also require
     the ag-Grid Angular Enterprise dependency:</p>
 
     <h3>Download ag-Grid-Enterprise</h3>
@@ -115,12 +114,11 @@ include '../documentation-main/documentation_header.php';
     </table>
 
     <p>The Enterprise dependency has to be made available before any Grid related component, so we suggest importing it in your
-    Angular root module if possible(typically named index.js) before kicking off the actual application - for example:</p>
+    Angular root module if possible before kicking off the actual application - for example:</p>
 
-<pre>
-<span class="codeComment">// only necessary if you're using ag-Grid-Enterprise features</span>
-import "ag-grid-enterprise";
-</pre>
+<snippet>
+// only necessary if you're using ag-Grid-Enterprise features
+import "ag-grid-enterprise";</snippet>
 
     <h2 id="ag-Grid-angular-features">ag-Grid Angular Features</h2>
 
@@ -186,7 +184,7 @@ import "ag-grid-enterprise";
     <h3 id="providing-angular-components-to-ag-grid">Providing Angular Components to ag-Grid</h3>
     <p>In order for ag-Grid to be able to use your Angular Components, you need to provide them in the <strong>top
             level</strong> module:</p>
-    <pre>
+    <snippet>
 @NgModule({
 imports: [
     BrowserModule,
@@ -196,13 +194,12 @@ imports: [
         [
             SquareComponent,
             CubeComponent,
-            ...other components
-</pre>
+            ...other components</snippet>
 
     <p>You can then use these components as editors, renderers or filters. For example, to use an Angular
         Component as a
         Cell Renderer, you would do the following:</p>
-    <pre>
+    <snippet>
 let colDefs = [
     {
         headerName: "Square Component",
@@ -213,11 +210,10 @@ let colDefs = [
         width: 175
     },
     ...other column definitions
-]
-</pre>
+]</snippet>
     <p>Please see the relevant sections on <a
-                href="../javascript-grid-cell-rendering-components/#ng2CellRendering">cellRenderers</a>,
-        <a href="../javascript-grid-cell-editing/#ng2CellEditing">cellEditors</a> and
+                href="../javascript-grid-cell-rendering-components/#ng2CellRendering">cell renderer's</a>,
+        <a href="../javascript-grid-cell-editing/#ng2CellEditing">cell editors</a> and
         <a href="../javascript-grid-filtering/#ng2Filtering">filters</a> for configuring and using Angular
         Components in
         ag-Grid.</p>
@@ -226,30 +222,31 @@ let colDefs = [
         The example has ag-Grid configured through the template in the following ways:
     </p>
 
-    <pre><span class="codeComment">// notice the grid has an id called agGrid, which can be used to call the API</span>
-&lt;ag-grid-angular #agGrid style="width: 100%; height: 350px;" class="ag-fresh"
+    <snippet>
+// notice the grid has an id called agGrid, which can be used to call the API
+&lt;ag-grid-angular #agGrid style="width: 100%; height: 350px;" class="ag-theme-fresh"
 
-    <span class="codeComment">// items bound to properties on the controller</span>
+    // items bound to properties on the controller
     [gridOptions]="gridOptions"
     [columnDefs]="columnDefs"
     [showToolPanel]="showToolPanel"
     [rowData]="rowData"
 
-    <span class="codeComment">// boolean values 'turned on'</span>
+    // boolean values 'turned on'
     enableColResize
     enableSorting
     enableFilter
 
-    <span class="codeComment">// simple values, not bound</span>
+    // simple values, not bound
     rowHeight="22"
     rowSelection="multiple"
 
-    <span class="codeComment">// event callbacks</span>
+    // event callbacks
     (modelUpdated)="onModelUpdated()"
     (cellClicked)="onCellClicked($event)"
-    (cellDoubleClicked)="onCellDoubleClicked($event)">
+    (cellDoubleClicked)="onCellDoubleClicked($event)"&gt;
 
-&lt;/ag-grid-angular></pre>
+&lt;/ag-grid-angular&gt;</snippet>
 
     <p>
         The above is all you need to get started using ag-Grid in a Angular application. Now would
@@ -270,8 +267,8 @@ let colDefs = [
         which the
         child can then access.</p>
 
-    <pre>
-<span class="codeComment">// in the parent component - the component that hosts ag-grid-angular and specifies which angular components to use in the grid</span>
+    <snippet>
+// in the parent component - the component that hosts ag-grid-angular and specifies which angular components to use in the grid
 constructor() {
     this.gridOptions = &lt;GridOptions&gt;{
         context: {
@@ -282,10 +279,9 @@ constructor() {
     this.gridOptions.columnDefs = this.createColumnDefs();
 }
 
-<span class="codeComment">// in the child component - the angular components created dynamically in the grid</span>
-<span class="codeComment">// the parent component can then be accessed as follows:</span>
-this.params.context.componentParent
-</pre>
+// in the child component - the angular components created dynamically in the grid
+// the parent component can then be accessed as follows:
+this.params.context.componentParent</snippet>
 
     <p>Note that although we've used <code>componentParent</code> as the property name here it can be anything -
         the
@@ -298,10 +294,10 @@ this.params.context.componentParent
         above illustrates this in the Child/Parent column:</p>
     <ul>
         <li>
-            <a href="https://github.com/ceolter/ag-grid-angular-example/blob/master/systemjs_aot/app/from-component.component.ts"
+            <a href="https://github.com/ag-grid/ag-grid-angular-example/blob/master/systemjs_aot/app/dynamic-component-example/dynamic.component.ts"
                target="_blank" class="fa fa-external-link"> Parent Component</a></li>
         <li>
-            <a href="https://github.com/ceolter/ag-grid-angular-example/blob/master/systemjs_aot/app/child-message.component.ts"
+            <a href="https://github.com/ag-grid/ag-grid-angular-example/blob/master/systemjs_aot/app/dynamic-component-example/child-message.component.ts"
                target="_blank" class="fa fa-external-link"> Child Component</a></li>
     </ul>
 
@@ -313,7 +309,7 @@ this.params.context.componentParent
         examples
         using
         either SystemJS, Webpack or Webpack 2 as part of the <a
-                href="https://github.com/ceolter/ag-grid-angular-example">ag-grid-angular-example</a> project on
+                href="https://github.com/ag-grid/ag-grid-angular-example">ag-grid-angular-example</a> project on
         GitHub.
     </p>
     <p>We document the main parts of these tools below, but please refer to the examples for more detail.</p>
@@ -345,46 +341,44 @@ this.params.context.componentParent
         follows:</p>
 
     <h3 id="column-definition">Column Definition</h3>
-    <pre>
-&lt;ag-grid-column headerName="Name" field="name" [width]="150">&lt;/ag-grid-column>
-</pre>
+    <snippet>
+&lt;ag-grid-column headerName="Name" field="name" [width]="150"&gt;&lt;/ag-grid-column&gt;</snippet>
 
     <p>This example declares a simple Column Definition, specifying header name, field and width.</p>
 
     <h3 id="setting-column-properties">Setting Column Properties</h3>
     <p>There are some simple rules you should follow when setting column properties via Markup:</p>
-    <pre ng-non-bindable>
-<span class="codeComment">// string value</span>
+    <snippet ng-non-bindable>
+// string value
 propertyName="String Value"
 [propertyName]="'String Value'"
 [propertyName]="{{Interpolated Value}}"
 [propertyName]="functionCallReturningAString()"
 
-<span class="codeComment">// boolean value</span>
+// boolean value
 [propertyName]="true|false"
 [propertyName]="{{Interpolated Value}}"
 [propertyName]="functionCallReturningABoolean()"
 
-<span class="codeComment">// numeric value</span>
+// numeric value
 [propertyName]="Numeric Value"
 [propertyName]="functionCallReturningANumber()"
 
-<span class="codeComment">// function value</span>
+// function value
 [propertyName]="functionName"
-[propertyName]="functionCallReturningAFunction()"
-</pre>
+[propertyName]="functionCallReturningAFunction()"</snippet>
 
     <h4 id="setting-a-class-or-a-complex-value">Setting a Class or a Complex Value:</h4>
     <p>You can set a Class or a Complex property in the following way:</p>
-    <pre>
-<span class="codeComment">// return a Class definition for a Filter</span>
+    <snippet>
+// return a Class definition for a Filter
 [filter]="getSkillFilter()"
 
 private getSkillFilter():any {
     return SkillFilter;
 }
 
-<span class="codeComment">// return an Object for filterParams</span>
+// return an Object for filterParams
 [filterParams]="getCountryFilterParams()"
 
 private getCountryFilterParams():any {
@@ -392,44 +386,29 @@ private getCountryFilterParams():any {
         cellRenderer: this.countryCellRenderer,
         cellHeight: 20
     }
-}
-</pre>
+}</snippet>
 
     <h3 id="grouped-column-definition">Grouped Column Definition</h3>
     <p>To specify a Grouped Column, you can nest a column defintion:</p>
-    <pre ng-non-bindable>
-&lt;ag-grid-column headerName="IT Skills">
-    &lt;ag-grid-column headerName="Skills" [width]="125" [suppressSorting]="true" [cellRenderer]="skillsCellRenderer" [filter]="getSkillFilter()">&lt;/ag-grid-column>
-    &lt;ag-grid-column headerName="Proficiency" field="proficiency" [width]="120" [cellRenderer]="percentCellRenderer" [filter]="getProficiencyFilter()">&lt;/ag-grid-column>
-&lt;/ag-grid-column>
-</pre>
+    <snippet>
+&lt;ag-grid-column headerName="IT Skills"&gt;
+    &lt;ag-grid-column headerName="Skills" [width]="125" [suppressSorting]="true" [cellRenderer]="skillsCellRenderer" [filter]="getSkillFilter()"&gt;&lt;/ag-grid-column&gt;
+    &lt;ag-grid-column headerName="Proficiency" field="proficiency" [width]="120" [cellRenderer]="percentCellRenderer" [filter]="getProficiencyFilter()"&gt;&lt;/ag-grid-column&gt;
+&lt;/ag-grid-column&gt;</snippet>
     <p>In this example we have a parent Column of "IT Skills", with two child columns.</p>
 
     <h3 id="example-rich-grid-using-markup">Example: Rich Grid using Markup</h3>
     <p>
         The example below shows the same rich grid as the example above, but with configuration done via Markup.
     </p>
-    <show-complex-example example="../ng2-example/index.html?fromDocs=true&example=rich-grid-declarative"
-                          sources="{
-                            [
-                                { root: '/ng2-example/app/rich-grid-declarative-example/', files: 'rich-grid-declarative.component.ts,rich-grid-declarative.component.html,proficiency-renderer.css,rich-grid.css' },
-                                { root: '/ng2-example/app/header-group-component/', files: 'header-group.component.ts,header-group.component.html,header-group.component.css' },
-                                { root: '/ng2-example/app/header-component/', files: 'header.component.ts,header.component.html,header.component.css' },
-                                { root: '/ng2-example/app/filters/', files: 'skillFilter.ts,proficiencyFilter.ts' },
-                                { root: '/ng2-example/app/date-component/', files: 'date.component.ts,date.component.html,date.component.css' },
-                                { root: '/ng2-example/app/', files: 'app.module.ts' }
-                            ]
-                          }"
-                          plunker="https://embed.plnkr.co/1rHK9l/"
-                          exampleHeight="525px">
-    </show-complex-example>
+    <?= example('ag-Grid in Angular with Markup', 'angular-rich-grid-markup', 'angular', array( "enterprise" => 1, "exampleHeight" => 525, "showResult" => true, "extras" => array( "fontawesome", "bootstrap" ) )); ?>
 
     <h2 id="cell-rendering-cell-editing-using-angular">Cell Rendering & Cell Editing using Angular</h2>
 
     <p>
         It is possible to build
-        <a href="../javascript-grid-cell-rendering-components/#ng2CellRendering">cellRenderers</a>,
-        <a href="../javascript-grid-cell-editing/#ng2CellEditing">cellEditors</a> and
+        <a href="../javascript-grid-cell-rendering-components/#ng2CellRendering">cell renderer's</a>,
+        <a href="../javascript-grid-cell-editing/#ng2CellEditing">cell editors</a> and
         <a href="../javascript-grid-filtering/#ng2Filtering">filters</a> using Angular. Doing each of these
         is explained in the section on each.
     </p>
@@ -442,32 +421,30 @@ private getCountryFilterParams():any {
 
     <h2 id="aggrid-angular-testing">Testing ag-Grid Angular Applications with Karma & Jasmine</h2>
 
-    <p>In our <a href="https://github.com/ceolter/ag-grid-angular-seed">Angular Seed Repo</a> we provide working
+    <p>In our <a href="https://github.com/ag-grid/ag-grid-angular-seed">Angular Seed Repo</a> we provide working
         examples of how to test your Angular project with Karma & Jasmine.</p>
 
     <p>As with your actual application, you need to ensure you <code>import</code> the <code>AgGridModule</code> when
         specifying your tests:</p>
 
-    <pre>
+    <snippet>
 TestBed.configureTestingModule({
     imports: [
         AgGridModule.withComponents([...optional Angular Components...]
     ]
-    ...rest of module definition
-</pre>
+    ...rest of module definition</snippet>
 
     <p>You also need to aware that the Grid <code>API</code> and <code>ColumnAPI</code> will only be available after your
         fixtures <code>detectChanges</code> has been invoked:</p>
-    <pre>
-it('grid API is not available until  `detectChanges`', () => {
+    <snippet>
+it('grid API is not available until  `detectChanges`', () =&gt; {
     expect(component.gridOptions.api).not.toBeTruthy();
 });
 
-it('grid API is available after `detectChanges`', () => {
+it('grid API is available after `detectChanges`', () =&gt; {
     fixture.detectChanges();
     expect(component.gridOptions.api).toBeTruthy();
-});
-</pre>
+});</snippet>
 </div>
 
 <?php include '../documentation-main/documentation_footer.php'; ?>

@@ -30,7 +30,7 @@ include '../documentation-main/documentation_header.php';
             <li><b>firstChild:</b> True if this is the first child in this group</li>
             <li><b>lastChild:</b> True if this is the last child in this group</li>
             <li><b>childIndex:</b> The index of this node in the group.</li>
-            <li><b>floating:</b> 'top' or 'bottom' if floating row, otherwise null or undefined.</li>
+            <li><b>rowPinned:</b> 'top' or 'bottom' if pinned row, otherwise null or undefined.</li>
             <li><b>canFlower:</b> True if this node can flower (ie can be expanded, but has no direct children).</li>
             <li><b>childFlower:</b> The child flower of this node.</li>
             <li><b>childIndex:</b> Index of this row with respect to it's parent when grouping. Changes when data is sorted.</li>
@@ -127,9 +127,10 @@ include '../documentation-main/documentation_header.php';
     </p>
 
     <p>
-        Be careful adding listeners to rowNodes in cellRenderers that you remove the listener when the rendered
+        Be careful adding listeners to rowNodes in cell renderer's that you remove the listener when the rendered
         row in destroyed due to row virtualisation. You can cater for this as follows:
-        <pre>var renderer = function(params) {
+        <snippet>
+var renderer = function(params) {
     // add listener
     var selectionChangedCallback = function () {
         // some logic on selection changed here
@@ -143,7 +144,7 @@ include '../documentation-main/documentation_header.php';
     }
 
     return params.value;
-}</pre>
+}</snippet>
     </p>
 
 </div>

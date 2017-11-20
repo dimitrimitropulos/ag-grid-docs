@@ -14,13 +14,19 @@ $getRowNodeApi = [
     'Similar to forEachNode, except skips any filtered out data and each the callback is called in the order the rows are displayed in the grid.'
     ],
     ['forEachLeafNode(callback)',
-    'Similar to forEachNode, except lists all the leaf nodes. This effectively goes through all the data that you provided the grid before the grid did any grouping.'
+    'Similar to forEachNode, except lists all the leaf nodes. This effectively goes through all the data that you provided the grid before the grid did any grouping. If doing tree data, then goes through all the nodes for data you provided, including nodes that have children, but excluding groups the grid created where gaps were missing in the hierarchy.'
     ],
     ['getDisplayedRowAtIndex(index)',
     'Returns the displayed rowNode at the riven index.'
     ],
     ['getDisplayedRowCount()',
     'Returns the total number of displayed rows.'
+    ],
+    ['getFirstDisplayedRow()',
+    'Get the index of the first displayed row due to scrolling (includes not visible rendered rows in the buffer)'
+    ],
+    ['getLastDisplayedRow()',
+    'Get the index of the last displayed row due to scrolling (includes not visible rendered rows in the buffer)'
     ]
 ];
 

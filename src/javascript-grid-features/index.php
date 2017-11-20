@@ -9,35 +9,33 @@ include '../documentation-main/documentation_header.php';
 
 <div>
 
-    <h2 id="features">
-        <img src="../images/svg/docs/features.svg" width="50" />
-        Features
-    </h2>
+    <h1 id="features" class="first-h1">
+        <img src="../images/svg/docs/features.svg" style="width: 50px; position: relative; top: -10px;"/>
+        Features Overview
+    </h1>
 
     <p>
-        The features part of the documentation goes through all the features in detail
-        along with examples.
+        This section of the documentation describes each feature with a quick video of how it works. You can then click through
+        to read the detailed article on how that feature works. The examples in the features section are provided in plain JavaScript.
+        This demonstrates which properties to use and the relevant API call that is needed for
+        each feature. To use in your framework of choice, you will apply the property
+        or call the API in the way specific to your framework.
     </p>
 
-    <h2 id="examples">Examples</h2>
+    <h3 id="examples">ag-Grid Free vs ag-Grid Enterprise</h3>
 
     <p>
-        Most of the examples are provided in plain JavaScript. Where examples are available
-        in your framework of choice, these will also be linked to.
+        All features that are only available in ag-Grid Enterprise are marked with the enterprise symbol:
+        <img style="padding: 5px; border: 1px solid lightgrey;" src="../images/enterprise.png"/>
     </p>
 
-    <h2 id="examples">Free vs Enterprise Features</h2>
 
-    <p>
-        All enterprise features are marked with the following symbol in the menu:
-    </p>
-    <div style="margin-top: 10px; margin-bottom: 20px; display: inline-block; padding: 20px; border: 1px solid lightgrey;">
-        <img   src="../images/enterprise_50.png"/>
-    </div>
 
-    <p>
-        When you see this symbol, the feature is only available in ag-Grid Enterprise.
-    </p>
+    <?php
+        $featuresRoot = '.';
+        include './gridFeatures.php';
+    ?>
+
 </div>
 
 <?php include '../documentation-main/documentation_footer.php';?>

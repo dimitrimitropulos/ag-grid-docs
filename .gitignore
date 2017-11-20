@@ -3,8 +3,6 @@ node_modules/
 !src/ng2-example/node_modules
 !src/dist
 !src/vue-examples/dist
-!src/react-examples/examples/dist
-!src/react-examples/trader/dist
 
 .DS_Store
 ag-grid-docs.iml
@@ -13,3 +11,6 @@ ag-grid-docs.iml
 
 src/dist/ag-grid
 src/dist/ag-grid-enterprise
+.cache-loader
+_dev
+**/_gen

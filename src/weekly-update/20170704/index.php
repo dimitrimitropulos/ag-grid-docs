@@ -202,7 +202,7 @@ include('../../includes/mediaHeader.php');
                 </td>
                 <td>
                     <a href="https://twitter.com/share" class="twitter-share-button"
-                       data-url="https://www.ag-grid.com/weekly-update/20170740/"
+                       data-url="https://www.ag-grid.com/weekly-update/20170704/"
                        data-text="ag-Grid Weekly Update #javascript #angularjs #react" data-via="ceolter"
                        data-size="large">Tweet</a>
                     <script>!function (d, s, id) {

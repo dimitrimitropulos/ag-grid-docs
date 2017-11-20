@@ -33,19 +33,20 @@ include '../documentation-main/documentation_header.php';
         into a string.
     </p>
 
-    <pre><span class="codeComment">// this is using standard functions</span>
+    <snippet>
+// this is using standard functions
 colDef = {
-    valueGetter: function(params) { return params.<span class="codeHighlight">data.firstName</span>; },
-    valueFormatter: function(params) { return params.<span class="codeHighlight">value.toUpperCase()</span>; }
+    valueGetter: function(params) { return params.data.firstName; },
+    valueFormatter: function(params) { return params.value.toUpperCase(); }
     ...
 };
 
-<span class="codeComment">// this is the same as above but using expressions</span>
+// this is the same as above but using expressions
 colDef = {
-    valueGetter: '<span class="codeHighlight">data.firstName</span>',
-    valueFormatter: '<span class="codeHighlight">value.toUpperCase()</span>'
+    valueGetter: 'data.firstName',
+    valueFormatter: 'value.toUpperCase()'
     ...
-};</pre>
+};</snippet>
 
     <h2>Example Column Definition Expressions</h2>
 
@@ -56,7 +57,7 @@ colDef = {
         <code>valueGetter</code> is used, a string is provided instead of a function.
     </p>
 
-    <show-example example="exampleValuesAndFormattersExpressions"></show-example>
+    <?= example('Column Definition Expressions', 'column-definition-expressions', 'generated') ?>
 
     <h2>Variables to Expressions</h2>
 
@@ -163,24 +164,25 @@ colDef = {
         </li>
     </ul>
 
-    <show-example example="exampleCellExpressions"></show-example>
+    <?= example('Cell Expressions', 'cell-expressions', 'multi') ?>
 
     <h2>How Expressions Work</h2>
 
     <p>
         When you provide and expression to the grid, the grid converts the expression into a function
         for you and then executes the function. Consider the example below, the example provides
-        <span class="codeHighlight">data.firstName</span> as the expression. This snippet of code
+        <code>data.firstName</code> as the expression. This snippet of code
         then gets wrapped into a function with all the params attributes as function attributes.
     </p>
 
-    <pre><span class="codeComment">// this is a simple expression on the column definition</span>
-colDef.valueGetter = '<span class="codeHighlight">data.firstName</span>';
+    <snippet>
+// this is a simple expression on the column definition
+colDef.valueGetter = 'data.firstName';
 
-<span class="codeComment">// the grid will then compile the above to this:</span>
+// the grid will then compile the above to this:
 ___compiledValueGetter = function(node, data, colDef, column, api, columnApi, context, getValue) {
-    return <span class="codeHighlight">data.firstName</span>;
-}</pre>
+    return data.firstName;
+}</snippet>
 
     <p>
         If your expression has the word <code>return</code> in it, then the grid will assume it is a multi line

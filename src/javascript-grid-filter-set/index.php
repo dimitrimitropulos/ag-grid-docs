@@ -23,13 +23,13 @@ include '../documentation-main/documentation_header.php';
         the set filter. Set the filterParams on the columnDefinition as follows:
     </p>
 
-    <pre>
+    <snippet>
 columnDefinition = {
     headerName: "Athlete",
     field: "athlete",
     filter: 'set',
     filterParams: {cellRenderer: countryFilterCellRenderer, cellHeight: 20, values: ['A','B','C'], newRowsAction: 'keep'}
-}</pre>
+}</snippet>
 
     <p>
         The set filter params are specific to each filter and have the following meanings:
@@ -38,14 +38,14 @@ columnDefinition = {
     <ul>
         <li><b>cellRenderer:</b> Similar to the cell renderer for the grid (you can use the same one in both locations).
             Setting it separately here allows for the value to be rendered differently in the filter. Note that
-            the cellRenderer for the setFilter only receives the value as a parameter, as opposite to the cellRenderer
+            the cell renderer for the set filter only receives the value as a parameter, as opposed to the cell renderer
             in the colDef that receives more information.
         </li>
         <li><b>cellHeight:</b> The height of the cell.</li>
         <li><b>values:</b> The values to display in the filter. If this is not set, then the filter will
             takes its values from what is loaded in the table. Setting it allows you to set values where a) the
             value may not be present in the list (for example, if you want to show all states in America so
-            that the user is not confused by missing states, even though states are missing from the dataset
+            that the user is not confused by missing states, even though states are missing from the data set
             in the grid) and b) the list is not available (happens when doing server side filtering in pagination
             and infinite scrolling).</li>
         <li><b>newRowsAction:</b> What to do when new rows are loaded. The default is to reset the filter,
@@ -133,7 +133,39 @@ columnDefinition = {
         The column athlete has a debounce of 1000ms before the selected options are filtered out
     </p>
 
-    <show-example example="exampleSetFilter"></show-example>
+    <?= example('Set Filter', 'set-filter', 'generated', array("enterprise" => 1)) ?>
+
+    <h3 id="sortingSetFilter">Asynchronous Values</h3>
+
+    <p>
+        In addition to being able to specify a hardcoded list of values for your setFilter, you can provide a callback
+        to load the values asynchronously. The callback receives a parameter object. This parameter object has
+        a <code>success</code> callback function that you can callback as soon as the values for the setFilter are ready.
+    </p>
+
+    <p>
+        This can be observed in the next example. Note that:
+        <ul>
+            <li><code>colDef.filterParams.values</code> specifies the values for the set filter in a callback and introduces a 5 second delay</li>
+<snippet>
+    filterParams: {
+        values: (params)=>{
+            setTimeout(()=>{
+                params.success(['value 1', 'value 2'])
+            }, 5000)
+        }
+    }</snippet>
+            <li>While the data is obtained, (the 5s delay), the setFilter is showing a loading message</li>
+            <li>The loading message can be configured, check our <a href="../javascript-grid-internationalisation/">
+                    internationalisation docs</a>. The key for this string is <code>loadingOoo</code></li>
+            <li>The callback is only invoked the first time the filter is opened. The next time the filter is opened
+            the values are not loaded again.</li>
+        </ul>
+
+    </p>
+
+
+    <?= example('Callback/Async', 'callback-async', 'generated', array("enterprise" => 1)) ?>
 
     <h3 id="sortingSetFilter">Sorting And Formatting Set Filter Values List</h3>
 
@@ -153,7 +185,7 @@ columnDefinition = {
         can check this by searching for 'bjo'in the mini-filter box.
     </p>
 
-    <show-example example="exampleSetFilterComparator"></show-example>
+    <?= example('Set Filter Comparator', 'set-filter-comparator', 'generated', array("enterprise" => 1)) ?>
 
     <h2 id="newRowsSetFilter">New Rows Action and Values Example</h2>
 
@@ -181,8 +213,7 @@ columnDefinition = {
         no longer exist in the new set.
     </note>
 
-    <show-example example="exampleSetFilterNewRows"></show-example>
-
+    <?= example('Set Filter New Rows', 'set-filter-new-rows', 'generated', array("enterprise" => 1)) ?>
 
     <h2 id="model">Set Filter Model</h2>
 
@@ -191,16 +222,16 @@ columnDefinition = {
     </p>
 
     <p>
-<pre><span class="codeComment">// get filter instance</span>
+<snippet>
+// get filter instance
 var countryFilterComponent = gridOptions.api.getFilterInstance('country');
 
-<span class="codeComment">// get filter model</span>
+// get filter model
 var model = countryFilterComponent.getModel();
 
-<span class="codeComment">// OR set filter model and update</span>
+// OR set filter model and update
 countryFilterComponent.setModel(['Spain','Ireland','South Africa','Australia','England']);
-countryFilterComponent.onFilterChanged()
-</pre>
+countryFilterComponent.onFilterChanged()</snippet>
 </p>
 
     <p>
@@ -226,6 +257,7 @@ countryFilterComponent.onFilterChanged()
         <li><b>getUniqueValue(index)</b>: Returns the unique value at the given index</li>
         <li><b>setFilterValues(arrayOfStringOptions)</b>: Useful if you want to change on the fly the available options
         <li><b>resetFilterValues()</b>: Useful if you want to rebuild the filter options based on the underlying data</li>
+        <li><b>setLoading(loading)</b>: Useful if you want to show/hide the loading overlay in the set filter.</li>
     </ul>
     </p>
 
@@ -240,13 +272,12 @@ countryFilterComponent.onFilterChanged()
         end of the interaction a call to gridOptions.api.onFilterChanged() is performed.
     </p>
 
-    <show-example example="exampleSetFilterApi"></show-example>
-
+    <?= example('Set Filter API', 'set-filter-api', 'generated', array("enterprise" => 1)) ?>
 
     <h2 id="floating">Floating Set Filter</h2>
     <p>
         If your grid has floatingFilter enabled, your columns with set filter will automatically show below the header a new
-        column that will show two elements:
+        column that<!----> will show two elements:
 
     <ul>
         <li>Filter input box: It reflects any change made to the set filtering from anywhere within the application. This includes

@@ -9,67 +9,17 @@ include '../documentation-main/documentation_header.php';
 
 <div>
 
-    <h2 id="pagination">Pagination</h2>
+    <h1 class="first-h1" id="pagination">Pagination</h1>
 
     <p>
-        To enable pagination in, set the grid property <i>pagination=true</i>.
+        To enable pagination in, set the grid property <code>pagination=true</code>.
+        The following simple example shows this, the only difference to this and previous
+        examples is the <code>pagination=true</code> property.
     </p>
 
-    <note>
-        <p>
-            In v9.0 ag-Grid pagination changed from server side pagination to client side pagination.
-            Server side pagination was then removed in v10.1.
-        </p>
-        <p>
-            If you were doing server side pagination, we recommend moving to
-            <a href="../javascript-grid-infinite-scrolling/#pagination">pagination with infinite scrolling</a>
-            as a way of migration to the new mechanism.
-        </p>
-        <p>
-            If you were slicing manually the data in your Datasource to mimic pagination done in the browser only,
-            we recommend that you use the default <a href="../javascript-grid-in-memory/">In Memory Row Model</a> and set the row data as normal
-            and then set grid property <i>pagination=true</i>.
-        </p>
-    </note>
+    <?= example('Client Paging', 'client-paging', 'generated', array("enterprise" => 1)) ?>
 
-    <p>
-        The following properties further configure the pagination:
-    </p>
-
-    <h3 id="properties">Properties</h3>
-    <?php include 'paginationProperties.php' ?>
-    <?php printPropertiesTable($paginationProperties) ?>
-
-
-    <p>The following methods compose the pagination API are all available from <i>gridOptions.api</i></p>
-
-    <br>
-    <h3 id="properties">API</h3>
-    <?php include 'paginationProperties.php' ?>
-    <?php printPropertiesTable($paginationApi) ?>
-
-    <br>
-    <h3 id="events">Events</h3>
-    <table class="table">
-        <tr>
-            <th>Event</th>
-            <th>Description</th>
-        </tr>
-        <tr>
-            <th>paginationChanged</th>
-            <td>
-                <p>This event is triggered every time the paging state changes, Some of the most common scenarios for
-                    this event to be triggered are:
-                <ul>
-                    <li>The page size changes</li>
-                    <li>The current shown page is changed</li>
-                    <li>New data is loaded onto the grid</li>
-                </ul></p></td>
-        </tr>
-    </table>
-
-
-    <h2 id="clientPagination">Pagination - Row Models</h2>
+    <h2 id="clientPagination">Supported Row Models</h2>
     <p>Pagination in ag-Grid is supported in <a href="../javascript-grid-row-models/">all the different row models</a>.
         The <a href="../javascript-grid-in-memory/">in memory row model</a> (the default
         row model) is used for the examples on this page.</p>
@@ -88,17 +38,7 @@ include '../documentation-main/documentation_header.php';
         if the row model supports it, it's available through pagination and that row model.
     </p>
 
-    <h2 id="clientPagination">Example: Simple pagination</h2>
-
-
-    <p>
-        This example is pagination in its simplest form. The only property set is turning pagination on with <i>pagination=true</i>.
-    </p>
-
-
-    <show-example example="clientPaging"></show-example>
-
-    <h2 id="simplePagination">Example: Auto Page Size</h2>
+    <h2 id="auto-page-size">Example: Auto Page Size</h2>
 
     <p>
         If you set <i>paginationAutoPageSize=true</i> the grid will automatically show as many rows in each page as it can
@@ -106,22 +46,24 @@ include '../documentation-main/documentation_header.php';
         automatically changes. To view this, open the example up in a new tab and resize your browser.
     </p>
 
-    <show-example example="autoPageSize"></show-example>
+    <?= example('Auto Page Size', 'auto-page-size', 'generated', array("enterprise" => 1)) ?>
 
-    <h2 id="simplePagination">Example: Customising Pagination</h2>
+    <h2 id="customising-pagination">Example: Customising Pagination</h2>
 
     <p>In this example the default pagination settings are changed. Note the following:</p>
 
     <ul>
         <li><i>paginationPageSize</i> is set to 10</li>
-        <li><i>paginationStartPage</i> is set to 4 (0 based, so he 5th page)</li>
+        <li><i>api.paginationGoToPage(4)</i> is called to go to page 4 (0 based, so he 5th page)</li>
         <li>A dropdown to change the page size dynamically is available. This makes a call to
             <i>paginationSetPageSize(newPageSize)</i></li>
+        <li>The numbers in the pagination panel are formatted differently using the grid callback
+            <code>paginationNumberFormatter</code> and putting the numbers into square brackets i.e. [x].</li>
     </ul>
 
-    <show-example example="customPaging"></show-example>
+    <?= example('Custom Paging', 'custom-paging', 'generated', array("enterprise" => 1)) ?>
 
-    <h2 id="simplePagination">Example: Custom Pagination Controls</h2>
+    <h2 id="custom-pagination-controls">Example: Custom Pagination Controls</h2>
 
     <p>If you set <i>suppressPaginationPanel=true</i>, the grid will not show the standard navigation controls for
         pagination. This is useful is you want to provide your own navigation controls. </p>
@@ -135,7 +77,61 @@ include '../documentation-main/documentation_header.php';
     <p>The example also sets property <i>suppressScrollOnNewData=true</i>, which tells the grid to NOT
     scroll to the top when the page changes.</p>
 
-    <show-example example="customControls"></show-example>
+    <?= example('Custom Controls', 'custom-controls', 'generated', array("enterprise" => 1)) ?>
+
+    <h1 id="properties">Pagination Properties</h1>
+    <?php include_once 'paginationProperties.php' ?>
+    <?php printPropertiesTable($paginationProperties) ?>
+
+    <p>The following methods compose the pagination API are all available from <i>gridOptions.api</i></p>
+
+    <h1 id="properties">Pagination API</h1>
+
+    <?php include_once 'paginationProperties.php' ?>
+    <?php printPropertiesTable($paginationApi) ?>
+
+    <h1 id="properties">Pagination Callbacks</h1>
+
+    <?php include_once 'paginationProperties.php' ?>
+    <?php printPropertiesTable($paginationCallbacks) ?>
+
+    <br>
+    <h1 id="events">Pagination Events</h1>
+    <table class="table">
+        <tr>
+            <th>Event</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <th>paginationChanged</th>
+            <td>
+                <p>This event is triggered every time the paging state changes, Some of the most common scenarios for
+                    this event to be triggered are:
+                <ul>
+                    <li>The page size changes</li>
+                    <li>The current shown page is changed</li>
+                    <li>New data is loaded onto the grid</li>
+                </ul></p></td>
+        </tr>
+    </table>
+
+    <note>
+        <p>
+            In v9.0 ag-Grid pagination changed from server side pagination to client side pagination.
+            Server side pagination was then removed in v10.1.
+        </p>
+        <p>
+            If you were doing server side pagination, we recommend moving to
+            <a href="../javascript-grid-infinite-scrolling/#pagination">pagination with infinite scrolling</a>
+            as a way of migration to the new mechanism.
+        </p>
+        <p>
+            If you were slicing manually the data in your Datasource to mimic pagination done in the browser only,
+            we recommend that you use the default <a href="../javascript-grid-in-memory/">In Memory Row Model</a> and set the row data as normal
+            and then set grid property <i>pagination=true</i>.
+        </p>
+    </note>
+
 </div>
 
 <?php include '../documentation-main/documentation_footer.php';?>

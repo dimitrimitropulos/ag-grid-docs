@@ -3,59 +3,100 @@ $key = "Cell Editing";
 $pageTitle = "ag-Grid Cell Editing";
 $pageDescription = "You can integrate your own editors into ag-Grid that will bind into the grids navigation.";
 $pageKeyboards = "ag-Grid Cell Editors";
+$pageGroup = "feature";
 include '../documentation-main/documentation_header.php';
 ?>
 
     <h2 id="cell-editing">Cell Editing</h2>
 
     <p>
-        cellRenderers and cellEditors, the former for showing the data, the latter for editing the data.
+        Cell Renderer's and Cell Editors, the former for showing the data, the latter for editing the data.
         If your application is for showing data only, such as a reporting application, then you will not
-        need to use cellEditors. If you are editing your data like a spreadsheet, then cellEditors are
+        need to use cell editors. If you are editing your data like a spreadsheet, then cell editors are
         going to be your best friend as you build your application using ag-Grid.
     </p>
 
     <p>
-        Use cellEditors to provide editing functionality to your data through the grid that ties in
+        Use Cell Editors to provide editing functionality to your data through the grid that ties in
         with the grid navigation, refresh and general data management.
     </p>
 
     <p>
-        You configure cellEditors as part of the column definition and can be one of the following:
+        You configure cell editors as part of the column definition and can be one of the following:
     <ul>
         <li>component: The grid will call 'new' on the provided class and treat the object as a component, using
             lifecycle methods.</li>
-        <li>string: The cellEditor is looked up from the provided cellEditors. Use this if you
+    <li>string: The <code>cellEditor</code> is looked up from the provided cell editors. Use this if you
             want to use a built in editor.</li>
     </ul>
+    </p>
+
+    <h3 id="default-editing">Enabling editing in a column</h3>
+
+    <p>
+        The simplest way to enable editing is by providing <code>colDef.editable=true</code> by doing so all the cells
+        in the column will be editable.
+    </p>
+
+    <p>
+        It is possible to have only a few cells in a column editable, to do so, instead of <code>colDef.editable=true</code>,
+        you can specify a callback that will get called for each cell displayed for that column. If you return true the
+        cell will be editable. The params for the callback are:
+
+    <table class="table">
+    <tr>
+        <th>node</th>
+        <td>The RowNode of the row being rendered.</td>
+    </tr>
+    <tr>
+        <th>column</th>
+        <td>The column been rendered (in ag-Grid, each colDef is wrapped by a Column).</td>
+    </tr>
+    <tr>
+        <th>colDef</th>
+        <td>The colDef been rendered.</td>
+    </tr>
+    <tr>
+        <th>context</th>
+        <td>The context as set on the gridOptions.</td>
+    </tr>
+    <tr>
+        <th>api</th>
+        <td>A reference to the grid api.</td>
+    </tr>
+    <tr>
+        <th>columnApi</th>
+        <td>A reference to the column api.</td>
+    </tr>
+
+    </table>
     </p>
 
     <h3 id="default-editing">Default Editing</h3>
 
     <p>
         To get simple string editing, you do not need to provide an editor. The grid by default allows simple
-        string editing on cells. The default editor is used if you have <i>colDef.editable=true</i> but do
-        not provide a cellEditor.
+        string editing on cells. The default editor is used if you do not provide a cell editor.
     </p>
 
     <h3 id="start-editing">Start Editing</h3>
 
     <p>
-        If you have <i>colDef.editable=true</i> set for a column then editing will start upon any of the following:
+        If you have <code>colDef.editable=true</code> set for a column then editing will start upon any of the following:
         Editing can start in the following ways:
         <ul>
         <li><b>Edit Key Pressed</b>: One of the following is pressed: Enter, F2, Backspace, Delete. If this
         happens then params.keyPress will contain the key code of the key that started the edit. The default editor
         will clear the contents of the cell if Backspace or Delete are pressed.</li>
         <li><b>Printable Key Pressed</b>: Any of the following characters are pressed:
-            "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890!"£$%^&*()_+-=[];\'#,./\|<>?:@~{}"<br/>
-            If this happens then params.charPress will contain the character that started the edit. The default editor
+            &quote;qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890!"£$%^&amp;*()_+-=[];\'#,./\|<>?:@~{}&quote; <br/>
+            If this happens then <code>params.charPress</code> will contain the character that started the edit. The default editor
             places this character into the edit field so that the user experience is they are typing into the cell.</li>
-        <li><b>Mouse Double Click</b>: If the mouse is double clicked. There is a grid property <i>singleClickEdit</i>
-            that will allow single click to start editing instead of double click. Another property <i>suppressClickEdit</i>
+        <li><b>Mouse Double Click</b>: If the mouse is double clicked. There is a grid property <code>singleClickEdit</code>
+            that will allow single click to start editing instead of double click. Another property <code>suppressClickEdit</code>
             will prevent both single click and double click from starting the edit - use this if you want to have
-            your own way of starting editing only, such as clicking a button in your custom cellRenderer.</li>
-        <li><b>api.startEditingCell()</b>: If you call startEditingCell() on the grid API</li>
+            your own way of starting editing only, such as clicking a button in your custom cell renderer.</li>
+        <li><b>api.startEditingCell()</b>: If you call <code>startEditingCell()</code> on the grid API</li>
     </ul>
     </p>
 
@@ -64,8 +105,8 @@ include '../documentation-main/documentation_header.php';
     <p>
         The grid will stop editing when any of the following happen:
         <ul>
-        <li><b>Callback stopEditing</b>: The callback <i>stopEditing</i> (from the params above) gets called by the
-            editor. This is how your cellEditor informs the grid to stop editing.</li>
+        <li><b>Callback stopEditing</b>: The callback <code>stopEditing</code> (from the params above) gets called by the
+            editor. This is how your cell editor informs the grid to stop editing.</li>
         <li><b>Other Cell Focus</b>: If focus in the grid goes to another cell, the editing will stop.</li>
         <li><b>Enter Key Down</b>: If the grid receives an 'Enter' key press event on the cell. If you do NOT
         want to stop editing when Enter is pressed, then listen for the event and stop propagation so the grid
@@ -78,7 +119,7 @@ include '../documentation-main/documentation_header.php';
             in the direction of the navigation key.</li>
         <li><b>Popup Editor Closed</b>: If using popup editor, the popup is configured to close if you click
             outside the editor. Closing the popup triggers the grid to stop editing.</li>
-        <li><b>gridApi.stopEditing()</b>: If you call stopEditing() on the grid API.</li>
+        <li><b>gridApi.stopEditing()</b>: If you call <code>stopEditing()</code> on the grid API.</li>
     </ul>
     </p>
 
@@ -109,11 +150,11 @@ include '../documentation-main/documentation_header.php';
 
     <p>
         From a lifecycle and behaviour point of view, 'in cell' and 'popup' have no impact on the editor. So you
-        can create a cellEditor and change this property and observe how your editor behaves in each way.
+        can create a cell editor and change this property and observe how your editor behaves in each way.
     </p>
 
     <p>
-        To have an editor appear in a popup, have the <i>isPopup()</i> method return true. If you want editing
+        To have an editor appear in a popup, have the <code>isPopup()</code> method return true. If you want editing
         to be done within a cell, either return false or don't provide this method at all.
     </p>
 
@@ -126,12 +167,12 @@ include '../documentation-main/documentation_header.php';
     </p>
 
     <p>
-        The next and previous cells can also be navigated using the API functions <i>api.tabToNextCell()</i>
-        and <i>api.tabToPreviousCell()</i>. Both of these methods will return true if the navigation was
+        The next and previous cells can also be navigated using the API functions <code>api.tabToNextCell()</code>
+        and <code>api.tabToPreviousCell()</code>. Both of these methods will return true if the navigation was
         successful, otherwise false.
     </p>
 
-    <h3 id="provided-celleditors">Provided cellEditors</h3>
+    <h3 id="provided-celleditors">Provided Cell Editors</h3>
 
     <p>
         The grid, out of the box, comes with the following editors:
@@ -145,117 +186,47 @@ include '../documentation-main/documentation_header.php';
     </ul>
     </p>
 
-    <note>We have found the standard HTML 'select' to behave odd when in the grid. This is because the browser
+<note>We have found the standard HTML <code>select</code> to behave odd when in the grid. This is because the browser
     doesn't have a great API for opening and closing the select's popup. We advise you don't use
-    it unless you have to - that is we advise against 'select' and 'popupSelect' as
-    they give poor user experience, especially if using keyboard navigation. If using ag-Grid Enterprise, then you should use the provided
-    richSelect.</note>
+    it unless you have to - that is we advise against <code>select</code> and <code>popupSelect</code> as
+    they give poor user experience, especially if using keyboard navigation. If using ag-Grid Enterprise,
+    then you should use the provided <code>richSelect</code>.</note>
 
     <p>
-        The default text cellEditor takes no parameters. The select cellEditor takes a list of values
-        from which the user can select. The example below shows configuring the select cellEditor.
+        The default text cell editor takes no parameters. The select cell editor takes a list of values
+        from which the user can select. The example below shows configuring the select cell editor.
     </p>
 
-    <pre>colDef.cellEditor = 'select';
+    <snippet>
+colDef.cellEditor = 'select';
 colDef.cellEditorParams = {
     values: ['English', 'Spanish', 'French', 'Portuguese', '(other)']
-}</pre>
-<!--
-    TAKING OUT as we want to reconsider how to register components
+}</snippet>
+    <p>If you have many instances of a grid, you must register the cell editors with each one.</p>
 
-    <h3>Registering cellEditors</h3>
-
-    <p>
-        Like cellRenderers, cellEditors can also be registered with ag-Grid and referenced by
-        strings. You register cellRenderers in one of the following ways:
-    <ul>
-        <li>Provide <i>cellEditors</i> property to the grid as a map of key=>cellEditor pairs.
-            This property is used once during grid initialisation.</li>
-        <li>Register the cellEditor by calling <i>gridApi.addCellEditor(key, cellEditor)</i>.
-            This can be called at any time during the lifetime of the grid.</li>
-    </ul>
-    </p>-->
-
-    <p>If you have many instances of a grid, you must register the cellEditors with each one.</p>
-
-    <h4 id="callback-new-value-handlers">Callback: New Value Handlers</h4>
+    <h3 id="parser-and-setter">Value Parser and Value Setter</h3>
 
     <p>
-        A newValueHandler is the inverse of a valueGetter. If you want to set the value into the data yourself
-        and not use the field, then use the newValueHandler. Return true if the update was successful, to inform
-        the grid to refresh the cell and fire updates. Return false if no update was done (cell doesn't refresh
-        and no updates). Use a newValueHandler if:
-        <ol>
-            <li>
-                A field value alone cannot be used, eg you want to place the new value into an array at a
-                particular index.
-            </li>
-            <li>
-                You want to do some formatting to the value before placing it.
-            </li>
-        </ol>
-    </p>
-    <pre><span class="codeComment">// this does exactly what a field does, no difference,</span>
-<span class="codeComment">// but provided to demonstrate the equivalent of just using field</span>
-colDef.newValueHandler = function(params) {
-
-    var field = params.colDef.field;
-    var data = params.data;
-    var value = params.newValue;
-
-    <span class="codeComment">// see if values are different first</span>
-    if (data[field] === value) {
-        <span class="codeComment">// tell grid, no changes</span>
-        return false;
-    } else {
-        <span class="codeComment">// update and tell grid the change was made</span>
-        data[field] = value;
-        return true;
-    }
-}
-
-<span class="codeComment">// this one does some formatting first, and doesn't use the field</span>
-colDef.newValueHandler = function(params) {
-
-    var data = params.data;
-    var value = params.newValue;
-
-    <span class="codeComment">// change the value, maybe we want it in upper case</span>
-    var value = formatTheValueSomehow(value);
-    data.iAmNotUsingTheField = value;
-
-    <span class="codeComment">// we can always return true if not sure, this way the grid</span>
-    <span class="codeComment">// will always update the cell and fire change events</span>
-    return true;
-}
-</pre>
-
-    <p>
-        newValueHandler is provided a params object with attributes:<br/>
-        <b>node: </b>The grid node in question.<br/>
-        <b>data: </b>The row data in question.<br/>
-        <b>oldValue: </b>If 'field' is in the column definition, contains the value in the data before the edit.<br/>
-        <b>newValue: </b>The string value entered into the default editor.<br/>
-        <b>rowIndex: </b>The index of the virtualised row.<br/>
-        <b>colDef: </b>The column definition.<br/>
-        <b>context: </b>The context as set in the gridOptions.<br/>
-        <b>api: </b>A reference to the ag-Grid API.<br/>
+        <a href="../javascript-grid-value-setters/">Value setter and value parsers</a> are the inverse of a
+        value getters and formatters. If you want to parse the data, or set the value into your data in
+        ways other than just using the field, see the sections
+        <a href="../javascript-grid-value-setters/">Value setter and value parsers</a>.
     </p>
 
-    <h4 id="event-cell-value-changed">Event: Cell Value Changed</h4>
+    <h3 id="event-cell-value-changed">Event: Cell Value Changed</h3>
 
     <p>
         After a cell has been changed with default editing (ie not your own custom cell renderer),
-        then <i>cellValueChanged</i> event is fired. You can listen for this event in the normal
-        way, or additionally you can add a <i>onCellValueChanged()</i> callback to the colDef.
+        then <code>cellValueChanged</code> event is fired. You can listen for this event in the normal
+        way, or additionally you can add a <code>onCellValueChanged()</code> callback to the colDef.
         This is used if your application needs to do something after a value has been changed.
     </p>
     <p>
-        The <i>cellValueChanged</i> event contains the same parameters as newValueHandler with one difference,
-        the <i>newValue</i>. If 'field' is in the column definition, the newValue contains the value
-        in the data after the edit. So for example, if the onCellValueChanged converts the provided
-        string value into a number, then newValue for newValueHandler will have the string, and
-        newValue for onCellValueChanged will have the number.
+        The <code>cellValueChanged</code> event contains the same parameters as <code>newValueHandler</code> with one difference,
+        the <code>newValue</code>. If 'field' is in the column definition, the <code>newValue</code> contains the value
+        in the data after the edit. So for example, if the <code>onCellValueChanged</code> converts the provided
+        string value into a number, then <code>newValue</code> for <code>newValueHandler</code> will have the string, and
+        <code>newValue</code> for <code>onCellValueChanged</code> will have the number.
     </p>
 
     <h3 id="editing-api">Editing API</h3>
@@ -265,17 +236,18 @@ colDef.newValueHandler = function(params) {
     </p>
 
     <p>
-        <b>api.startEditingCell(params)</b><br/>
+        <code>api.startEditingCell(params)</code><br/>
         Starts editing the provided cell. If another cell is editing, the editing will be stopped in that other cell. Parameters are as follows:
         <ul>
         <li><b>rowIndex</b>: The row index of the row to start editing.</li>
         <li><b>colKey</b>: The column key of the column to start editing.</li>
-        <li><b>keyPress, charPress</b>: The keyPress and charPress that are passed to the cellEditor</li>
+        <li><b>rowPinned</b>: Set to 'top' or 'bottom' to started editing a pinned row.</li>
+        <li><b>keyPress, charPress</b>: The keyPress and charPress that are passed to the cell editor</li>
     </ul>
     </p>
 
     <p>
-        <b>api.stopEditing(cancel)</b><br/>
+        <code>api.stopEditing(cancel)</code><br/>
         If the grid is editing this will stop editing.
     </p>
     <p>
@@ -297,10 +269,41 @@ colDef.newValueHandler = function(params) {
     <h3 id="cell-editing-example">Cell Editing Example</h3>
 
     <p>
-        The example below illustrates different parts of the editing API using the buttons at the top.
+        The example below illustrates different parts of the editing API. Each button starts
+        editing the 'Last Name' column of the first row with the following differences:
+        <ul>
+            <li>
+                <b>edit()</b>: Normal editing start.
+            </li>
+            <li>
+                <b>edit(Delete)</b>: Edit as if delete button was pressed (clears contents first).
+            </li>
+            <li>
+                <b>edit('T')</b>: Edit as if 'T' was pressed (places 'T' into cell).
+            </li>
+            <li>
+                <b>edit(top)</b>: Edits top pinned row.
+            </li>
+            <li>
+                <b>edit(bottom)</b>: Edits bottom pinned row.
+            </li>
+        </ul>
+        The example then demonstrates the following buttons for edit navigation:
+        <ul>
+            <li>
+                <b>stop()</b>: Stops editing.
+            </li>
+            <li>
+                <b>next()</b>: Edits the next cell.
+            </li>
+            <li>
+                <b>previous()</b>: Edits the previous cell.
+            </li>
+        </ul>
+
     </p>
 
-    <show-example example="exampleCellEditing"></show-example>
+    <?= example('Cell Editing', 'cell-editing', 'generated') ?>
 
     <h3 id="datepicker-cell-editing-example">Datepicker Cell Editing Example</h3>
 
@@ -308,8 +311,7 @@ colDef.newValueHandler = function(params) {
     <ul>
         <li>'Date' column uses a Component cell editor that allows you to pick a date using jQuery UI Datepicker.</li>
     </ul>
-
-     <show-example example="exampleDatepicker"></show-example>
+    <?= example('Datepicker Cell Editing', 'datepicker-cell-editing', 'generated', array("enterprise" => 1, "extras" => array('jquery', 'jqueryui', 'bootstrap') )) ?>
 
     </p>
 
@@ -326,14 +328,14 @@ colDef.newValueHandler = function(params) {
         If using custom cell editors, the cell editors will work in the exact same way with the
         following additions:
         <ul>
-        <li><b>focusIn:</b> If your cellEditor has a focusIn method, it will get called when the
+    <li><b>focusIn:</b> If your cell editor has a <code>focusIn()</code> method, it will get called when the
             user tabs into the cell. This should be used to put the focus on the particular item
-            to be focused, eg the textfield within your cellEditor.</li>
-        <li><b>focusOut:</b> If your cellEditor has a focusOut method, it will get called when the
+            to be focused, eg the <code>textfield</code> within your cell editor.</li>
+    <li><b>focusOut:</b> If your cell editor has a <code>focusOut()</code> method, it will get called when the
             user tabs out of the cell. No intended use for this, is just there to compliment the
-            focusIn method, maybe you will have a reason to use it.</li>
-        <li><b>Events: </b> When a row stops editing, the <i>cellValueChanged</i> event gets called
-            for each column and <i>rowValueChanged</i> gets called once for the row.</li>
+            <code>focusIn()</code> method, maybe you will have a reason to use it.</li>
+        <li><b>Events: </b> When a row stops editing, the <code>cellValueChanged</code> event gets called
+            for each column and <code>rowValueChanged</code> gets called once for the row.</li>
     </ul>
     </p>
 
@@ -362,7 +364,7 @@ colDef.newValueHandler = function(params) {
         <ul>
             <li>
                 The 'Price' column has a custom editor demonstrating how you should implement
-                the <i>'focusIn'</i> method. Both <i>focusIn</i> and <i>focusOut</i> for this
+                the <code>focusIn()</code> method. Both <code>focusIn()</code> and <code>focusOut()</code> for this
                 editor are logged to the console.
             </li>
             <li>
@@ -380,16 +382,16 @@ colDef.newValueHandler = function(params) {
                 specified cell.
             </li>
             <li>
-                <i>cellValueChanged</i> and <i>rowValueChanged</i> events are logged to console.
+                <code>cellValueChanged</code> and <code>rowValueChanged</code> events are logged to console.
             </li>
             <li>
-                The CSS class <i>ag-row-editing</i> changes the background color to highlight
+                The CSS class <code>ag-row-editing</code> changes the background color to highlight
                 the editing row.
             </li>
         </ul>
     </p>
 
-    <show-example example="exampleFullRowEditing"></show-example>
+    <?= example('Full Row Editing', 'full-row-editing', 'generated', array("enterprise" => 1)) ?>
 
     <h2 id="groupEditing">Group Editing</h2>
 
@@ -402,14 +404,14 @@ colDef.newValueHandler = function(params) {
     <p>
         In other scenarios, editing groups does make sense. For example if implementing a file explorer,
         editing a folder name or owner does make sense in isolation to the contained files. Thus to cater
-        for this, you can enable editing of groups with the property <i>enableGroupEdit=true</i>.
+        for this, you can enable editing of groups with the property <code>enableGroupEdit=true</code>.
     </p>
 
     <p>
-        The example below shows using <i>enableGroupEdit=true</i> along with tree data to allow editing of group data.
+        The example below shows using <code>enableGroupEdit=true</code> along with tree data to allow editing of group data.
     </p>
 
-    <show-example example="exampleEditingGroups"></show-example>
+    <?= example('Group Editing', 'group-editing', 'generated', array("enterprise" => 1)) ?>
 
     <h2 id="singleClickEditing">Single Click, Double Click, No Click Editing</h2>
 
@@ -423,7 +425,7 @@ colDef.newValueHandler = function(params) {
         Single Click Editing
     </h4>
     <p>
-        To change the default so that a single click starts editing, set the property <i>singleClickEdit=true</i>.
+        To change the default so that a single click starts editing, set the property <code>singleClickEdit=true</code>.
         This is useful when you want a cell to enter edit mode as soon as you click on it, similar to the experience
         you get when inside Excel.
     </p>
@@ -432,13 +434,17 @@ colDef.newValueHandler = function(params) {
     </h4>
     <p>
         To change the default so that neither single or double click starts editing, set the property
-        <i>suppressClickEdit=true</i>. This is useful when you want to start the editing in another way,
-        such as including a button in your cellRenderer.
+        <code>suppressClickEdit=true</code>. This is useful when you want to start the editing in another way,
+        such as including a button in your cell renderer.
     </p>
 
-    <h3 id="single-click-and-no-click-example">Single Click and No Click Example</h3>
+    <p> The grid below has <i>singleClickEdit=true</i> so that editing will start on a cell when you single click on it.  </p>
 
-    <show-example example="exampleSingleClickEditing"></show-example>
+    <?= example('Single Click Editing', 'single-click-editing', 'generated') ?>
+
+    <p>The grid below has <i>suppressClickEdit=true</i> so that clicking doesn't started editing. The grid configures a cellRenderer with a button to start editing.</p>
+
+    <?= example('Single Click Editing', 'single-click-editing-renderer', 'generated') ?>
 
     <h3 id="losingFocusStopsEditing">Stop Editing When Grid Loses Focus</h3>
 
@@ -450,7 +456,7 @@ colDef.newValueHandler = function(params) {
     </p>
     <p>
         If you want the grid to stop editing when focus leaves, set the grid property
-        <i>stopEditingWhenGridLosesFocus=true</i>.
+        <code>stopEditingWhenGridLosesFocus=true</code>.
     </p>
     <p>
         By default, the grid not stop editing if you focus outside. The default is
@@ -460,7 +466,7 @@ colDef.newValueHandler = function(params) {
     </p>
 
     <p>
-        The example below shows the editing with <i>stopEditingWhenGridLosesFocus=true</i>.
+        The example below shows the editing with <code>stopEditingWhenGridLosesFocus=true</code>.
         Notice the following:
         <ul>
             <li>
@@ -474,7 +480,7 @@ colDef.newValueHandler = function(params) {
         </ul>
     </p>
 
-    <show-example example="exampleStopEditWhenGridLosesFocus"></show-example>
+    <?= example('Stop Editing When Grid Loses Focus', 'stop-edit-when-grid-loses-focus', 'generated') ?>
 
     <note>Cell Editing can also be done via Cell Editor Components - please see <a href="../javascript-grid-cell-editor">
             Cell Editor Components</a> for more information.</note>

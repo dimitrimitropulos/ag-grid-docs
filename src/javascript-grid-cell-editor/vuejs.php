@@ -6,33 +6,34 @@
 
     <div class="note" style="margin-bottom: 20px">
         <img align="left" src="../images/note.png" style="margin-right: 10px;" />
-        <p>This section explains how to utilise ag-Grid cellEditors using VueJS. You should read about how
+        <p>This section explains how to utilise ag-Grid cell editors using VueJS. You should read about how
             <a href="../javascript-grid-cell-editor/">Cell Editing</a> works in ag-Grid first before trying to
             understand this section.</p>
     </div>
 
     <p>
-        It is possible to provide a VueJS cellEditor for ag-Grid to use. All of the information above is
-        relevant to VueJS cellEditors. This section explains how to apply this logic to your VueJS component.
+        It is possible to provide a VueJS cell editor for ag-Grid to use. All of the information above is
+        relevant to VueJS cell editors. This section explains how to apply this logic to your VueJS component.
     </p>
 
     <p>
         For an example of VueJS cellEditing, see the
-        <a href="https://github.com/ceolter/ag-grid-vue-example">ag-grid-vue-example</a> on Github.
+        <a href="https://github.com/ag-grid/ag-grid-vue-example">ag-grid-vue-example</a> on Github.
     </p>
 
-    <h3><img src="../images/vue_large.png" style="width: 20px;"/> Specifying a VueJS cellEditor</h3>
+    <h3><img src="../images/vue_large.png" style="width: 20px;"/> Specifying a VueJS cell editor</h3>
 
     <p>
         If you are using the ag-grid-vue component to create the ag-Grid instance,
-        then you will have the option of additionally specifying the cellEditors
+        then you will have the option of additionally specifying the cell editors
         as VueJS components.
     </p>
 
     <p>A VueJS component can be defined in a few different ways (please see <a href="/best-vuejs-data-grid#define_component">
             Defining VueJS Components</a> for all the options), but in this example we're going to define our editor as a Single File Component:</p>
 
-<pre ng-non-bindable><span class="codeComment">// create your cellEditor as a VueJS component</span>
+<snippet>
+// create your cell editor as a VueJS component
 &lt;template&gt;
     &lt;div :ref="'container'" class="mood" tabindex="0" @keydown="onKeyDown"&gt;
         &lt;img src="images/smiley.png" @click="onClick(true)" :class="{selected : happy, default : !happy}"&gt;
@@ -114,21 +115,20 @@
     }
 &lt;/style&gt;
 
-<span class="codeComment">// then reference the Component in your colDef like this</span>
+// then reference the Component in your colDef like this
 this.colDefs = [
     {
-        <span class="codeComment">// specify all the other fields as normal</span>
+        // specify all the other fields as normal
         headerName: "Mood",
         field: "mood",
         editable: true,
         width: 250,
-        <span class="codeComment">// instead of cellEditor we use cellEditorFramework</span>
+        // instead of cellEditor we use cellEditorFramework
         cellEditorFramework: MoodEditorComponent
-    }
-</pre>
+    }</snippet>
 
     <p>
-        By using <i>colDef.cellEditorFramework</i> (instead of <i>colDef.cellEditor</i>) the grid
+        By using <code>colDef.cellEditorFramework</code> (instead of <code>colDef.cellEditor</code>) the grid
         will know it's a VueJS component, based on the fact that you are using the VueJS version of
         ag-Grid.
     </p>
@@ -139,22 +139,21 @@ this.colDefs = [
         you from the <code>created</code> VueJS lifecycle hook.</p>
 
     <p>You can think of this as you having defined the following:</p>
-<pre>
+<snippet>
 export default {
     data () {
         return {
             params: null
         }
     },
-    ...
-</pre>
+    ...</snippet>
 
     <p>but you do not need to do this - this is made available to you behind the scenes, and contains the cells value.</p>
 
     <h3 id="vuejs-methods-lifecycle"><img src="../images/vue_large.png" style="width: 20px;"/> VueJS Methods / Lifecycle</h3>
 
     <p>
-        All of the methods in the ICellEditor interface described above are applicable
+        All of the methods in the <code>ICellEditor</code> interface described above are applicable
         to the VueJS Component with the following exceptions:
     <ul>
         <li><i>init()</i> is not used. The cells value is made available implicitly via a data field called <code>params</code>.</li>
@@ -171,6 +170,6 @@ export default {
     <p>
         Using VueJS Components in the Cell Editors, illustrating keyboard events, rendering, validation and lifecycle events.
     </p>
-    <show-example url="../vue-examples/#/editor"
-                  jsfile="../vue-examples/src/editor-component-example/EditorComponentExample.vue"
+    <show-example url="../framework-examples/vue-examples/#/editor"
+                  jsfile="../framework-examples/vue-examples/src/editor-component-example/EditorComponentExample.vue"
                   exampleHeight="525px"></show-example>

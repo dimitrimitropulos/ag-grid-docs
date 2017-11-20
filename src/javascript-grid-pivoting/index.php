@@ -33,7 +33,11 @@ include '../documentation-main/documentation_header.php';
         If pivot mode is off, then adding or removing pivot columns will have no effect.
     </p>
 
-
+    <note>
+        To allow a column to be used as pivot column via the <a href="../javascript-grid-tool-panel/">Tool Panel</a>,
+        set <code>enablePivot=true</code> on the required columns. Otherwise you won't be able to drag
+        and drop the columns to the pivot drop zone from the Tool Panel.
+    </note>
 
     <h2>Specifying Pivot Columns</h2>
 
@@ -41,15 +45,12 @@ include '../documentation-main/documentation_header.php';
         To pivot rows by a particular column, mark the column you want to group with <code>pivot=true</code>.
         There is no limit on the number of columns that the grid can pivot by.
         For example, the following will pivot the rows in the grid by country and then sport:
-    <pre>gridOptions.columnDefs = [
-    {headerName: "Country", field: "country", <span class="codeHighlight">pivot: true</span>},
-    {headerName: "Sport", field: "sport", <span class="codeHighlight">pivot: true</span>},
-];</pre>
+    <snippet>
+gridOptions.columnDefs = [
+    {headerName: "Country", field: "country", pivot: true},
+    {headerName: "Sport", field: "sport", pivot: true}
+];</snippet>
     </p>
-
-
-
-
 
     <h2>Example - Simple Pivot</h2>
 
@@ -63,7 +64,7 @@ include '../documentation-main/documentation_header.php';
         pivot or value associated with them.
     </p>
 
-    <show-example example="examplePivot"></show-example>
+    <?= example('Simple Example', 'simple', 'generated', array("enterprise" => 1)) ?>
 
     <h2>Pivot Mode vs Pivot Active</h2>
 
@@ -97,14 +98,14 @@ include '../documentation-main/documentation_header.php';
     </ul>
     </p>
 
-    <show-example example="examplePivotMode"></show-example>
+    <?= example('Pivot Mode Vs Pivot Active', 'pivot-mode', 'generated', array("enterprise" => 1)) ?>
 
     <p>
         Note that a pivot can only be active if pivot mode is on. If pivot mode is off, all pivot
         columns are ignored.
     </p>
 
-    <h2>Pivot Mode & Visible Columns</h2>
+    <h2 id="pivot-mode">Pivot Mode & Visible Columns</h2>
 
     <p>
         When not in pivot mode, only columns that are visible are shown in the grid. To remove a column
@@ -130,7 +131,7 @@ include '../documentation-main/documentation_header.php';
         effect when in pivot mode.
     </p>
 
-    <h2>Primary vs Secondary Columns</h2>
+    <h2 id="secondary-columns">Primary vs Secondary Columns</h2>
 
     <p>
         When pivot mode is off, the columns in the grid correspond to the column definitions provided in the
@@ -175,14 +176,14 @@ include '../documentation-main/documentation_header.php';
         such columns called <i>getSecondaryPivotColumn(pivotCols, valueCol)</i>
     </p>
 
-    <pre>// look up the column that pivots on country Ireland and aggregates gold
+    <snippet>
+// look up the column that pivots on country Ireland and aggregates gold
 var irelandGoldColumn = columnApi.getSecondaryPivotColumn(['Ireland'],'gold');
 columnApi.setColumnWidth(irelandGoldColumn, newWidth);
 
 // look up the column that pivots on country SausageKingdom and year 2002 and aggregates silver
 var sausageKingdomColumn = columnApi.getSecondaryPivotColumn(['SausageKingdom','2002'],'gold');
-console.log('found column with id ' + sausageKingdomColumn.getId());
-</pre>
+console.log('found column with id ' + sausageKingdomColumn.getId());</snippet>
 
     <h2>Filtering with Pivot</h2>
 
@@ -202,7 +203,7 @@ console.log('found column with id ' + sausageKingdomColumn.getId());
         as there is no records for Canada and Equestrian.
     </p>
 
-    <show-example example="exampleFilteringWithPivot"></show-example>
+    <?= example('Filtering With Pivot', 'filter', 'generated', array("enterprise" => 1)) ?>
 
     <h2>Sorting with Pivot</h2>
 
@@ -216,8 +217,8 @@ console.log('found column with id ' + sausageKingdomColumn.getId());
         manually, the code below is only given to the curious who want to understand the column structure
         underneath the hood.
     </p>
-    
-    <show-example example="exampleSortingWithPivot"></show-example>
+
+    <?= example('Sorting With Pivot', 'sorting', 'generated', array("enterprise" => 1)) ?>
 
 
     <h2 id="totalPivotColumns">Total Pivot Columns</h2>
@@ -247,7 +248,7 @@ console.log('found column with id ' + sausageKingdomColumn.getId());
        </ul>
     </p>
 
-    <show-example example="pivotTotalColumns"></show-example>
+    <?= example('Total Pivot Columns', 'totals', 'generated', array("enterprise" => 1)) ?>
 
     <h2>Saving & Restoring Column State with Pivot</h2>
 
@@ -263,7 +264,7 @@ console.log('found column with id ' + sausageKingdomColumn.getId());
         needs to be stored separately.
     </p>
 
-    <show-example example="exampleColumnStateWithPivot"></show-example>
+    <?= example('Saving & Restoring Column State', 'state', 'generated', array("enterprise" => 1)) ?>
 
     <h2>Pivot API</h2>
     
@@ -276,7 +277,7 @@ console.log('found column with id ' + sausageKingdomColumn.getId());
         is what will be exported.
     </p>
 
-    <show-example example="examplePivotApi"></show-example>
+    <?= example('Pivot API', 'api', 'generated', array("enterprise" => 1)) ?>
 
     <h2 id="orderingPivotColumns">Ordering Pivot Columns</h2>
 
@@ -312,7 +313,7 @@ console.log('found column with id ' + sausageKingdomColumn.getId());
         as the field attribute is needed by the grid to pull out the value.
     </p>
 
-    <show-example example="examplePivotAdvancedColumns"></show-example>
+    <?= example('Secondary Columns', 'secondary-columns', 'generated', array("enterprise" => 1)) ?>
 
     <h2 id="hideOpenParents">Hide Open Parents</h2>
 
@@ -328,7 +329,7 @@ console.log('found column with id ' + sausageKingdomColumn.getId());
         </ul>
     </p>
 
-    <show-example example="examplePivotHideOpenParents"></show-example>
+    <?= example('Hide Open Parents', 'hide-open-parents', 'generated', array("enterprise" => 1)) ?>
 
     <h2 id="change-detection">Change Detection and Pivot</h2>
 

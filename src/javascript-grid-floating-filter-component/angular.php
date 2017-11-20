@@ -15,18 +15,9 @@
     See example below on how to create a custom floating filter reusing the out of the box number filter with angular
 </p>
 
-<show-complex-example example="../ng2-example/index.html?fromDocs=true&example=floating-filter"
-                      sources="{
-                            [
-                                { root: '/ng2-example/app/floating-filter-example/', files:
-                                    'floating-filter.component.ts,floating-filter.component.html,slider-floating-filter.component.ts,slider-floating-filter.component.html'
-                                },
-                                { root: '/ng2-example/app/', files: 'app.module.ts' }
-                            ]
-                          }">
-</show-complex-example>
+<?= example('Angular Floating Filter Component', 'angular-floating', 'angular', array("exampleHeight" => 370, "showResult" => true)); ?>
 
-<note>The full <a href="https://github.com/ceolter/ag-grid-angular-example">ag-grid-angular-example</a> repo shows many
-    more examples for rendering, including grouped rows, full width renderers
-    and so on, as well as examples on using Angular Components with both CellEditors and Filters
+<note>The full <a href="https://github.com/ag-grid/ag-grid-angular-example">ag-grid-angular-example</a> repo shows many
+    more examples for rendering, including grouped rows, full width renderer's
+    and so on, as well as examples on using Angular Components with both Cell Editors and Filters
 </note>

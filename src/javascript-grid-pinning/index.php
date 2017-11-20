@@ -15,13 +15,14 @@ include '../documentation-main/documentation_header.php';
         You can pin columns by setting the pinned attribute on the column definition to either 'left' or 'right'.
     </p>
 
-    <pre><code>colDef = {
+    <snippet>
+colDef = {
     headerName: "Athlete",
     field: "athlete",
-    <b>pinned: 'left'</b>
-}</code></pre>
+    &lt;b&gt;pinned: 'left'&lt;/b&gt;
+}</snippet>
 
-    <p>Below shows an example with 2 pinned columns on the left and one pinned columns on the right.
+    <p>Below shows an example with two pinned columns on the left and one pinned columns on the right.
     The example also demonstrates changing the pinning via the API at runtime.</p>
 
     <p>
@@ -40,12 +41,12 @@ include '../documentation-main/documentation_header.php';
 
     <h2>Example Pinning</h2>
 
-    <show-example example="examplePinned"></show-example>
+    <?= example('Column Pinning', 'column-pinning', 'generated') ?>
 
     <note>
         If you pin to many columns, so that the pinned columns take up the whole width of the grid,
         you will not be able to view the non-pinned columns. If this happens for you, please do not
-        raise an issue with the ag-Grid team. Instead tell you users to stop pinning so many columns.
+        raise an issue with the ag-Grid team. Instead tell your users to stop pinning so many columns.
         Every month someone raises this with us and asks us to fix - it's like saying when I take the
         wheels off my car it is not possible to steer!
     </note>

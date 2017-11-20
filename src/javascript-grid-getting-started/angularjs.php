@@ -1,10 +1,8 @@
-<?php if (!isFrameworkAll()) { ?>
-    <h2 id="implementing-the-angularjs-datagrid">
-        <img src="../images/svg/docs/getting_started.svg" width="50" />
-        <img style="vertical-align: middle" src="/images/angularjs.png" height="25px"/>
-        Getting Started
-    </h2>
-<?php } ?>
+<h2 id="implementing-the-angularjs-datagrid">
+    <img src="../images/svg/docs/getting_started.svg" width="50"/>
+    <img style="vertical-align: middle" src="/images/angularjs.png" height="25px"/>
+    Getting Started
+</h2>
 
 <?php include 'ag-grid-dependency.php' ?>
 
@@ -17,16 +15,17 @@
 <h3 id="creating-the-angularjs-module">Creating the AngularJS 1.x Module</h3>
 Include ag-Grid as a dependency of your module like this:
 <p/>
-<pre>
-<span class="codeComment">// if you're using ag-Grid-Enterprise, you'll need to provide the License Key before doing anything else</span>
-<span class="codeComment">// not necessary if you're just using ag-Grid</span>
-agGrid.LicenseManager.setLicenseKey("your license key goes here");
+<snippet>
+    // if you're using ag-Grid-Enterprise, you'll need to provide the License Key before doing anything else
+    // not necessary if you're just using ag-Grid
+    agGrid.LicenseManager.setLicenseKey("your license key goes here");
 
-<span class="codeComment">// get ag-Grid to create an Angular module and register the ag-Grid directive</span>
-agGrid.initialiseAgGridWithAngular1(angular);
+    // get ag-Grid to create an Angular module and register the ag-Grid directive
+    agGrid.initialiseAgGridWithAngular1(angular);
 
-<span class="codeComment">// create your module with ag-Grid as a dependency</span>
-var module = angular.module("example", ["agGrid"]);</code></pre>
+    // create your module with ag-Grid as a dependency
+    var module = angular.module("example", ["agGrid"]);
+</snippet>
 
 <h4 id="ag-grid-div">ag-Grid Div</h4>
 
@@ -37,9 +36,9 @@ var module = angular.module("example", ["agGrid"]);</code></pre>
 
 <p>
     It is also usual to provide a styling theme to
-    the grid. Three themes come with the grid, ag-fresh, ag-dark and ag-blue. Each one is
+    the grid. Three themes come with the grid, ag-theme-fresh, ag-theme-dark and ag-theme-blue. Each one is
     set by applying the corresponding class of the same name to the div. In the
-    example, ag-fresh is used.
+    example, ag-theme-fresh is used.
 </p>
 
 <p>
@@ -47,7 +46,9 @@ var module = angular.module("example", ["agGrid"]);</code></pre>
     the width and height you give it.
 </p>
 
-<pre>&lt;div <b>ag-grid="gridOptions" class="ag-fresh" style="height: 100%;"</b>>&lt;/div></pre>
+<snippet>
+    &lt;div &lt;b&gt;ag-grid="gridOptions" class="ag-theme-fresh" style="height: 100%;"&lt;/b&gt;&gt;&lt;/div&gt;
+</snippet>
 
 <p>
     (note: a div by default has 100% width, so the width is not specified explicitly above).

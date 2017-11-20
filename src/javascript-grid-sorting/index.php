@@ -9,7 +9,7 @@ include '../documentation-main/documentation_header.php';
 
 <div>
 
-    <h2 id="sorting">Sorting</h2>
+    <h2 id="sorting">Row Sorting</h2>
 
     <p>
         This page describes how to get your grid data sorting.
@@ -41,10 +41,10 @@ include '../documentation-main/documentation_header.php';
         The sort methods gets the value as well as the row nodes.
     </p>
 
-    <pre>
+    <snippet>
 colDef.comparator = function (valueA, valueB, nodeA, nodeB, isInverted) {
     return valueA - valueB;
-}</pre>
+}</snippet>
 
     <h3 id="example-custom-sorting">Example: Custom Sorting</h3>
 
@@ -58,15 +58,7 @@ colDef.comparator = function (valueA, valueB, nodeA, nodeB, isInverted) {
         </ul>
     </p>
 
-    <show-complex-example example="example1.html"
-                          sources="{
-                                [
-                                    { root: './', files: 'example1.html,example1.js' }
-                                ]
-                              }"
-                          plunker="https://embed.plnkr.co/Juo2VlvgFKVbaITxamcS/"
-                          exampleheight="350px">
-    </show-complex-example>
+    <?= example('Custom Sorting', 'custom-sorting', 'generated') ?>
 
     <h3 id="sorting-animation">Sorting Animation</h3>
 
@@ -87,7 +79,7 @@ colDef.comparator = function (valueA, valueB, nodeA, nodeB, isInverted) {
         will make it sort descending. Another click will remove the sort.
     </p>
     <p>
-        It is possible to override this behaviour by providing your own <i>sortOrder</i> on either
+        It is possible to override this behaviour by providing your own <code>sortingOrder</code> on either
         the gridOptions or the colDef. If defined both in colDef and gridOptions, the colDef will get
         preference, allowing you to defined a common default, and then tailoring per column.
     </p>
@@ -105,15 +97,7 @@ colDef.comparator = function (valueA, valueB, nodeA, nodeB, isInverted) {
     </ul>
     </p>
 
-    <show-complex-example example="exampleSortingOrder.html"
-                          sources="{
-                                [
-                                    { root: './', files: 'exampleSortingOrder.html,exampleSortingOrder.js' }
-                                ]
-                              }"
-                          plunker="https://embed.plnkr.co/qnv5QmxC8ldSdQH9qFNz/"
-                          exampleheight="350px">
-    </show-complex-example>
+    <?= example('Sorting Order and Animation', 'sorting-order-and-animation', 'generated') ?>
 
     <h3 id="sorting-api">Sorting API</h3>
 
@@ -132,10 +116,11 @@ colDef.comparator = function (valueA, valueB, nodeA, nodeB, isInverted) {
         by country ascending, and then by sport descending.
     </p>
 
-    <pre>[
+    <snippet>
+[
     {colId: 'country', sort: 'asc'},
     {colId: 'sport', sort: 'desc'}
-]</pre>
+]</snippet>
 
     <h3 id="example-sorting-api">Example: Sorting API</h3>
 
@@ -143,15 +128,7 @@ colDef.comparator = function (valueA, valueB, nodeA, nodeB, isInverted) {
         The example below shows the API in action.
     </p>
 
-    <show-complex-example example="sortingApi.html"
-                          sources="{
-                                [
-                                    { root: './', files: 'sortingApi.html,sortingApi.js' }
-                                ]
-                              }"
-                          plunker="https://embed.plnkr.co/RCnt9c9nigG3Zpfj9RhL/"
-                          exampleheight="350px">
-    </show-complex-example>
+    <?= example('Sorting API', 'sorting-api', 'generated') ?>
 
     <h3 id="sorting-groups">Sorting Groups</h3>
 
@@ -160,15 +137,15 @@ colDef.comparator = function (valueA, valueB, nodeA, nodeB, isInverted) {
         so specifying it in the colDef:
     </p>
 
-    <pre>
+    <snippet>
 var groupColumn = {
     headerName: "Group",
-    comparator: [yourOwnComparator], <span class="codeComment">// this is the important bit</span>
+    comparator: [yourOwnComparator], // this is the important bit
     cellRenderer: {
         renderer: "group",
     }
 };
-    </pre>
+   </snippet>
 
     <h3 id="accentedSort">Accented sort</h3>
 
@@ -186,8 +163,7 @@ var groupColumn = {
         The following example is configured to use this feature.
     </p>
 
-
-    <show-example example="exampleSortingAccented"></show-example>
+    <?= example('Accented Sort', 'accented-sort', 'generated') ?>
 </div>
 
 <?php include '../documentation-main/documentation_footer.php';?>

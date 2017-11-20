@@ -65,24 +65,31 @@ include '../documentation-main/documentation_header.php';
         (ie you are not providing your own aggregation function).
     </p>
 
+    <note>
+        Remember to mark the column definitions with <code>enableRowGroup</code> for grouping, <code>enablePivot</code>
+        for pivoting and <code>enableValue</code> for aggregation. Otherwise you won't be able to drag and drop the
+        columns to the desired sections from the Tool Panel.
+    </note>
+
     <h3 id="stylingToolPanel">Styling Columns in Tool Panel</h3>
 
     <p>
         You can add a CSS class to the columns in the tool panel by specifying <i>toolPanelHeaderClass</i>
         in the column definintion as follows:
-        <pre>colDefs = {
-    <span class="codeComment">// set as string</span>
+        <snippet>
+colDefs = {
+    // set as string
     {headerName: "Gold", field: "gold", toolPanelClass: 'tp-gold'},
 
-    <span class="codeComment">// set as array of strings</span>
+    // set as array of strings
     {headerName: "Silver", field: "silver", toolPanelClass: ['tp-silver']},
 
-    <span class="codeComment">// set as function returning string or array of strings</span>
+    // set as function returning string or array of strings
     {headerName: "Bronze", field: "bronze",
         toolPanelClass: function(params) {
             return 'tp-bronze';
         }},
-}</pre>
+}</snippet>
     </p>
 
     <h3 id="toolPanelExample">Tool Panel Example</h3>
@@ -90,18 +97,27 @@ include '../documentation-main/documentation_header.php';
     <p>
         The example below demonstrates the tool panel. Note the following:
         <ul>
-            <li><i>suppressRowGroup</i> and <i>suppressAggregation</i> are used so that the 'number of wins'
-                columns cannot be grouped and the other columns cannot be aggregated (as doing
-                either of these just wouldn't make sense).</li>
-            <li>The gold, silver and bronze columns have style applied using <i>toolPanelClass</i></li>
+            <li>
+                Columns <i>country, year, date and sport</i> all have <code>enableRowGroup=true</code>
+                and <code>enablePivot: true</code>. This means you can drag the columns to the group
+                and pivot sections, but you cannot drag them to the values sections.
+            </li>
+            <li>
+                The <i>gold, silver and bronze</i> all have <code>enableValue=true</code>. This means
+                you can drag the columns to the values section, but you cannot drag them to the group
+                or pivot sections.
+            </li>
+            <li>
+                The <i>gold, silver and bronze</i> columns have style applied using <i>toolPanelClass</i>
+            </li>
             <li>The country column uses a headerValueGetter to give the column a slightly different
             name when dependent on where it appears using the <i>location</i> parameter.</li>
         </ul>
     </p>
 
-    <show-example example="toolPanelExample"></show-example>
+    <?= example('Tool Panel Example', 'simple', 'generated', array("enterprise" => 1)) ?>
 
-    <h3 id="suppressExample">Suppress Example</h3>
+    <h3 id="suppressExample">Suppress Panels</h3>
 
     <p>
         Below shows using the suppress properties that can be used with the toolpanel as follows:
@@ -114,10 +130,10 @@ include '../documentation-main/documentation_header.php';
         This is useful when you have a column working in the background, eg a column you want to group by, but not present to the user.</li>
     </ul>
     </p>
-    
-    <show-example example="exampleToolPanelSuppress"></show-example>
 
-    <h3>Read Only Functions</h3>
+    <?= example('Suppress Panels', 'suppress', 'generated', array("enterprise" => 1)) ?>
+
+    <h3 id="read-only-functions">Read Only Functions</h3>
 
     <p>
         By setting the property <i>functionsReadOnly=true</i>, the grid will prevent changes to group, pivot or
@@ -125,7 +141,7 @@ include '../documentation-main/documentation_header.php';
         so they can see what columns are used, but prevent them from making changes to the selection.
     </p>
 
-    <show-example example="exampleToolPanelReadOnly"></show-example>
+    <?= example('Read Only Example', 'read-only', 'generated', array("enterprise" => 1)) ?>
 
 </div>
 

@@ -9,7 +9,7 @@ include '../documentation-main/documentation_header.php';
 
 <div>
 
-    <h2 id="for-print">For Print</h2>
+    <h2 class="first-h1" id="for-print">Layout For Print</h2>
 
     <p>
         The 'For Print' renders the table without using any scrollbars. The grid will flow outside the
@@ -46,12 +46,12 @@ include '../documentation-main/documentation_header.php';
         Note: If you do see scrolls below, it is the scrolls of the example iFrame, not the grid.
     </p>
 
-    <show-example example="exampleForPrint"></show-example>
+    <?= example('For Print Simple', 'for-print-simple', 'generated') ?>
 
     <h3 id="complex-example">Complex Example</h3>
 
     <p>
-        The following example demonstrates for print when used in combination with floating rows,
+        The following example demonstrates for print when used in combination with pinned rows,
         pinned columns and fullWidth rows. For each of these, the grid should flatten out all the
         rows so all are printed and none hidden. This is the same as the first example is the
         section on <a href="../javascript-grid-master-detail/">full width rows</a> with the exception of for print is turned on.
@@ -63,7 +63,7 @@ include '../documentation-main/documentation_header.php';
         scrolls will be printed if you tried to print the contents of the iFrame.
     </p>
 
-    <show-example example="exampleForPrintComplex"></show-example>
+    <?= example('For Print Complex', 'for-print-complex', 'generated') ?>
 
     <h3 id="for-print-and-rtl">For Print and RTL</h3>
 
@@ -74,7 +74,7 @@ include '../documentation-main/documentation_header.php';
         below.
     </p>
 
-    <show-example example="exampleForPrintRtl"></show-example>
+    <?= example('RTL For Print', 'for-print-rtl', 'generated') ?>
 
     <h3 id="for-print-child-detail">For Print and Master Detail Grids</h3>
 

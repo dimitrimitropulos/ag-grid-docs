@@ -7,14 +7,14 @@
     <meta name="keywords" content="react data grid redux example"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <script type="text/javascript" src="/react-examples/trader/dist/react-trader.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/framework-examples/react-examples/trader/dist/react-trader.js" charset="utf-8"></script>
 
     <style>
         html, body {
             height: 100%;
         }
 
-        .ag-fresh .ag-value-change-value-highlight {
+        .ag-theme-fresh .ag-value-change-value-highlight {
             background-color: #afbcff;
         }
 

@@ -36,47 +36,97 @@ switch ($GLOBALS[framework]) {
 }
 $linkHref = "<a href='" . $link . "'>here</a>";
 ?>
+
 <div>
 
-    <h1><img src="../images/svg/docs/getting_started.svg" width="50" /> JavaScript Grid</h1>
+    <h1 class="first-h framework-select-big-title">Choose Your Framework</h1>
 
-    <h3>Getting started with ag-Grid</h3>
-
-    <p>Learn how to get a simple
-        application working using ag-Grid with your preferred framework.
-        <?php if (!isFrameworkAll()) { ?>
-            Start <?= $linkHref ?> to get a simple grid working in your application, then follow on
-            to further sections to understand how particular features work.
-        <?php } ?></p>
-
-    <?php if (isFrameworkAll()) { ?>
-
-        <p>On the left hand menu there are Getting Started entries for JavaScript, as well as all the major Frameworks.
-            Please select
-            the item you're interested in to get started.</p>
-
-        <p>The suggested reading order would be:</p>
-        <ul>
-            <li>Select the menu entry to the left under <span style="font-style: italic">Overview</span> that corresponds to your chosen framework (or just JavaScript) to Get Started.</li>
-            <li>Follow up with the <a href="../ag-grid-next-steps">Next Steps</a>, where we go into further detail, including
-            guidance on how to use and configure <img src="../images/enterprise_50.png" width="20px"> ag-Grid Enteprise.</li>
-            <li>Move onto the <a href="../javascript-grid-interfacing-overview">Interfacing</a> section to further explore the
-            available <a href="../javascript-grid-properties">Properties</a>, <a href="../javascript-grid-events">Events</a>,
-                and <a href="../javascript-grid-api">API</a> available to you.</li>
-        </ul>
-
-        <h2>
-            Selecting A Framework
-        </h2>
-        <div>
-            You are currently viewing all frameworks. This is fine. However you might want to consider
-            selecting a framework from the top left side menu - this will ensure you
-            are only shown documentation relevant to the framework you're interested in.
+    <div class="row framework-select-list">
+        <div class="col-md-3">
+            <a href="../best-javascript-data-grid/">
+                <div class="framework-select-item">
+                    <img src="../images/svg/javascript.svg" alt="JavaScript Datagrid" title="JavaScript" width="100" />
+                    <div class="framework-select-label">
+                        JavaScript
+                    </div>
+                </div>
+            </a>
         </div>
-    <?php } ?>
+        <div class="col-md-3">
+            <a href="../best-react-data-grid/">
+                <div class="framework-select-item">
+                    <img src="../images/react_large_home.png" alt="React Datagrid" title="React"/>
+                    <div class="framework-select-label">
+                        React
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="../best-angular-2-data-grid/">
+                <div class="framework-select-item">
+                    <img src="../images/angular2_large.png" alt="Angular 2 Datagrid" title="Angular"/>
+                    <div class="framework-select-label">
+                        Angular 2+
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="../best-angularjs-data-grid/">
+                <div class="framework-select-item">
+                    <img src="../images/angularjs_large.png" alt="Angular Datagrid" title="Angular"/>
+                    <div class="framework-select-label">
+                        Angular
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
 
-    <h2>Browser Support/Compatibility</h2>
+    <div class="row framework-select-list">
+        <div class="col-md-3">
+            <a href="../best-polymer-data-grid/">
+                <div class="framework-select-item">
+                    <img src="../images/polymer-large.png" alt="Polymer Datagrid" title="Polymer"/>
+                    <div class="framework-select-label">
+                        Polymer
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="../best-vuejs-data-grid/">
+                <div class="framework-select-item">
+                    <img src="../images/vue_large_home.png" alt="VueJS Datagrid" title="VueJS"/>
+                    <div class="framework-select-label">
+                        VueJS
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="../best-aurelia-data-grid/">
+                <div class="framework-select-item">
+                    <img src="../images/aurelia_large.png" alt="Aurelia Datagrid" title="Aurelia"/>
+                    <div class="framework-select-label">
+                        Aurelia
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="../best-web-component-data-grid/">
+                <div class="framework-select-item">
+                    <img src="../images/webComponents_large.png" alt="Web Components Datagrid" title="Web Components"/>
+                    <div class="framework-select-label">
+                        Web Components
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
 
-    <p>ag-Grid is compatible with IE 9+, Firefox, Chrome and Safari.</p>
 </div>
+
 <?php include '../documentation-main/documentation_footer.php'; ?>

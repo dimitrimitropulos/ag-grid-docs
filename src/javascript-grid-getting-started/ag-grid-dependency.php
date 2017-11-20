@@ -21,7 +21,7 @@
         <td style="padding: 10px;"><img src="../images/github.png"/></td>
         <td>
             <b>Github</b><br/>
-            Download from <a href="https://github.com/ceolter/ag-grid">Github</a>
+            Download from <a href="https://github.com/ag-grid/ag-grid">Github</a>
         </td>
     </tr>
 </table>
@@ -39,14 +39,13 @@
     can then use later
     when instantiating the Grid.</p>
 
-<pre>
+<snippet>
 &lt;html&gt;
 &lt;head&gt;
     &lt;script src="path-to-ag-grid-/ag-grid.js"&gt;&lt;/script&gt;
     &lt;script src="example1.js"&gt;&lt;/script&gt;
 &lt;/head&gt;
 &lt;body&gt;
-    &lt;div id="myGrid" style="height: 100%;" class="ag-fresh"&gt;&lt;/div&gt;
+    &lt;div id="myGrid" style="height: 100%;" class="ag-theme-fresh"&gt;&lt;/div&gt;
 &lt;/body&gt;
-&lt;/html&gt;
-</pre>
+&lt;/html&gt;</snippet>

@@ -33,10 +33,11 @@ include '../documentation-main/documentation_header.php';
         For example, to set the height to 50px, do the following:
     </p>
 
-    <pre><code></code>gridOptions.rowHeight = 50;</code></pre>
+    <snippet>
+gridOptions.rowHeight = 50;</snippet>
 
     <p>
-        Changing the property will set a new row height for all rows, including floating rows top and bottom.
+        Changing the property will set a new row height for all rows, including pinned rows top and bottom.
     </p>
 
     <h3 id="get-row-height-callback">getRowHeight Callback</h3>
@@ -44,16 +45,17 @@ include '../documentation-main/documentation_header.php';
     <p>
         To change the row height so that each row can have a different height,
         implement the <i>getRowHeight()</i> callback. For example, to set the height
-        to 50px for all non-floating rows and 25px for floating rows, do the following:
+        to 50px for all non-pinned rows and 25px for pinned rows, do the following:
     </p>
 
-    <pre><code></code>gridOptions.getRowHeight = function(params) {
+    <snippet>
+gridOptions.getRowHeight = function(params) {
     if (params.node.floating) {
         return 25;
     } else {
         return 50;
     }
-}</code></pre>
+}</snippet>
 
     <p>
         The params object passed to the callback has the following values:
@@ -65,14 +67,12 @@ include '../documentation-main/documentation_header.php';
     </ul>
     </p>
 
-    <h3 id="row-height-simple-example">Row Height Simple Example</h3>
-
     <p>
         The example below hows dynamic row height, specifying a different row height for each row.
         It uses the <i>getRowHeight()</i> callback to achieve this.
     </p>
 
-    <show-example example="exampleRowHeight"></show-example>
+    <?= example('Row Height Simple', 'row-height-simple', 'generated') ?>
 
     <h3 id="row-height-more-complex-example">Row Height More Complex Example</h3>
 
@@ -84,7 +84,7 @@ include '../documentation-main/documentation_header.php';
         the contents of the cell.
     </p>
 
-    <show-example example="exampleRowHeightComplex"></show-example>
+    <?= example('Row Height Complex', 'row-height-complex', 'generated') ?>
 
     <h3 id="changingRowHeight">Changing Row Height</h3>
 
@@ -141,15 +141,15 @@ include '../documentation-main/documentation_header.php';
     height is an ag-Grid free feature, we just demonstrate it against groups and normal
     rows below.</p>
 
-    <show-example example="exampleRowHeightChange"></show-example>
+    <?= example('Changing Row Height', 'row-height-change', 'generated', array("enterprise" => 1)) ?>
 
-    <h3 id="height-for-floating-rows">Height for Floating Rows</h3>
+    <h3 id="height-for-floating-rows">Height for Pinned Rows</h3>
 
     <p>
-        Row height for floating rows works exactly as per normal rows with one difference - it
+        Row height for pinned rows works exactly as per normal rows with one difference - it
         is not possible to dynamically change the height once set. However this is easily got around
-        by just setting the floating row data again which resets the row heights. Setting the
-        data again is not a problem for floating rows as it doesn't impact scroll position, filtering,
+        by just setting the pinned row data again which resets the row heights. Setting the
+        data again is not a problem for pinned rows as it doesn't impact scroll position, filtering,
         sorting or group open / closed positions as it would with normal rows if the data was reset.
     </p>
 

@@ -1,13 +1,13 @@
 <?php
-$key = "Cell Renderer";
+$key = "Cell Rendering";
 $pageTitle = "ag-Grid Cell Rendering";
 $pageDescription = "Out of the box grid rendering components and how to configure them.";
 $pageKeyboards = "ag-Grid Rendering";
-$pageGroup = "features";
+$pageGroup = "feature";
 include '../documentation-main/documentation_header.php';
 ?>
 
-<h1 class="first-h1" id="cell-editors">Cell Renderer's</h1>
+<h1 class="first-h1" id="cell-editors">Cell Rendering</h1>
 
 <p>
     By default, the grid will place the values of your data into the cells as simple strings.
@@ -15,27 +15,28 @@ include '../documentation-main/documentation_header.php';
     So for rendering your values, you have the following three options:
     <ol>
         <li>Do nothing, simple strings get used to display the data.</li>
-        <li>Use one of the grid provided renderer's.</li>
+        <li>Use one of the grid provided cell renderer's.</li>
         <li>Build your own cell renderer.</li>
     </ol>
 
-<pre><span class="codeComment">// 1 - do nothing, simple text is used by the grid</span>
+<snippet>
+// 1 - do nothing, simple text is used by the grid
 var colDef1 = {
     cellRenderer: null,
     ...
 }
 
-<span class="codeComment">// 2 - use one of the grids provided renderers, reference it by name</span>
+// 2 - use one of the grids provided cell renderer's, reference it by name
 var colDef2 = {
     cellRenderer: 'group',
     ...
 }
 
-<span class="codeComment">// 3 - provide your own cell renderer</span>
+// 3 - provide your own cell renderer
 var colDef3 = {
     cellRenderer: MyCustomCellRendererClass,
     ...
-}</pre>
+}</snippet>
 
     This section of the documentation explains the first two items above, how to use no cell
     renderer and how to use the grid provided cell renderer's. To build your own cell renderer,
@@ -49,13 +50,13 @@ var colDef3 = {
 <h2>Cell Rendering Flow</h2>
 
 <p>
-    The diagram below (which is taken from the section <a href="../javascript-grid-value-getters/">Getters & Formatters</a>)
+    The diagram below (which is taken from the section <a href="../javascript-grid-value-getters/">Value Getters & Formatters</a>)
     summarises the steps the grid takes while working out what to render and how to render.
 </p>
 
 <p>
     In short, a value is prepared. The value comes using either the <code>colDef.field</code> or the
-    <code>colDef.valueGetter</code>. The value is also optionally passed through a <code>colDef.formatter</code>
+    <code>colDef.valueGetter</code>. The value is also optionally passed through a <code>colDef.valueFormatter</code>
     if it exists. Then the value is finally placed into the DOM, either directly, or by using the chosen
     <code>colDef.cellRenderer</code>.
 </p>
@@ -66,7 +67,12 @@ var colDef3 = {
 
 <p>
     If you have no requirements for custom cells, then you should use no cell renderer.
-    By using cell renderers, you are complicating the DOM which may impact performance.
+    Having no custom cell renderer's will result in the fastest possible grid (which might
+    be important to you if using Internet Explorer) as even the simplest cell renderer
+    will result in some extra div's in the DOM.
+</p>
+
+<p>
     If you just want to do simple formatting of the data (eg currency or date formatting)
     then you can use <code>colDef.valueFormatter</code>.
 </p>
@@ -74,7 +80,7 @@ var colDef3 = {
 <h2>Grid Provided Renderer's</h2>
 
 <p>
-    The grid comes with three build in renderer's which are:
+    The grid comes with three built in renderer's which are:
     <ul>
         <li><b>group</b>: For displaying group values with expand / collapse functionality.</li>
         <li><b>animateShowChange</b> and <b>animateSlide</b>: For animating changes in data.</li>
@@ -85,7 +91,7 @@ var colDef3 = {
 <h2 id="animate-renderer">Grid Renderer's - animateShowChange and animateSlide</h2>
 
 <p>
-    The grid provides two cellRenderer's for animating changes to data. They are:
+    The grid provides two cell renderer's for animating changes to data. They are:
 <ul>
     <li>
         <b>animateShowChange:</b> The previous value is temporarily shown beside the old value
@@ -116,18 +122,18 @@ var colDef3 = {
 </ul>
 </p>
 
-<show-example example="exampleAnimationRenderers"></show-example>
+<?= example('Animation Renderers', 'animation-renderers', 'generated') ?>
 
 <note>
-    We hope you like the animation cellRenderer's. However you can also take inspiration from them,
-    and create your own animations in your own cellRenderer's. Check out our source code on Github on
-    how we implemented these cellRenderer's for inspiration.
+    We hope you like the animation cell renderer's. However you can also take inspiration from them,
+    and create your own animations in your own cell renderer's. Check out our source code on Github on
+    how we implemented these cell renderer's for inspiration.
 </note>
 
 <note>
-    Most of the ag-Grid users love the animateShowChange cell renderer for showing changes in values.
+    Most of the ag-Grid users love the <code>animateShowChange</code> cell renderer for showing changes in values.
     Not many people like the animateSlide one. So if you are trying to impress someone, probably best
-    show them the animateShowChange :)
+    show them the <code>animateShowChange</code> :)
 </note>
 
 <h2>Grid Renderer - Group</h2>
@@ -138,28 +144,29 @@ var colDef3 = {
 </p>
 
 <p>
-    The gird's group cellRenderer takes many parameters to configure it. Here is an example
+    The grid's group cell renderer takes many parameters to configure it. Here is an example
     of a column and it's configuration:
 </p>
 
-<pre>colDef = {
-    <span class="codeComment">// tell the grid we want to show group values in this column</span>
+<snippet>
+colDef = {
+    // tell the grid we want to show group values in this column
     showRowGroup: true,
-    <span class="codeComment">// set the cell renderer to 'group'</span>
+    // set the cell renderer to 'group'
     cellRenderer: 'group',
-    <span class="codeComment">// provide extra params to the cellRenderer</span>
+    // provide extra params to the cellRenderer
     cellRendererParams: {
-        suppressCount: false, <span class="codeComment">// turn off the row count</span>
-        checkbox: true, <span class="codeComment">// enable checkbox selection</span>
-        padding: 10, <span class="codeComment">// set padding to 10px</span>
-        innerRenderer: myInnerRenderer, <span class="codeComment">// provide an inner renderer</span>
-        footerValueGetter: myFooterValueGetter <span class="codeComment">// provide a footer value getter</span>
+        suppressCount: false, // turn off the row count
+        checkbox: true, // enable checkbox selection
+        padding: 10, // set padding to 10px
+        innerRenderer: myInnerRenderer, // provide an inner renderer
+        footerValueGetter: myFooterValueGetter // provide a footer value getter
     }
     ...
-};</pre>
+};</snippet>
 
 <p>
-    The set of parameters for the group cellRenderer are:
+    The set of parameters for the group cell renderer are:
 <ul>
     <li><b>suppressCount:</b> One of [true, false], if true, count is not displayed beside the name.</li>
     <li><b>checkbox:</b> One of [true,false], if true, a selection checkbox is included.</li>
@@ -173,7 +180,7 @@ var colDef3 = {
 <h3>Example Group cellRenderer</h3>
 
 <p>
-    Below shows an example of configuring a group cellRenderer. The example setup is not realistic as it
+    Below shows an example of configuring a group cell renderer. The example setup is not realistic as it
     has many columns configured for the showing the groups. The reason for this is to demonstrate different
     group column configurations side by side. In your application, you will typically have one column
     for showing the groups.
@@ -189,12 +196,12 @@ var colDef3 = {
         <li>
             The column <b>'Country Group - No Renderer'</b> configures the grid to put the 'Country' group data
             only into this column by setting <code>showRowGroup='country'</code>. All rows that are not this
-            group are blank. There is no cellRenderer configured, so the grid just places the text for the group
+            group are blank. There is no cell renderer configured, so the grid just places the text for the group
             into the cell, there is not expand / collapse functionality.
         </li>
         <li>
             The column <b>'All Groups - no Renderer'</b> builds on before, but adds all groups by setting
-            <code>showRowGroup=true</code>. This gets the column to display all groups, but again no cellRenderer
+            <code>showRowGroup=true</code>. This gets the column to display all groups, but again no cell renderer
             so not expand / collapse functionality.
         </li>
         <li>
@@ -223,12 +230,12 @@ var colDef3 = {
     </ul>
 </p>
 
-<show-example example="exampleGroupRenderer"></show-example>
+<?= example('Group Renderers', 'group-renderer', 'generated', array("enterprise" => 1)) ?>
 
 <note>
-    If you don't like the grid provided group cellRenderer, you can build your own cellRenderer and provide
+    If you don't like the grid provided group cell renderer, you can build your own cell renderer and provide
     the grouping functionality. If you do this, then take a look at the grids source code and see how we
-    implemented the ag-Grid group cellRenderer.
+    implemented the ag-Grid group cell renderer.
 </note>
 
 <?php include '../documentation-main/documentation_footer.php';?>

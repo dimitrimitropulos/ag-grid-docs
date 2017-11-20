@@ -32,7 +32,7 @@
                 <td style="padding: 10px;"><img src="../images/github.png"/></td>
                 <td>
                     <b>Github</b><br/>
-                    Download from <a href="https://github.com/ceolter/ag-grid-enterprise">Github</a>
+                    Download from <a href="https://github.com/ag-grid/ag-grid-enterprise">Github</a>
                 </td>
             </tr>
         </table>
@@ -40,9 +40,8 @@
         <h3>Referencing ag-Grid-Enterprise</h3>
         <p>In your application, before instantiating the grid, you need to reference the included ag-grid-enterprise dependency:</p>
 
-<pre>
-<?= $framework_enterprise ?>
-</pre>
+<snippet>
+&lt;?= $framework_enterprise ?&gt;</snippet>
 
     </div>
 </div>

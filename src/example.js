@@ -40,10 +40,10 @@ var games = ["Chess", "Cross and Circle", "Daldos", "Downfall", "DVONN", "Fanoro
 ];
 var booleanValues = [true, "true", false, "false"];
 
-var firstNames = ["Sophie", "Isabelle", "Emily", "Olivia", "Lily", "Chloe", "Isabella",
+var firstNames = ["Dimple", "Bas", "Sophie", "Isabelle", "Emily", "Olivia", "Lily", "Chloe", "Isabella",
     "Amelia", "Jessica", "Sophia", "Ava", "Charlotte", "Mia", "Lucy", "Grace", "Ruby",
     "Ella", "Evie", "Freya", "Isla", "Poppy", "Daisy", "Layla"];
-var lastNames = ["Beckham", "Black", "Braxton", "Brennan", "Brock", "Bryson", "Cadwell",
+var lastNames = ["Unalkat", "Rahman", "Beckham", "Black", "Braxton", "Brennan", "Brock", "Bryson", "Cadwell",
     "Cage", "Carson", "Chandler", "Cohen", "Cole", "Corbin", "Dallas", "Dalton", "Dane",
     "Donovan", "Easton", "Fisher", "Fletcher", "Grady", "Greyson", "Griffin", "Gunner",
     "Hayden", "Hudson", "Hunter", "Jacoby", "Jagger", "Jaxon", "Jett", "Kade", "Kane",
@@ -100,10 +100,10 @@ var gridOptions = {
         minWidth: 50
     },
     enableCellChangeFlash: true,
+    // ensureDomOrder: true,
     // postProcessPopup: function(params) {
     //     console.log(params);
     // },
-    // enforceRowDomOrder: true,
     // need to be careful here inside the normal demo, as names are not unique if big data sets
     // getRowNodeId: function(data) {
     //     return data.name;
@@ -113,14 +113,13 @@ var gridOptions = {
     floatingFilter:true,
 //debug: true,
 //     editType: 'fullRow',
-suppressEnterprise: true,
 //     debug: true,
     rowGroupPanelShow: 'always', // on of ['always','onlyWhenGrouping']
     pivotPanelShow: 'always', // on of ['always','onlyWhenPivoting']
     pivotTotals: true,
 //minColWidth: 50,
 //maxColWidth: 300,
-rowBuffer: 0,
+    rowBuffer: 10,
 //columnDefs: [],
 //singleClickEdit: true,
 // suppressClickEdit: true,
@@ -189,7 +188,6 @@ rowBuffer: 0,
         //columnVisible: '<i class="fa fa-eye"/>',
         //columnHidden: '<i class="fa fa-eye-slash"/>',
         columnRemoveFromGroup: '<i class="fa fa-remove"/>',
-        filter: '<i class="fa fa-filter"/>',
         sortAscending: '<i class="fa fa-long-arrow-down"/>',
         sortDescending: '<i class="fa fa-long-arrow-up"/>',
         // groupExpanded: '<i class="fa fa-minus-square-o"/>',
@@ -208,11 +206,11 @@ rowBuffer: 0,
         }
     },
     // suppressTabbing: true,
-    // suppressRowHoverClass: true,
-// isScrollLag: function() { return true; },
-// suppressScrollLag: true,
-// floatingTopRowData: [{},{},{}],
-// floatingBottomRowData: [{},{},{}],
+    // rowHoverClass: true,
+    // layoutInterval: -1,
+// suppressAnimationFrame: true,
+//     pinnedTopRowData: [{},{},{}],
+//     pinnedBottomRowData: [{},{},{}],
 // callback when row clicked
 //     stopEditingWhenGridLosesFocus: true,
     onRowClicked: function (params) {
@@ -227,6 +225,9 @@ rowBuffer: 0,
 // callback when cell clicked
     onCellClicked: function (params) {
         // console.log("Callback onCellClicked: " + params.value + " - " + params.colDef.field + ' - ' + params.event);
+    },
+    onColumnVisible: function(event) {
+        // console.log("Callback onColumnVisible:", event);
     },
     onCellValueChanged: function (params) {
         console.log("Callback onCellValueChanged:", params);
@@ -284,6 +285,7 @@ rowBuffer: 0,
 };
 
 function getContextMenuItems(params) {
+    if (params.node == null) return null;
     var result = params.defaultItems.splice(0);
     result.push(
         {
@@ -346,7 +348,6 @@ var defaultCols = [
             },
             {
                 headerName: "Language", field: "language", width: 150, editable: true, filter: 'set',
-                cellRenderer: languageCellRenderer,
                 cellEditor: 'select',
                 enableRowGroup: true,
                 enablePivot: true,
@@ -370,14 +371,14 @@ var defaultCols = [
             },
             {
                 headerName: "Country", field: "country", width: 150, editable: true,
-                cellRenderer: CountryCellRenderer,
+                cellRenderer: countryCellRenderer,
                 // pivotIndex: 1,
                 // rowGroupIndex: 1,
                 enableRowGroup: true,
                 enablePivot: true,
                 cellEditor: 'richSelect',
                 cellEditorParams: {
-                    cellRenderer: CountryCellRenderer,
+                    cellRenderer: countryCellRenderer,
                     values: ["Argentina", "Brazil", "Colombia", "France", "Germany", "Greece", "Iceland", "Ireland",
                         "Italy", "Malta", "Portugal", "Norway", "Peru", "Spain", "Sweden", "United Kingdom",
                         "Uruguay", "Venezuela", "Belgium", "Luxembourg"]
@@ -385,8 +386,8 @@ var defaultCols = [
                 // pinned: 'left',
                 floatCell: true,
                 filterParams: {
-                    cellRenderer: CountryCellRenderer,
-                    cellHeight: 20,
+                    cellRenderer: countryCellRenderer,
+                    // cellHeight: 20,
                     newRowsAction: 'keep',
                     selectAllOnMiniFilter: true,
                     clearButton: true
@@ -424,7 +425,7 @@ var defaultCols = [
                 }
             },
             {
-                headerName: "Bought", field: "game.bought", filter: 'set', editable: true, width: 100,
+                headerName: "Bought", field: "game.bought", filter: 'set', editable: true, width: 150,
                 // pinned: 'right',
                 // rowGroupIndex: 2,
                 // pivotIndex: 1,
@@ -447,9 +448,9 @@ var defaultCols = [
         headerName: 'Performance',
         groupId: 'performance',
         children: [
-            {headerName: "Bank Balance", field: "bankBalance", width: 150, editable: true,
-                filter: WinningsFilter, cellRenderer: currencyRenderer, cellStyle: currencyCssFunc,
-                filterParams: {cellRenderer: currencyRenderer},
+            {headerName: "Bank Balance", field: "bankBalance", width: 180, editable: true,
+                filter: WinningsFilter, valueFormatter: currencyFormatter,
+                type: 'numericColumn',
                 enableValue: true,
                 // colId: 'sf',
                 // valueGetter: '55',
@@ -472,7 +473,7 @@ var defaultCols = [
         ]
     },
     {
-        headerName: "Rating", field: "rating", width: 100, editable: true, cellRenderer: ratingRenderer,
+        headerName: "Rating", field: "rating", width: 120, editable: true, cellRenderer: ratingRenderer,
         floatCell: true,
         enableRowGroup: true,
         enablePivot: true,
@@ -480,11 +481,11 @@ var defaultCols = [
         filterParams: {cellRenderer: ratingFilterRenderer}
     },
     {
-        headerName: "Total Winnings", field: "totalWinnings", filter: 'number',
-        editable: true, valueParser: numberParser, width: 150,
+        headerName: "Total Winnings", field: "totalWinnings", filter: 'number', type: 'numericColumn',
+        editable: true, valueParser: numberParser, width: 170,
         // aggFunc: 'sum',
         enableValue: true,
-        cellRenderer: currencyRenderer, cellStyle: currencyCssFunc,
+        valueFormatter: currencyFormatter, cellStyle: currencyCssFunc,
         icons: {
             sortAscending: '<i class="fa fa-sort-amount-asc"/>',
             sortDescending: '<i class="fa fa-sort-amount-desc"/>'
@@ -499,8 +500,8 @@ var monthGroup = {
 defaultCols.push(monthGroup);
 months.forEach(function (month) {
     monthGroup.children.push({
-        headerName: month + 'sldfj saljflksajf lk;sadjf lk;sadjf l;ksdjf lk;saj fd', field: month.toLocaleLowerCase(),
-        width: 100, filter: 'number', editable: true,
+        headerName: month, field: month.toLocaleLowerCase(),
+        width: 110, filter: 'number', editable: true, type: 'numericColumn',
         enableValue: true,
         // aggFunc: 'sum',
         //hide: true,
@@ -508,12 +509,10 @@ months.forEach(function (month) {
             'good-score': 'typeof x === "number" && x > 50000',
             'bad-score': 'typeof x === "number" && x < 10000'
         },
-        valueParser: numberParser, cellRenderer: currencyRenderer,
-        filterCellRenderer: currencyRenderer,
+        valueParser: numberParser, valueFormatter: currencyFormatter,
         filterParams:{
             clearButton: true
-        },
-        cellStyle: {"text-align": "right"}
+        }
     })
 });
 
@@ -689,17 +688,11 @@ function rowSelected(event) {
 
 function onThemeChanged(newTheme) {
     gridDiv.className = newTheme;
-    if(newTheme === 'ag-material') {
-        gridOptions.rowHeight = 48;
-        // gridOptions.icons.checkboxChecked = '<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAABmJLR0QAAAAAAAD5Q7t/AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4AUZEBAL/ldO7gAAAEpJREFUKM9jZJjW8Z+BDMDEQCagrcb/meUM/zPL6WQjzCbG6Z10sBGXbRgasQUCLsCCzyZctmHYiEsRUX5E1ozPIKxOJcZmsqMDAKbtFz19uHD9AAAAAElFTkSuQmCC"/>';
-        gridOptions.icons.checkboxChecked = '<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDoxMTQzMkY1NDIyMjhFNjExQkVGOEFCQUI5MzdBNjFEMSIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDoyMzBBQkU2ODI4MjQxMUU2QjlDRUZCNUFDREJGRTVDMCIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDoyMzBBQkU2NzI4MjQxMUU2QjlDRUZCNUFDREJGRTVDMCIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChXaW5kb3dzKSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjE0NDMyRjU0MjIyOEU2MTFCRUY4QUJBQjkzN0E2MUQxIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjExNDMyRjU0MjIyOEU2MTFCRUY4QUJBQjkzN0E2MUQxIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+O+zv0gAAAQ1JREFUeNpilJvw35OBgWEuEEsyEAeeA3EyI1DjMxI0wTUzkaEJBCSZiFVpJcvAsDqEgUFVCMInSqOeOAPDLG8GBjNpBoZCCyI1KggwMCzwZ2DgZWdgOPWUgaF4F5pGDxWgqT4MDPzsSB7hYWBYHMDAIMzJwHDjDQND0mYGhu9/0DT6qTEwuCszMOyIZmAwkoTYALJJjp+B4cEHBoaEjQwMn38iDAVFx38wA4gzTBgYSiwhEi++MDDI8DEwvP3OwBC0CqIZGcBtBOmefoaBIXQNA8PvfxBNf4B03AZMTVgD5xwwXcQDFX/8wcAw+RQDw5VX2AMN7lRSARM07ZEKXoA0poAYJGh6CkrkAAEGAKNeQxaS7i+xAAAAAElFTkSuQmCC"/>';
-    } else {
-        gridOptions.rowHeight = 25;
-        gridOptions.icons.checkboxChecked = undefined;
-        gridOptions.icons.checkboxIndeterminate = undefined;
-    }
+
     gridOptions.api.resetRowHeights();
     gridOptions.api.redrawRows();
+    gridOptions.api.refreshHeader();
+    gridOptions.api.refreshToolPanel();
 }
 
 var filterCount = 0;
@@ -933,9 +926,9 @@ WinningsFilter.prototype.setModel = function () {};
 
 function currencyCssFunc(params) {
     if (params.value !== null && params.value !== undefined && params.value < 0) {
-        return {"color": "red", "text-align": "right", "font-weight": "bold"};
+        return {"color": "red", "font-weight": "bold"};
     } else {
-        return {"text-align": "right"};
+        return {};
     }
 }
 
@@ -951,12 +944,13 @@ function ratingRendererGeneral(value, forFilter) {
     var result = '<span>';
     for (var i = 0; i < 5; i++) {
         if (value > i) {
-            result += '<img src="images/goldStar.png"/>';
+            result += '<img src="images/star.svg" class="star" width=12 height=12 />';
         }
     }
     if (forFilter && value === 0) {
         result += '(no stars)';
     }
+    result += '</span>';
     return result;
 }
 
@@ -971,6 +965,21 @@ function currencyRenderer(params) {
             return params.value;
         } else {
             return '&pound;' + Math.floor(params.value).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+        }
+    }
+}
+
+function currencyFormatter(params) {
+    if (params.value === null || params.value === undefined) {
+        return null;
+    } else if (isNaN(params.value)) {
+        return 'NaN';
+    } else {
+        // if we are doing 'count', then we do not show pound sign
+        if (params.node.group && params.column.aggFunc === 'count') {
+            return params.value;
+        } else {
+            return '$' + Math.floor(params.value).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
         }
     }
 }
@@ -993,11 +1002,9 @@ function booleanCellRenderer(params) {
 
     var valueCleaned = booleanCleaner(params.value);
     if (valueCleaned === true) {
-        //this is the unicode for tick character
-        return "<span title='true'>&#10004;</span>";
+        return "<span title='true' class='ag-icon ag-icon-tick'></span>";
     } else if (valueCleaned === false) {
-        //this is the unicode for cross character
-        return "<span title='false'>&#10006;</span>";
+        return "<span title='false' class='ag-icon ag-icon-cross'></span>";
     } else if (params.value !==null && params.value !== undefined) {
         return params.value.toString();
     } else {
@@ -1008,11 +1015,9 @@ function booleanCellRenderer(params) {
 function booleanFilterCellRenderer(params) {
     var valueCleaned = booleanCleaner(params.value);
     if (valueCleaned === true) {
-        //this is the unicode for tick character
-        return "&#10004;";
+        return "<span title='true' class='ag-icon ag-icon-tick'></span>";
     } else if (valueCleaned === false) {
-        //this is the unicode for cross character
-        return "&#10006;";
+        return "<span title='false' class='ag-icon ag-icon-cross'></span>";
     } else {
         return "(empty)";
     }
@@ -1028,33 +1033,12 @@ function booleanCleaner(value) {
     }
 }
 
-function languageCellRenderer(params) {
-    if (params.$scope) {
-        return "<span ng-click='clicked=true' ng-show='!clicked'>Click Me</span>" +
-            "<span ng-click='clicked=false' ng-show='clicked' ng-bind='data.language'></span>";
-    } else if (params.value !== null && params.value !== undefined) {
-        return params.value;
-    } else {
-        return null;
-    }
-}
-
-function countryCellRenderer(params) {
-//get flags from here: http://www.freeflagicons.com/
-    if (params.value === "" || params.value === undefined || params.value === null) {
-        return null;
-    } else {
-        var flag = '<img border="0" width="15" height="10" src="https://flags.fmcdn.net/data/flags/mini/' + COUNTRY_CODES[params.value] + '.png">';
-        return '<span style="cursor: default;">' + flag + ' ' + params.value + '</span>';
-    }
-}
-
 function CountryFloatingFilterComponent() {}
 
 CountryFloatingFilterComponent.prototype.init = function(params) {
     this.params = params;
     this.eGui = document.createElement('div');
-    this.eGui.style.borderTop = '1px solid lightgrey';
+    // this.eGui.style.borderBottom = '1px solid lightgrey';
 };
 
 CountryFloatingFilterComponent.prototype.getGui = function() {
@@ -1086,21 +1070,12 @@ CountryFloatingFilterComponent.prototype.onParentModelChanged = function(model) 
     }
 };
 
-function CountryCellRenderer() {
-    this.eGui = document.createElement('span');
-    this.eGui.style.cursor = 'default';
-}
-
-CountryCellRenderer.prototype.init = function (params) {
-//get flags from here: http://www.freeflagicons.com/
+function countryCellRenderer(params) {
+    //get flags from here: http://www.freeflagicons.com/
     if (params.value === "" || params.value === undefined || params.value === null) {
-        this.eGui.innerHTML = '';
+        return '';
     } else {
         var flag = '<img border="0" width="15" height="10" src="https://flags.fmcdn.net/data/flags/mini/' + COUNTRY_CODES[params.value] + '.png">';
-        this.eGui.innerHTML = flag + ' ' + params.value;
+        return flag + ' ' + params.value;
     }
-};
-
-CountryCellRenderer.prototype.getGui = function () {
-    return this.eGui;
-};
+}

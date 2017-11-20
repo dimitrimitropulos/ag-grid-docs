@@ -12,7 +12,7 @@
             <div class="col-md-2" style="text-align: center;">
                 <a href="/best-javascript-data-grid/">
                     <div>
-                        <img inline src="images/javascript_small.png" alt="Best Javascript Data Grid" title="Best Javascript Data Grid"/>
+                        <img inline src="images/svg/javascript.svg" alt="Best Javascript Data Grid" title="Best Javascript Data Grid"/>
                     </div>
                     Plain JavaScript
                 </a>
@@ -20,7 +20,7 @@
             <div class="col-md-2" style="text-align: center;">
                 <a href="/best-react-data-grid/">
                     <div>
-                        <img inline src="images/react_small.png" alt="Best React Data Grid" title="Best React Data Grid"/>
+                        <img inline src="images/react_small.png" alt="React Datagrid" title="React Datagrid"/>
                     </div>
                     React
                 </a>
